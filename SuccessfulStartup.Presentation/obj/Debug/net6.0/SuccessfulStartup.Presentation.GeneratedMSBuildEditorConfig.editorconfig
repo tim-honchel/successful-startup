@@ -44,6 +44,18 @@ build_metadata.AdditionalFiles.CssScope = b-xxsv9qmcuu
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/thonchel/Documents/Repos/SuccessfulStartup/SuccessfulStartup.Presentation/Pages/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/thonchel/Documents/Repos/SuccessfulStartup/SuccessfulStartup.Presentation/Pages/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/thonchel/Documents/Repos/SuccessfulStartup/SuccessfulStartup.Presentation/Pages/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/thonchel/Documents/Repos/SuccessfulStartup/SuccessfulStartup.Presentation/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

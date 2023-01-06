@@ -5,12 +5,132 @@
       "PackagePath": "staticwebassets\\SuccessfulStartup.Presentation.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.css.map"
+    },
+    {
       "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
     },
     {
       "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\bootstrap\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.rtl.min.css.map"
     },
     {
       "Id": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Presentation\\wwwroot\\css\\open-iconic\\FONT-LICENSE",

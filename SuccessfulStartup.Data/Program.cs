@@ -1,17 +1,10 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using SuccessfulStartup.Data.Contexts;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("IdentityCinnectionString");
-
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<AuthenticationDbContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AuthenticationDbContext>();
-builder.Services.ConfigureApplicationCookie(config => { config.LoginPath = "/Login"; });
 
 var app = builder.Build();
 
@@ -28,7 +21,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

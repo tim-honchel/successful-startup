@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace SuccessfulStartup.Data.Contexts
+namespace SuccessfulStartup.Presentation.Authentication
 {
     public class AuthenticationDbContext : IdentityDbContext
     {

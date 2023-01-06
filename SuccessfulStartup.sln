@@ -3,21 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuccessfulStartup.Domain", "SuccessfulStartup\SuccessfulStartup.Domain.csproj", "{3BF4D15A-5E1B-497A-8423-E632C9CC82B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuccessfulStartup.Domain", "SuccessfulStartup\SuccessfulStartup.Domain.csproj", "{3BF4D15A-5E1B-497A-8423-E632C9CC82B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuccessfulStartup.Data", "SuccessfulStartup.Data\SuccessfulStartup.Data.csproj", "{8CC839BB-3A40-4EFF-BD70-9A9431E743A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuccessfulStartup.Data", "SuccessfulStartup.Data\SuccessfulStartup.Data.csproj", "{8CC839BB-3A40-4EFF-BD70-9A9431E743A9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9222F916-F051-4CCC-AE40-A839E45C1DCF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{55C4092B-4769-4CFD-877C-F03268FAAE58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuccessfulStartup.Presentation", "SuccessfulStartup.Presentation\SuccessfulStartup.Presentation.csproj", "{A922483B-1ED9-4B10-9140-AB6971E320D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuccessfulStartup.Presentation", "SuccessfulStartup.Presentation\SuccessfulStartup.Presentation.csproj", "{A922483B-1ED9-4B10-9140-AB6971E320D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuccessfulStartup.DataTests", "SuccessfulStartup.DataTests\SuccessfulStartup.DataTests.csproj", "{48572868-A980-4A7C-ACB9-229B8A5D2424}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuccessfulStartup.DataTests", "SuccessfulStartup.DataTests\SuccessfulStartup.DataTests.csproj", "{48572868-A980-4A7C-ACB9-229B8A5D2424}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuccessfulStartup.DomainTests", "SuccessfulStartup.DomainTests\SuccessfulStartup.DomainTests.csproj", "{8C18FBE4-E425-474F-B2B6-DD79E57C888F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuccessfulStartup.DomainTests", "SuccessfulStartup.DomainTests\SuccessfulStartup.DomainTests.csproj", "{8C18FBE4-E425-474F-B2B6-DD79E57C888F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuccessfulStartup.PresentationTests", "SuccessfulStartup.PresentationTests\SuccessfulStartup.PresentationTests.csproj", "{DCC8D889-FC14-43B5-92F8-6DAD19653EF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuccessfulStartup.PresentationTests", "SuccessfulStartup.PresentationTests\SuccessfulStartup.PresentationTests.csproj", "{DCC8D889-FC14-43B5-92F8-6DAD19653EF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuccessfulStartup.UI", "SuccessfulStartup.UI\SuccessfulStartup.UI.csproj", "{1DA89DDB-FD95-44E4-B568-7C2B7450C2D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{DCC8D889-FC14-43B5-92F8-6DAD19653EF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCC8D889-FC14-43B5-92F8-6DAD19653EF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCC8D889-FC14-43B5-92F8-6DAD19653EF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DA89DDB-FD95-44E4-B568-7C2B7450C2D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA89DDB-FD95-44E4-B568-7C2B7450C2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA89DDB-FD95-44E4-B568-7C2B7450C2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA89DDB-FD95-44E4-B568-7C2B7450C2D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{48572868-A980-4A7C-ACB9-229B8A5D2424} = {55C4092B-4769-4CFD-877C-F03268FAAE58}
 		{8C18FBE4-E425-474F-B2B6-DD79E57C888F} = {55C4092B-4769-4CFD-877C-F03268FAAE58}
 		{DCC8D889-FC14-43B5-92F8-6DAD19653EF0} = {55C4092B-4769-4CFD-877C-F03268FAAE58}
+		{1DA89DDB-FD95-44E4-B568-7C2B7450C2D7} = {9222F916-F051-4CCC-AE40-A839E45C1DCF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {72409F66-3107-4A73-9D5C-409BEE6F807B}
