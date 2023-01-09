@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Duende.IdentityServer.EntityFramework.Options;
-using System.Net.NetworkInformation;
 
 
 
