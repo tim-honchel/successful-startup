@@ -1,4 +1,6 @@
-﻿using System;
+﻿// code-first instructions for defining and changing the data model without have having to drop and recreate the database
+// use package manager console Add-Migration and Update-Database commands to autocreate this file
+
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable

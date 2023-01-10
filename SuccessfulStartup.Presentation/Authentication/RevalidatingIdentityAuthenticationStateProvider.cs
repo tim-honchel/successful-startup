@@ -6,7 +6,7 @@ using System.Security.Claims;
 
 namespace SuccessfulStartup.Presentation.Authentication
 {
-    public class RevalidatingIdentityAuthenticationStateProvider<TUser> : RevalidatingServerAuthenticationStateProvider where TUser : class
+    public class RevalidatingIdentityAuthenticationStateProvider<TUser> : RevalidatingServerAuthenticationStateProvider where TUser : class // receives authentication state from host environment and revalidates it at regular intervals
     {
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly IdentityOptions _options;
@@ -17,13 +17,12 @@ namespace SuccessfulStartup.Presentation.Authentication
             _options = optionsAccessor.Value;
         }
 
-        protected override TimeSpan RevalidationInterval => TimeSpan.FromMinutes(30);
+        protected override TimeSpan RevalidationInterval => TimeSpan.FromMinutes(30); // checks user credential every 30 minutes
 
         protected override async Task<bool> ValidateAuthenticationStateAsync(
             AuthenticationState authenticationState, CancellationToken cancellationToken)
         {
-            // Get the user manager from a new scope to ensure it fetches fresh data
-            var scope = _scopeFactory.CreateScope();
+            var scope = _scopeFactory.CreateScope(); // creates new scope to ensure the fetched data is fresh
             try
             {
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<TUser>>();

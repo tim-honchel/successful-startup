@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics;
 
@@ -12,6 +13,7 @@ namespace SuccessfulStartup.Presentation.Pages
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
+
         private readonly ILogger<ErrorModel> _logger;
 
         public ErrorModel(ILogger<ErrorModel> logger)
@@ -22,6 +24,7 @@ namespace SuccessfulStartup.Presentation.Pages
         public void OnGet()
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+
         }
     }
 }

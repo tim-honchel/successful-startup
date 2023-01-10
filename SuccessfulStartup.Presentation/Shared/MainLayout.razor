@@ -1,23 +1,23 @@
-﻿@inherits LayoutComponentBase
+﻿@* default layout unique to Blazor projects*@
+
+@inherits LayoutComponentBase
 
 <PageTitle>Successful Startup</PageTitle>
 
 <div class="page">
     <AuthorizeView>
         <div class="sidebar">
-            <NavMenu />
+            <NavMenu /> @* displays left sidebar navigation menu only if user is logged in*@
         </div>
     </AuthorizeView>
 
     <main>
         <div class="top-row px-4">
-            <LoginDisplay />
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-            
+            <LoginDisplay /> @* displays login/logout links *@
         </div>
 
         <article class="content px-4">
-            @Body
+            @Body @* displays page*@
         </article>
     </main>
 </div>

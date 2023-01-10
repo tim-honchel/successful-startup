@@ -1,11 +1,11 @@
 ﻿@page
 
-@using Microsoft.AspNetCore.Identity
-@using SuccessfulStartup.Presentation.Authentication
-
 @attribute [IgnoreAntiforgeryToken]
 
 @inject SignInManager<AppUser> SignInManager
+
+@using Microsoft.AspNetCore.Identity
+@using SuccessfulStartup.Presentation.Authentication
 
 @functions {
     public async Task<IActionResult> OnPost()

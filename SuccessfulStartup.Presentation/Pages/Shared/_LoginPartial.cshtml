@@ -1,10 +1,12 @@
-﻿@using Microsoft.AspNetCore.Identity;
-@using SuccessfulStartup.Presentation.Authentication
+﻿@*Identity requires this file to be included with this exact name, although it is a duplicate of the LoginDisplay component*@
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Identity;
+@using SuccessfulStartup.Presentation.Authentication
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))

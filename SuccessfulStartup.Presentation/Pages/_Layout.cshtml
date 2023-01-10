@@ -1,31 +1,32 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-@namespace SuccessfulStartup.Presentation.Pages
 @using Microsoft.AspNetCore.Components.Web
 @using Microsoft.AspNetCore.Identity
 @using SuccessfulStartup.Presentation.Authentication
 
-@inject SignInManager<AppUser> SignInManager
+@namespace SuccessfulStartup.Presentation.Pages
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base href="~/" />
+    <base href="~/" /> @* necessary to connect with SignalR*@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
-    <link href="_content/Blazor.Bootstrap/blazor.bootstrap.css" rel="stylesheet" />
+    <link href="_content/Blazor.Bootstrap/blazor.bootstrap.css" rel="stylesheet" /> @* uses Bootstrap CSS*@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="SuccessfulStartup.Presentation.styles.css" rel="stylesheet" />
    
-    <component type="typeof(HeadOutlet)" render-mode="Server" />
+@*    <component type="typeof(HeadOutlet)" render-mode="Server" />*@ @* TODO: ensure this is unnecessary duplication, then delete*@
 </head>
+
 <body>
     @RenderBody()
 
-   @* <div id="blazor-error-ui">
+@*   <div id="blazor-error-ui">
         <environment include="Staging,Production">
-            An error has occurred. This application may no longer respond until reloaded. TODO: this happens immediately git post-build for unknown reason
+            An error has occurred. This application may no longer respond until reloaded. TODO: this displays immediately post-build for unknown reason
         </environment>
         <environment include="Development">
             An unhandled exception has occurred. See browser dev tools for details.
@@ -41,4 +42,5 @@
     <script src="_content/Blazor.Bootstrap/blazor.bootstrap.js"></script>
 
 </body>
+
 </html>
