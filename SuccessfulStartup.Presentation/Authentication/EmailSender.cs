@@ -4,14 +4,14 @@ using System.Net.Mail;
 
 namespace SuccessfulStartup.Presentation.Authentication
 {
-    public class EmailSender : IEmailSender
+    public class EmailSender : IEmailSender // interface is for sending Identity-related emails
     {
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // gets the info from appsettings
 
-            string fromMail = configuration["GmailAddress"];
-            string fromPassword = configuration["GmailPassword"];
+            string fromMail = configuration["ConnectionStrings:GmailAddress"]; // gets Gmail account used for sending emails
+            string fromPassword = configuration["ConnectionStrings:GmailPassword"]; // gets app password
 
             var message = new MailMessage();
             message.From = new MailAddress(fromMail);
@@ -25,6 +25,7 @@ namespace SuccessfulStartup.Presentation.Authentication
                 Port = 587,
                 Credentials = new NetworkCredential(fromMail, fromPassword),
                 EnableSsl = true,
+
             };
 
             smtpClient.Send(message);

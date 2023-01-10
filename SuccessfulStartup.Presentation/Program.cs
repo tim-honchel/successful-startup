@@ -14,7 +14,7 @@ builder.Services.AddServerSideBlazor(); // allows Blazor Server specific functio
 builder.Services.AddDbContext<AuthenticationDbContext>(options => options.UseSqlServer(connectionString)); // connects to database with Identity accounts
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<AuthenticationDbContext>(); // adds default UI for Identity, eliminating need to create custom register and login pages
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<AppUser>>(); // periodically checks whether user credentials are still valid
-builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddTransient<IEmailSender, EmailSender>(); // enables email sends
 
 var app = builder.Build(); // initializes web application from builder
 
@@ -26,10 +26,10 @@ if (!app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Error"); // shows user-friendly error page
+    app.UseExceptionHandler("/Error"); // shows user-friendly error page 
     app.UseHsts(); // HTTP strict transport security forces browsers to use HTTPS
-    
 }
+
 
 app.UseHttpsRedirection(); // redirects all HTTP requests to HTTPS (both HSTS and HTTPS Redirection are recommended)
 app.UseStaticFiles(); // enables use of HTML, CSS, JavaScript, image files in wwwroot directory
