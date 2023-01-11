@@ -1362,6 +1362,23 @@
             "rid": "win"
           }
         }
+      },
+      "SuccessfulStartup.Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.ApiAuthorization.IdentityServer": "6.0.12",
+          "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.12",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.12",
+          "Microsoft.AspNetCore.Identity.UI": "6.0.12",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.12"
+        },
+        "compile": {
+          "bin/placeholder/SuccessfulStartup.Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SuccessfulStartup.Data.dll": {}
+        }
       }
     }
   },
@@ -3364,6 +3381,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "SuccessfulStartup.Data/1.0.0": {
+      "type": "project",
+      "path": "../SuccessfulStartup.Data/SuccessfulStartup.Data.csproj",
+      "msbuildProject": "../SuccessfulStartup.Data/SuccessfulStartup.Data.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3374,7 +3396,8 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.12",
       "Microsoft.AspNetCore.Identity.UI >= 6.0.12",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.12",
-      "Microsoft.EntityFrameworkCore.Tools >= 6.0.12"
+      "Microsoft.EntityFrameworkCore.Tools >= 6.0.12",
+      "SuccessfulStartup.Data >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3403,7 +3426,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj": {
+              "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

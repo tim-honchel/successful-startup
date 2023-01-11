@@ -95,3 +95,5 @@ C:\Users\thonchel\Documents\Repos\SuccessfulStartup\SuccessfulStartup.Presentati
 C:\Users\thonchel\Documents\Repos\SuccessfulStartup\SuccessfulStartup.Presentation\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.UI.dll
 C:\Users\thonchel\Documents\Repos\SuccessfulStartup\SuccessfulStartup.Presentation\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Embedded.dll
 C:\Users\thonchel\Documents\Repos\SuccessfulStartup\SuccessfulStartup.Presentation\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\thonchel\Documents\Repos\SuccessfulStartup\SuccessfulStartup.Presentation\bin\Debug\net6.0\SuccessfulStartup.Data.dll
+C:\Users\thonchel\Documents\Repos\SuccessfulStartup\SuccessfulStartup.Presentation\bin\Debug\net6.0\SuccessfulStartup.Data.pdb

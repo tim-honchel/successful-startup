@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using SuccessfulStartup.Presentation.Authentication;
+using SuccessfulStartup.Data.Authentication; // assembly reference in order to access Identity database
 
 var builder = WebApplication.CreateBuilder(args); // initializes a builder for configuring a new web application
 
@@ -12,7 +12,7 @@ var connectionString = builder.Configuration.GetConnectionString("IdentityConnec
 builder.Services.AddRazorPages(); // allows Razor components, routing, model binding, caching, and view engines
 builder.Services.AddServerSideBlazor(); // allows Blazor Server specific functions
 builder.Services.AddDbContext<AuthenticationDbContext>(options => options.UseSqlServer(connectionString)); // connects to database with Identity accounts
-builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<AuthenticationDbContext>(); // adds default UI for Identity, eliminating need to create custom register and login pages
+builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AuthenticationDbContext>(); // adds default UI for Identity, eliminating need to create custom register and login pages, also requires account verification prior to first login
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<AppUser>>(); // periodically checks whether user credentials are still valid
 builder.Services.AddTransient<IEmailSender, EmailSender>(); // enables email sends
 
