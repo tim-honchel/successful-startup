@@ -5,22 +5,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SuccessfulStartup.Data.Entities
 {
-    internal class BusinessPlan : BusinessPlanAbstract
+    public class BusinessPlan : BusinessPlanAbstract // model for Entity Framework
     {
-        protected override int Id { get; set; }
+        public override int Id { get; set; }
 
         [Required]
         [MaxLength(30, ErrorMessage = "Exceeded 30 character maximum.")]
-        protected override string Name { get; set; }
+        public override string Name { get; set; }
 
         [Required]
         [MaxLength(150, ErrorMessage = "Exceeded 150 character maximum.")]
-        protected override string? Description { get; set; }
+        public override string? Description { get; set; }
 
-        protected override int AuthorId { get; set; }
+        public override string AuthorId { get; set; }
 
         [ForeignKey("AuthorId")]
-        internal virtual AppUser User { get; set; }
+        public virtual AppUser User { get; set; }
 
         
     }
