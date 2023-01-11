@@ -37,6 +37,6 @@ app.UseRouting(); // takes URL and searches for best matching endpoint
 app.UseAuthentication(); // identifies the current user
 app.UseAuthorization(); // verifies that the current user is allowed to access the current endpoint
 app.MapBlazorHub(); // establishes SignalR connection with endpoint for real-time Blazor functionality and communication
-app.MapFallbackToPage("/_Host"); // if no endpoints are found, _Host will return the index page
+app.MapFallbackToPage("/Shared/_Host"); // if no endpoints are found, _Host will return the index page
 
 app.Run();

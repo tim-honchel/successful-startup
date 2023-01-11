@@ -1,7 +1,11 @@
-﻿using SuccessfulStartup.Data.Authentication;
+﻿using Microsoft.AspNetCore.Authorization;
+using SuccessfulStartup.Data.Authentication;
+using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
+using System.Xml.Linq;
 
 namespace SuccessfulStartup.Data.Entities
 {
@@ -26,3 +30,16 @@ namespace SuccessfulStartup.Data.Entities
     }
 
 }
+
+/* generates the following SQL script when adding migration
+ 
+  Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand(2ms) [Parameters=[], CommandType = 'Text', CommandTimeout = '30']
+      CREATE TABLE[BusinessPlans] (
+          [Id] int NOT NULL IDENTITY,
+          [Name] nvarchar(30) NOT NULL,
+          [Description] nvarchar(150) NOT NULL,
+          [AuthorId] nvarchar(450) NOT NULL,
+          CONSTRAINT[PK_BusinessPlans] PRIMARY KEY ([Id]),
+          CONSTRAINT[FK_BusinessPlans_AspNetUsers_AuthorId] FOREIGN KEY([AuthorId]) REFERENCES[AspNetUsers]([Id]) ON DELETE CASCADE
+*/

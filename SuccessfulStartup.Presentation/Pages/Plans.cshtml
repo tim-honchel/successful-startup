@@ -1,0 +1,29 @@
+﻿@page
+
+@model SuccessfulStartup.Presentation.Pages.PlansModel
+
+@using SuccessfulStartup.Data.Entities
+
+<h1>Your Business Plans</h1>
+
+<br />
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+    </tr>
+    @foreach (var plan in Model.plans)
+    {
+        <tr>
+            <td>plan.Name</td>
+            <td>plan.Description</td>
+        </tr>
+    }
+</table>
+
+<br />
+
+<p>Create a new plan</p>
+
+
