@@ -1225,6 +1225,16 @@
             "rid": "win"
           }
         }
+      },
+      "SuccessfulStartup.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/SuccessfulStartup.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SuccessfulStartup.Domain.dll": {}
+        }
       }
     }
   },
@@ -3066,6 +3076,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "SuccessfulStartup.Domain/1.0.0": {
+      "type": "project",
+      "path": "../SuccessfulStartup.Domain/SuccessfulStartup.Domain.csproj",
+      "msbuildProject": "../SuccessfulStartup.Domain/SuccessfulStartup.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3075,7 +3090,8 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.12",
       "Microsoft.AspNetCore.Identity.UI >= 6.0.12",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.12",
-      "Microsoft.EntityFrameworkCore.Tools >= 6.0.12"
+      "Microsoft.EntityFrameworkCore.Tools >= 6.0.12",
+      "SuccessfulStartup.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3104,7 +3120,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj": {
+              "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

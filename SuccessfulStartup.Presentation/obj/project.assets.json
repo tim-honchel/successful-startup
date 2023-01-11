@@ -1371,13 +1371,24 @@
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.12",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.12",
           "Microsoft.AspNetCore.Identity.UI": "6.0.12",
-          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.12"
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.12",
+          "SuccessfulStartup.Domain": "1.0.0"
         },
         "compile": {
           "bin/placeholder/SuccessfulStartup.Data.dll": {}
         },
         "runtime": {
           "bin/placeholder/SuccessfulStartup.Data.dll": {}
+        }
+      },
+      "SuccessfulStartup.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/SuccessfulStartup.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SuccessfulStartup.Domain.dll": {}
         }
       }
     }
@@ -3386,6 +3397,11 @@
       "type": "project",
       "path": "../SuccessfulStartup.Data/SuccessfulStartup.Data.csproj",
       "msbuildProject": "../SuccessfulStartup.Data/SuccessfulStartup.Data.csproj"
+    },
+    "SuccessfulStartup.Domain/1.0.0": {
+      "type": "project",
+      "path": "../SuccessfulStartup.Domain/SuccessfulStartup.Domain.csproj",
+      "msbuildProject": "../SuccessfulStartup.Domain/SuccessfulStartup.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
