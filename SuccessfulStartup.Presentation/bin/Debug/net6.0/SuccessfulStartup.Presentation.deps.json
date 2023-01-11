@@ -789,10 +789,16 @@
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.12",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.12",
           "Microsoft.AspNetCore.Identity.UI": "6.0.12",
-          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.12"
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.12",
+          "SuccessfulStartup.Domain": "1.0.0"
         },
         "runtime": {
           "SuccessfulStartup.Data.dll": {}
+        }
+      },
+      "SuccessfulStartup.Domain/1.0.0": {
+        "runtime": {
+          "SuccessfulStartup.Domain.dll": {}
         }
       }
     }
@@ -1343,6 +1349,11 @@
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
     },
     "SuccessfulStartup.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SuccessfulStartup.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
