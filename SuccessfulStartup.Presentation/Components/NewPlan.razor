@@ -1,0 +1,51 @@
+﻿@*TODO: for an unknown reason, I was not able to make this a .cshtml Razor page. EditForm was not recognized and @code{} was not allowed*@
+
+@page "/newplan"
+
+@using SuccessfulStartup.Data.Entities
+
+<h1>Create a New Business Plan</h1>
+
+<br />
+
+<EditForm Model="@plan" OnValidSubmit="HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <label for="Name" class="control-label">Title: </label>
+    <br />
+    <InputText @bind-Value="plan.Name" />
+    <ValidationMessage For="( () =>plan.Name )" style="color:red" />
+
+    <br />
+    <br />
+
+    <label for="Description" class="control-label">Description: </label>
+    <br />
+    <InputText @bind-Value="plan.Description" />
+    <ValidationMessage For="( () =>plan.Description )" style="color:red" />
+
+    <br/>
+    <br/>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+
+    <br />
+    <br />
+
+</EditForm>
+
+@code{
+    public BusinessPlan plan { get; set; } = new BusinessPlan();
+
+    public void OnInitializedAsync()
+    {
+        plan = new BusinessPlan();
+    }
+
+    public void HandleValidSubmit()
+    {
+
+    }
+}
+

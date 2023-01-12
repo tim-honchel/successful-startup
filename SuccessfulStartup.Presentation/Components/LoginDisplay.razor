@@ -1,5 +1,12 @@
 ﻿@*component displayed at top of every page, shows login/logout links depending on status*@
 
+@using Microsoft.AspNetCore.Components.Authorization;
+
+
+
+
+
+
 <AuthorizeView>
     <Authorized>
         <a href="Identity/Account/Manage">Hello, @context.User.Identity.Name!</a>

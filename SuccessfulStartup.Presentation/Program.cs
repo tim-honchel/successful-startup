@@ -3,6 +3,16 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using SuccessfulStartup.Data.Authentication; // assembly reference in order to access Identity database
 
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+
+
+
 var builder = WebApplication.CreateBuilder(args); // initializes a builder for configuring a new web application
 
 var connectionString = builder.Configuration.GetConnectionString("IdentityConnectionString"); // gets database connection string from appsettings.json

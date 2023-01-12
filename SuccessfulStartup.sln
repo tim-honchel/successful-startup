@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuccessfulStartup.Presentat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuccessfulStartup.Data", "SuccessfulStartup.Data\SuccessfulStartup.Data.csproj", "{87C0283D-75A0-4DBA-8046-822A4ABEA2B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuccessfulStartup.Domain", "SuccessfulStartup.Domain\SuccessfulStartup.Domain.csproj", "{073ADE87-7E88-43F8-A191-D7249C55D03D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuccessfulStartup.Domain", "SuccessfulStartup.Domain\SuccessfulStartup.Domain.csproj", "{073ADE87-7E88-43F8-A191-D7249C55D03D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
