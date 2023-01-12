@@ -1,0 +1,19 @@
+﻿@*displays sidebar with quick action links when user is signed in*@
+
+@using Microsoft.AspNetCore.Components.Routing @*necessary for NavLink and NavLinkMatch*@
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" style="padding-left:2rem">Quick Actions</a>
+</div>
+
+<nav>
+    <ul class="nav flex-column">
+        <li class="nav-item px-3"><NavLink class="nav-link" href="" Match="NavLinkMatch.All">View Home Page</NavLink></li> @*highlights the NavLink when user is on that page*@
+        <li class="nav-item px-3"><NavLink class="nav-link" href="Plans">View Business Plans</NavLink></li>
+        <li class="nav-item px-3"><NavLink class="nav-link" href="NewPlan">Create New Plan</NavLink></li>
+    </ul>
+</nav>
+
+@code {
+
+}
