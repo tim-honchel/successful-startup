@@ -1,0 +1,54 @@
+﻿@*complete a form to create a new business plan*@
+
+@*TODO: for an unknown reason, not able to make this a .cshtml Razor page. EditForm was not recognized and @code{} was not allowed*@
+
+@page "/newplan"
+
+@using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
+@using SuccessfulStartup.Data.Entities
+
+<h1>Create a New Business Plan</h1>
+
+<br />
+
+<EditForm Model="plan" OnValidSubmit="HandleValidSubmit">
+
+    <DataAnnotationsValidator /> @*checks if input meets requirements specified by data annotations in entity model*@
+
+    <label for="Name" class="control-label">Title: </label>
+    <br />
+    <InputText @bind-Value="plan.Name" /> @*links input box to property*@
+    <ValidationMessage For="( () =>plan.Name )" style="color:red" /> @*displays only if input is invalid and the entity model property includes a validation message*@
+
+    <br />
+    <br />
+
+    <label for="Description" class="control-label">Description: </label>
+    <br />
+    <InputText @bind-Value="plan.Description" />
+    <ValidationMessage For="( () =>plan.Description )" style="color:red" />
+
+    <br/>
+    <br/>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+
+    <br />
+    <br />
+
+</EditForm>
+
+@code{
+    public BusinessPlan plan { get; set; } = new BusinessPlan(); @*needs to be initialized or there is a runtime error stating no model was found*@
+
+    public void OnInitializedAsync()
+    {
+        plan = new BusinessPlan();
+    }
+
+    public void HandleValidSubmit()
+    {
+
+    }
+}
+

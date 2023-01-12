@@ -2,14 +2,9 @@
 
 @using Microsoft.AspNetCore.Components.Authorization;
 
-
-
-
-
-
-<AuthorizeView>
+<AuthorizeView> @* show or hide UI elements depending on whether the user is authorized to see it *@
     <Authorized>
-        <a href="Identity/Account/Manage">Hello, @context.User.Identity.Name!</a>
+        <a href="Identity/Account/Manage">Hello, @context.User.Identity.Name!</a> @*gets the name of the user currently logged in*@
             <form method="post" action="/LogOut">
                 <button type="submit" class="nav-link btn btn-link">Log out</button>
             </form>

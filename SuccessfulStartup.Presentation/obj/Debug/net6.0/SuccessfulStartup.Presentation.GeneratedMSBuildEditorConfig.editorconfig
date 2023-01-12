@@ -24,12 +24,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMb2dpbkRpc3BsYXkucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/thonchel/Documents/Repos/SuccessfulStartup/SuccessfulStartup.Presentation/Components/NewPlan.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xOZXdQbGFuLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/thonchel/Documents/Repos/SuccessfulStartup/SuccessfulStartup.Presentation/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/thonchel/Documents/Repos/SuccessfulStartup/SuccessfulStartup.Presentation/Pages/NewPlan.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTmV3UGxhbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/thonchel/Documents/Repos/SuccessfulStartup/SuccessfulStartup.Presentation/Pages/Plans.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbnMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/thonchel/Documents/Repos/SuccessfulStartup/SuccessfulStartup.Presentation/_Imports.razor]
@@ -50,10 +54,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/thonchel/Documents/Repos/SuccessfulStartup/SuccessfulStartup.Presentation/Pages/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/thonchel/Documents/Repos/SuccessfulStartup/SuccessfulStartup.Presentation/Pages/Plans.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/thonchel/Documents/Repos/SuccessfulStartup/SuccessfulStartup.Presentation/Pages/Shared/_Host.cshtml]

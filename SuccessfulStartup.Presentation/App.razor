@@ -1,20 +1,7 @@
-﻿<!--the root component of the app-->
+﻿<!--the root component of the app-->,
 
-@using BlazorBootstrap;
-@using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
-@using Microsoft.AspNetCore.Components.Forms;
-@using Microsoft.AspNetCore.Identity;
 @using Microsoft.AspNetCore.Components.Routing;
-@using Microsoft.AspNetCore.Components.Web;
-@using Microsoft.AspNetCore.Components.Web.Virtualization;
-@using Microsoft.JSInterop;
-@using SuccessfulStartup.Data;
-@using SuccessfulStartup.Data.Authentication;
-@using SuccessfulStartup.Presentation;
-@using SuccessfulStartup.Presentation.Components;
-@using SuccessfulStartup.Presentation.Shared;
-@using System.Net.Http;
 
 <CascadingAuthenticationState> <!--Provides instance of AuthenticationState-->
     <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true"> <!--Parses URL into routeData-->

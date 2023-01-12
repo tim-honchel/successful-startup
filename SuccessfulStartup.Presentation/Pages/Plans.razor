@@ -1,6 +1,6 @@
-﻿@page
+﻿@*displays all the business plans belonging to the current user*@
 
-@model SuccessfulStartup.Presentation.Pages.PlansModel
+@page "/plans"
 
 @using SuccessfulStartup.Data.Entities
 
@@ -13,7 +13,7 @@
         <th>Title</th>
         <th>Description</th>
     </tr>
-    @foreach (var plan in Model.plans)
+    @foreach (var plan in plans)
     {
         <tr>
             <td>plan.Name</td>
@@ -26,4 +26,6 @@
 
 <p><a href="/newplan">Create a new plan</a></p>
 
-
+@code {
+    public List<BusinessPlan> plans { get; set; } = new List<BusinessPlan>();
+}
