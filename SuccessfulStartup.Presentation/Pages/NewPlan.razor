@@ -57,7 +57,7 @@
             api.SaveNewPlan(mapper.BusinessPlanDataToDomain(plan));
             message = "New business plan created successfully!";
         }
-        catch (InvalidOperationException)
+        catch (Exception)
         {
             message = "Failed to create new business plan.";
         }

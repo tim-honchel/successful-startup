@@ -30,15 +30,25 @@
     }
 </table>
 
+<p style="color:red">@message</p>
 <br />
 
 <p><a href="/newplan">Create a new plan</a></p>
 
 @code {
     public List<BusinessPlan> plans { get; set; } = new List<BusinessPlan>();
+    public string message = "";
+
     protected override async Task OnInitializedAsync()
     {
-        var plansDomain = await api.GetAllPlansByAuthorId("4c6afe26-eb99-4d98-9f2f-5bed3a7bdd5b"); // TODO: get current userID
-        plans = mapper.ListBusinessPlanDomainToData(plansDomain);
+        try
+        {
+            var plansDomain = await api.GetAllPlansByAuthorId("4c6afe26-eb99-4d98-9f2f-5bed3a7bdd5b"); // TODO: get current userID
+            plans = mapper.ListBusinessPlanDomainToData(plansDomain);
+        }
+        catch (Exception)
+        {
+            message = "Failed to load business plans from database.";
+        }
     }
 }
