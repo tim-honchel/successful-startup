@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Configuration;
-using System.Net;
-using System.Net.Mail;
+﻿using Microsoft.AspNetCore.Identity.UI.Services; // for IEmailSender interface
+using Microsoft.Extensions.Configuration; // for accessing connection strings
+using System.Net; // for creating NetworkCredential
+using System.Net.Mail; // for composing email with MailMessage, MailAddress, and SmtpClient
 
 namespace SuccessfulStartup.Data.Authentication
 {

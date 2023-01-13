@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore; // for DbContextOptionsBuilder
+using Microsoft.EntityFrameworkCore.Design; // for IDesignTimeDbContextFactory interface
+using Microsoft.Extensions.Configuration; // for accessing connection strings
 
 namespace SuccessfulStartup.Data.Contexts
 {

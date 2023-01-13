@@ -6,7 +6,7 @@
 @inject SignInManager<AppUser> SignInManager 
 @inject UserManager<AppUser> UserManager
 
-@using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Identity; @*necessary for SignInManager and UserManager*@
 @using SuccessfulStartup.Data.Authentication
 
 <ul class="navbar-nav">

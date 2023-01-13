@@ -1,7 +1,7 @@
 ﻿<!--the root component of the app-->
 
-@using Microsoft.AspNetCore.Components.Authorization;
-@using Microsoft.AspNetCore.Components.Routing;
+@using Microsoft.AspNetCore.Components.Authorization; @*for CascadingAuthentication State, AuthorizedRouteView, NotAuthorized, Authorizing*@
+@using Microsoft.AspNetCore.Components.Routing; @*for Router, Found, routeData*@
 
 <CascadingAuthenticationState> <!--Provides instance of AuthenticationState-->
     <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true"> <!--Parses URL into routeData-->

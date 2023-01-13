@@ -1,4 +1,5 @@
-﻿using System;
+﻿// original code-first instructions for creating database based on the defined models
+
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable

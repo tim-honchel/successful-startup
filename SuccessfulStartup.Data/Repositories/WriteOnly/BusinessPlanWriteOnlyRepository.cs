@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore; // for IDbContextFactory
 using SuccessfulStartup.Data.Contexts;
-using Microsoft.AspNetCore.Identity;
 using SuccessfulStartup.Domain.Entities;
 using SuccessfulStartup.Domain.Repositories.WriteOnly;
-using SuccessfulStartup.Data.Authentication;
+
 
 namespace SuccessfulStartup.Data.Repositories.WriteOnly
 {
@@ -15,7 +13,7 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
         {
             _factory = factory;
         }
-        public async void SaveNewPlanAsync(BusinessPlanAbstract planToSave)
+        public async Task SaveNewPlanAsync(BusinessPlanDomain planToSave)
         {
             using var context = _factory.CreateDbContext();
             planToSave.AuthorId = "4c6afe26-eb99-4d98-9f2f-5bed3a7bdd5b"; // TODO: figure out how to get current user Id

@@ -1,11 +1,9 @@
-﻿
-
-using SuccessfulStartup.Domain.Entities;
+﻿using SuccessfulStartup.Domain.Entities;
 
 namespace SuccessfulStartup.Data.APIs
 {
-    public interface IWriteOnlyApi
+    public interface IWriteOnlyApi // blueprint for command-based API that serves as intermediary between presentation layer and repositories
     {
-        void SaveNewPlan(BusinessPlanAbstract planToSave);
+        Task SaveNewPlan(BusinessPlanDomain planToSave);
     }
 }

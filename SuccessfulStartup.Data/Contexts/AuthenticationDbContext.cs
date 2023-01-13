@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.ApiAuthorization.IdentityServer; // for ApiAuthorizationDbContext base class
+using Microsoft.EntityFrameworkCore; // for DbSet, DbContextOptions, DbContextOptionsBuilder, and ModelBuilder
 using SuccessfulStartup.Data.Authentication;
 using SuccessfulStartup.Data.Entities;
 

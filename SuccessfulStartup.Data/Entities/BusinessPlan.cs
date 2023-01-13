@@ -1,27 +1,23 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using SuccessfulStartup.Data.Authentication;
-using SuccessfulStartup.Data.Entities;
+﻿using SuccessfulStartup.Data.Authentication;
 using SuccessfulStartup.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
-using System.Xml.Linq;
+using System.ComponentModel.DataAnnotations; // for indicating property requirements
+using System.ComponentModel.DataAnnotations.Schema; // for indicating foreign key
 
 namespace SuccessfulStartup.Data.Entities
 {
-    public class BusinessPlan : BusinessPlanAbstract // model for Entity Framework
+    public class BusinessPlan : BusinessPlanDomain // model for Entity Framework
     {
-        public override int Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(30, ErrorMessage = "Exceeded 30 character maximum.")]
-        public override string Name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [MaxLength(150, ErrorMessage = "Exceeded 150 character maximum.")]
-        public override string? Description { get; set; }
+        public string Description { get; set; }
 
-        public override string AuthorId { get; set; }
+        public string AuthorId { get; set; }
 
         [ForeignKey("AuthorId")]
         public virtual AppUser User { get; set; }

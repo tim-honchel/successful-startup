@@ -1,5 +1,5 @@
-﻿using Duende.IdentityServer.EntityFramework.Options;
-using Microsoft.Extensions.Options;
+﻿using Duende.IdentityServer.EntityFramework.Options; // for OperationalStoreOptions and TableConfiguration
+using Microsoft.Extensions.Options; // for IOptions interface
 
 namespace SuccessfulStartup.Data.Authentication
 {

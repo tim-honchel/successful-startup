@@ -1,6 +1,6 @@
 ﻿@*component displayed at top of every page, shows login/logout links depending on status*@
 
-@using Microsoft.AspNetCore.Components.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization; @*necessary for accessing user name from Identity*@
 
 <AuthorizeView> @* show or hide UI elements depending on whether the user is authorized to see it *@
     <Authorized>
