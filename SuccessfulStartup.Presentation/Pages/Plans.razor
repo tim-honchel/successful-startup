@@ -2,13 +2,21 @@
 
 @page "/plans"
 
+@*for reading database*@
+@inject IReadOnlyApi api
+@*for converting Domain entities to Data entities*@
+@inject MappingProfile mapper
+
+@using SuccessfulStartup.Data
+@using SuccessfulStartup.Data.APIs
 @using SuccessfulStartup.Data.Entities
+
 
 <h1>Your Business Plans</h1>
 
 <br />
 
-<table>
+<table class="table">
     <tr>
         <th>Title</th>
         <th>Description</th>
@@ -16,8 +24,8 @@
     @foreach (var plan in plans)
     {
         <tr>
-            <td>plan.Name</td>
-            <td>plan.Description</td>
+            <td>@plan.Name</td>
+            <td>@plan.Description</td>
         </tr>
     }
 </table>
@@ -28,4 +36,9 @@
 
 @code {
     public List<BusinessPlan> plans { get; set; } = new List<BusinessPlan>();
+    protected override async Task OnInitializedAsync()
+    {
+        var plansDomain = await api.GetAllPlansByAuthorId("4c6afe26-eb99-4d98-9f2f-5bed3a7bdd5b"); // TODO: get current userID
+        plans = mapper.ListBusinessPlanDomainToData(plansDomain);
+    }
 }

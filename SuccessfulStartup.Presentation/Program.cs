@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.Authorization; // necessary for AuthenticationStateProvider
 using Microsoft.AspNetCore.Identity.UI.Services; // necessary for IEmailSender
 using Microsoft.EntityFrameworkCore; // necessary for UseSqlServer
+using SuccessfulStartup.Data;
 using SuccessfulStartup.Data.APIs;
 using SuccessfulStartup.Data.Authentication; // assembly reference in order to access Identity database
 using SuccessfulStartup.Data.Contexts;
@@ -19,6 +20,8 @@ builder.Services.AddDbContextFactory<AuthenticationDbContext>(options => options
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AuthenticationDbContext>(); // adds default UI for Identity, eliminating need to create custom register and login pages, also requires account verification prior to first login TODO: move to data layer
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<AppUser>>(); // periodically checks whether user credentials are still valid //TODO: move to Data Layer
 builder.Services.AddScoped<IWriteOnlyApi, WriteOnlyApi>(); // TODO: move to data layer
+builder.Services.AddScoped<IReadOnlyApi, ReadOnlyApi>(); // TODO: move to data layer
+builder.Services.AddScoped<MappingProfile>();
 builder.Services.AddTransient<IEmailSender, EmailSender>(); // enables email sends // TODO: move to data layer
 builder.Services.AddTransient<IBusinessPlanWriteOnlyRepository, BusinessPlanWriteOnlyRepository>(); // TODO: move to data layer
 

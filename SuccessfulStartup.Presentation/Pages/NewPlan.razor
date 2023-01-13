@@ -1,16 +1,17 @@
 ﻿@*complete a form to create a new business plan*@
 
-@*TODO: for an unknown reason, not able to make this a .cshtml Razor page. EditForm was not recognized and @code{} was not allowed*@
-
 @page "/newplan"
 
 @*for writing to database*@
-@inject IWriteOnlyApi api 
+@inject IWriteOnlyApi api
+@*for converting Domain entities to Data entities*@
+@inject MappingProfile mapper
 
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
+@using SuccessfulStartup.Data
 @using SuccessfulStartup.Data.APIs
-@using SuccessfulStartup.Data.Authentication
 @using SuccessfulStartup.Data.Entities
+
 
 <h1>Create a New Business Plan</h1>
 
@@ -41,16 +42,25 @@
 
     <br />
     <br />
+    <p style="color:red">@message</p>
 
 </EditForm>
 
 @code{
-    public BusinessPlan plan { get; set; } = new BusinessPlan();
-    @*needs to be initialized or there is a runtime error stating no model was found*@
+    public BusinessPlan plan { get; set; } = new BusinessPlan(); @*needs to be initialized or there is a runtime error stating no model was found*@
+    public string message = "";
 
     public void HandleValidSubmit()
     {
-        api.SaveNewPlan(plan);
+        try
+        {
+            api.SaveNewPlan(mapper.BusinessPlanDataToDomain(plan));
+            message = "New business plan created successfully!";
+        }
+        catch (InvalidOperationException)
+        {
+            message = "Failed to create new business plan.";
+        }
+
     }
 }
-
