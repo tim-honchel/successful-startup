@@ -2,12 +2,17 @@
 
 @page "/newplan"
 
-@*for writing to database*@
-@inject IWriteOnlyApi api
+@*for getting current user information*@
+@inject AuthenticationStateProvider provider
+@*for reading and writing to database*@
+@inject IReadOnlyApi readApi
+@inject IWriteOnlyApi writeApi
 @*for converting Domain entities to Data entities*@
 @inject MappingProfile mapper
 
+@using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
+@using SuccessfulStartup.Data.Authentication
 @using SuccessfulStartup.Data
 @using SuccessfulStartup.Data.APIs
 @using SuccessfulStartup.Data.Entities
@@ -54,13 +59,19 @@
     {
         try
         {
-            api.SaveNewPlan(mapper.BusinessPlanDataToDomain(plan));
+            writeApi.SaveNewPlan(mapper.BusinessPlanDataToDomain(plan));
             message = "New business plan created successfully!";
         }
         catch (Exception)
         {
             message = "Failed to create new business plan.";
         }
+    }
 
+    protected async override Task OnParametersSetAsync()
+    {
+        var authenticationState = await provider.GetAuthenticationStateAsync();
+        var user = authenticationState.User.Identity.Name;
+        plan.AuthorId = await readApi.GetUserIdByUsername(user); @*gets ID of current user to save as foreign key*@
     }
 }

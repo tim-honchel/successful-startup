@@ -20,5 +20,11 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
             var plansByUser = await context.BusinessPlans.Where(plan => plan.AuthorId == authorId).ToListAsync();
             return _mapper.ListBusinessPlanDataToDomain(plansByUser);
         }
+        public async Task<string> GetUserIdByUsernameAsync(string username)
+        {
+            using var context = _factory.CreateDbContext();
+            var authorId = await context.Users.Where(user => user.UserName== username).Select(user => user.Id).SingleOrDefaultAsync();
+            return authorId;
+        }
     }
 }

@@ -2,11 +2,14 @@
 
 @page "/plans"
 
+@*for getting current user information*@
+@inject AuthenticationStateProvider provider
 @*for reading database*@
 @inject IReadOnlyApi api
 @*for converting Domain entities to Data entities*@
 @inject MappingProfile mapper
 
+@using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using SuccessfulStartup.Data
 @using SuccessfulStartup.Data.APIs
 @using SuccessfulStartup.Data.Entities
@@ -39,11 +42,14 @@
     public List<BusinessPlan> plans { get; set; } = new List<BusinessPlan>();
     public string message = "";
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
+        var authenticationState = await provider.GetAuthenticationStateAsync();
+        var user = authenticationState.User.Identity.Name;
+        var authorId = await api.GetUserIdByUsername(user); @*gets ID of current user*@
         try
         {
-            var plansDomain = await api.GetAllPlansByAuthorId("4c6afe26-eb99-4d98-9f2f-5bed3a7bdd5b"); // TODO: get current userID
+            var plansDomain = await api.GetAllPlansByAuthorId(authorId); // TODO: get current userID
             plans = mapper.ListBusinessPlanDomainToData(plansDomain);
         }
         catch (Exception)
