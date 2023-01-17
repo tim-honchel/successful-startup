@@ -7,12 +7,14 @@
 @*for reading database*@
 @inject ReadOnlyApi api
 @*for converting Domain entities to Data entities*@
-@inject MappingProfile mapper
+@inject IMapper mapper
 
+@using AutoMapper @*for IMapper*@
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using SuccessfulStartup.Data
 @using SuccessfulStartup.Data.APIs
 @using SuccessfulStartup.Data.Entities
+@using SuccessfulStartup.Data.Mapping
 
 
 
@@ -54,6 +56,7 @@
     private List<BusinessPlan> plans { get; set; } = new List<BusinessPlan>();
     private string message = "";
 
+
     protected override async Task OnParametersSetAsync()
     {
         var authenticationState = await provider.GetAuthenticationStateAsync();
@@ -62,7 +65,7 @@
         try
         {
             var plansDomain = await api.GetAllPlansByAuthorId(authorId);
-            plans = mapper.ListBusinessPlanDomainToData(plansDomain);
+            plans = mapper.Map<List<BusinessPlan>>(plansDomain);
         }
         catch (Exception)
         {

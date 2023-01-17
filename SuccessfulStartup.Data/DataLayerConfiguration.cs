@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Identity.UI.Services; //for IEmailSender
 using Microsoft.EntityFrameworkCore; // for UseSqlServer
 using Microsoft.Extensions.Configuration; // for ConfigurationBuilder
-using Microsoft.Extensions.DependencyInjection; // for IServiceCollection
+using Microsoft.Extensions.DependencyInjection; // for IServiceCollection, AddAutoMapper
 using SuccessfulStartup.Data.APIs;
 using SuccessfulStartup.Data.Authentication;
 using SuccessfulStartup.Data.Contexts;
+using SuccessfulStartup.Data.Mapping;
 using SuccessfulStartup.Data.Repositories.ReadOnly;
 using SuccessfulStartup.Data.Repositories.WriteOnly;
 using SuccessfulStartup.Domain.APIs;
@@ -22,6 +23,9 @@ namespace SuccessfulStartup.Data
 
         public static IServiceCollection AddDataScope(this IServiceCollection services)
         {
+
+            
+            services.AddAutoMapper(typeof(AllMappingProfiles).Assembly); // allows injection of IMapper for mapping data and domain entities; requires NuGet package: AutoMapper.Extensions.Microsoft.DependencyInjection 
             services.AddDbContextFactory<AuthenticationDbContext>(options => options.UseSqlServer(connectionString));
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AuthenticationDbContext>(); // adds default UI for Identity, eliminating need to create custom register and login pages, also requires account verification prior to first login
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<AppUser>>(); // periodically checks whether user credentials are still valid
@@ -29,7 +33,7 @@ namespace SuccessfulStartup.Data
             //services.AddScoped<IReadOnlyApi, ReadOnlyApi>(); // requires presentation layer to access domain layer
             services.AddScoped<WriteOnlyApi>();
             services.AddScoped<ReadOnlyApi>();
-            services.AddScoped<MappingProfile>(); 
+            //services.AddScoped<AllMappingProfiles>();
             services.AddTransient<IEmailSender, EmailSender>(); // enables email sends
             services.AddTransient<IBusinessPlanReadOnlyRepository, BusinessPlanReadOnlyRepository>();
             services.AddTransient<IBusinessPlanWriteOnlyRepository, BusinessPlanWriteOnlyRepository>();

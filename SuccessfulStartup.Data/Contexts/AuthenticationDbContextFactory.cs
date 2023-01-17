@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration; // for accessing connection strings
 
 namespace SuccessfulStartup.Data.Contexts
 {
-    internal class AuthenticationDbContextFactory : IDesignTimeDbContextFactory<AuthenticationDbContext>
+    public class AuthenticationDbContextFactory : IDesignTimeDbContextFactory<AuthenticationDbContext>
     {
         private const string connectionKey = "ConnectionStrings:IdentityConnectionString";
         private const string fileLocation = "appsettings.json";

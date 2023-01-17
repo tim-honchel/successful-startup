@@ -301,3 +301,4 @@ C:\Users\thonchel\Documents\Repos\SuccessfulStartup\SuccessfulStartup.Presentati
 C:\Users\thonchel\Documents\Repos\SuccessfulStartup\SuccessfulStartup.Presentation\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\thonchel\Documents\Repos\SuccessfulStartup\SuccessfulStartup.Presentation\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\thonchel\Documents\Repos\SuccessfulStartup\SuccessfulStartup.Presentation\obj\Debug\net6.0\scopedcss\Components\NavMenu.razor.rz.scp.css
+C:\Users\thonchel\Documents\Repos\SuccessfulStartup\SuccessfulStartup.Presentation\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

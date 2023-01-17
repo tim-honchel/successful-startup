@@ -9,6 +9,8 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.1" /> <!--maps data andtto domain entities-->
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" /> <!--allows depenedency injection of mapper in congffigurservice configuration-->
 		<PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="6.0.12" /> <!--authenticates user and API-->
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.12" /> <!--captures and reports database-related exceptions-->
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.12" /> <!--Identity provider that uses Entity Framework-->
