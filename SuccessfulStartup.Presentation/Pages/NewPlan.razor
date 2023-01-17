@@ -22,34 +22,48 @@
 
 <br />
 
-<EditForm Model="plan" OnValidSubmit="HandleValidSubmit">
+<AuthorizeView> @*determines which content to show, based on user authorization*@
 
-    <DataAnnotationsValidator /> @*checks if input meets requirements specified by data annotations in entity model*@
+    <Authorized>
 
-    <label for="Name" class="control-label">Title: </label>
-    <br />
-    <InputText @bind-Value="plan.Name" /> @*links input box to property*@
-    <ValidationMessage For="( () =>plan.Name )" style="color:red" /> @*displays only if input is invalid and the entity model property includes a validation message*@
+        <EditForm Model="plan" Context="planContext" OnValidSubmit="HandleValidSubmit">
 
-    <br />
-    <br />
+            <DataAnnotationsValidator /> @*checks if input meets requirements specified by data annotations in entity model*@
 
-    <label for="Description" class="control-label">Description: </label>
-    <br />
-    <InputText @bind-Value="plan.Description" />
-    <ValidationMessage For="( () =>plan.Description )" style="color:red" />
+            <label for="Name" class="control-label">Title: </label>
+            <br />
+            <InputText @bind-Value="plan.Name" /> @*links input box to property*@
+            <ValidationMessage For="( () =>plan.Name )" style="color:red" /> @*displays only if input is invalid and the entity model property includes a validation message*@
+
+            <br />
+            <br />
+
+            <label for="Description" class="control-label">Description: </label>
+            <br />
+            <InputText @bind-Value="plan.Description" />
+            <ValidationMessage For="( () =>plan.Description )" style="color:red" />
 
 
-    <br/>
-    <br/>
+            <br/>
+            <br/>
 
-    <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Create</button>
 
-    <br />
-    <br />
-    <p style="color:red">@message</p>
+            <br />
+            <br />
+            <p style="color:red">@message</p>
 
-</EditForm>
+        </EditForm>
+
+    </Authorized>
+
+    <NotAuthorized>
+         <p style="color:red">You must be logged in to see this information.</p>
+    </NotAuthorized>
+
+</AuthorizeView>
+
+
 
 @code{
     public BusinessPlan plan { get; set; } = new BusinessPlan(); @*needs to be initialized or there is a runtime error stating no model was found*@

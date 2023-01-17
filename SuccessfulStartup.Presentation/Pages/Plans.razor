@@ -16,26 +16,37 @@
 
 
 <h1>Your Business Plans</h1>
-
 <br />
 
-<table class="table">
-    <tr>
-        <th>Title</th>
-        <th>Description</th>
-    </tr>
-    @foreach (var plan in plans)
-    {
-        <tr>
-            <td>@plan.Name</td>
-            <td>@plan.Description</td>
-        </tr>
-    }
-</table>
+<AuthorizeView> @*determines which content to show, based on user authorization*@
 
-<p style="color:red">@message</p>
+    <Authorized>
+
+        <table class="table">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+            </tr>
+            @foreach (var plan in plans)
+            {
+                <tr>
+                    <td>@plan.Name</td>
+                    <td>@plan.Description</td>
+                </tr>
+            }
+        </table>
+
+        <p style="color:red">@message</p>
+
+    </Authorized>
+
+    <NotAuthorized>
+        <p style="color:red">You must be logged in to see this information.</p>
+    </NotAuthorized>
+
+</AuthorizeView>
+
 <br />
-
 <p><a href="/newplan">Create a new plan</a></p>
 
 @code {

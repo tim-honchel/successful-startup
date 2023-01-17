@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Components.Authorization; @*for CascadingAuthentication State, AuthorizedRouteView, NotAuthorized, Authorizing*@
 @using Microsoft.AspNetCore.Components.Routing; @*for Router, Found, routeData*@
 
-<CascadingAuthenticationState> <!--Provides instance of AuthenticationState-->
+<CascadingAuthenticationState> <!--Creates instance of AuthenticationState, providing each page with info of currently logged in user -->
     <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true"> <!--Parses URL into routeData-->
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"> <!--Displays view if route match is found and authorized-->

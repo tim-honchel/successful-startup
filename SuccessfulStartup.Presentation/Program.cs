@@ -1,29 +1,14 @@
-using Microsoft.AspNetCore.Components.Authorization; // necessary for AuthenticationStateProvider
-using Microsoft.AspNetCore.Identity.UI.Services; // necessary for IEmailSender
-using Microsoft.EntityFrameworkCore; // necessary for UseSqlServer
 using SuccessfulStartup.Data;
-using SuccessfulStartup.Data.APIs;
-using SuccessfulStartup.Data.Authentication; // assembly reference in order to access Identity database
-using SuccessfulStartup.Data.Contexts;
-using SuccessfulStartup.Data.Repositories.WriteOnly;
-using SuccessfulStartup.Domain.Repositories.WriteOnly;
 
 var builder = WebApplication.CreateBuilder(args); // initializes a builder for configuring a new web application
-
-var connectionString = builder.Configuration.GetConnectionString("IdentityConnectionString"); // gets database connection string from appsettings.json TODO: //move to data layer
 
 // configure service collection
 
 builder.Services.AddRazorPages(); // allows Razor components, routing, model binding, caching, and view engines
 builder.Services.AddServerSideBlazor(); // allows Blazor Server specific functions
-builder.Services.AddDbContextFactory<AuthenticationDbContext>(options => options.UseSqlServer(connectionString)); // ,ServiceLifetime.Scoped); TODO: move to Data layer
-builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AuthenticationDbContext>(); // adds default UI for Identity, eliminating need to create custom register and login pages, also requires account verification prior to first login TODO: move to data layer
-builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<AppUser>>(); // periodically checks whether user credentials are still valid //TODO: move to Data Layer
-builder.Services.AddScoped<IWriteOnlyApi, WriteOnlyApi>(); // TODO: move to data layer
-builder.Services.AddScoped<IReadOnlyApi, ReadOnlyApi>(); // TODO: move to data layer
-builder.Services.AddScoped<MappingProfile>();
-builder.Services.AddTransient<IEmailSender, EmailSender>(); // enables email sends // TODO: move to data layer
-builder.Services.AddTransient<IBusinessPlanWriteOnlyRepository, BusinessPlanWriteOnlyRepository>(); // TODO: move to data layer
+
+DataLayerConfiguration.AddDataScope(builder.Services); // adds services defined in the data project
+
 
 var app = builder.Build(); // initializes web application from builder
 
