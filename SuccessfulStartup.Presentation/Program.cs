@@ -9,7 +9,6 @@ builder.Services.AddServerSideBlazor(); // allows Blazor Server specific functio
 
 DataLayerConfiguration.AddDataScope(builder.Services); // adds services defined in the data project
 
-
 var app = builder.Build(); // initializes web application from builder
 
 // middleware pipleline sets the order for handing incoming requests and outgoing responses
@@ -23,7 +22,6 @@ else
     app.UseExceptionHandler("/Error"); // shows user-friendly error page 
     app.UseHsts(); // HTTP strict transport security forces browsers to use HTTPS
 }
-
 
 app.UseHttpsRedirection(); // redirects all HTTP requests to HTTPS (both HSTS and HTTPS Redirection are recommended)
 app.UseStaticFiles(); // enables use of HTML, CSS, JavaScript, image files in wwwroot directory

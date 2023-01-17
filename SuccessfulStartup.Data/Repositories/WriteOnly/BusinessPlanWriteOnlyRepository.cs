@@ -8,8 +8,8 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
 {
     public class BusinessPlanWriteOnlyRepository : IBusinessPlanWriteOnlyRepository
     {
-        public IDbContextFactory<AuthenticationDbContext> _factory;
-        public MappingProfile _mapper = new MappingProfile();
+        private IDbContextFactory<AuthenticationDbContext> _factory;
+        private MappingProfile _mapper = new MappingProfile();
         public BusinessPlanWriteOnlyRepository(IDbContextFactory<AuthenticationDbContext> factory) 
         {
             _factory = factory;

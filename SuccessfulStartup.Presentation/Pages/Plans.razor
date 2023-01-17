@@ -5,7 +5,7 @@
 @*for getting current user information*@
 @inject AuthenticationStateProvider provider
 @*for reading database*@
-@inject IReadOnlyApi api
+@inject ReadOnlyApi api
 @*for converting Domain entities to Data entities*@
 @inject MappingProfile mapper
 
@@ -13,6 +13,7 @@
 @using SuccessfulStartup.Data
 @using SuccessfulStartup.Data.APIs
 @using SuccessfulStartup.Data.Entities
+
 
 
 <h1>Your Business Plans</h1>
@@ -50,8 +51,8 @@
 <p><a href="/newplan">Create a new plan</a></p>
 
 @code {
-    public List<BusinessPlan> plans { get; set; } = new List<BusinessPlan>();
-    public string message = "";
+    private List<BusinessPlan> plans { get; set; } = new List<BusinessPlan>();
+    private string message = "";
 
     protected override async Task OnParametersSetAsync()
     {
@@ -60,7 +61,7 @@
         var authorId = await api.GetUserIdByUsername(user); @*gets ID of current user*@
         try
         {
-            var plansDomain = await api.GetAllPlansByAuthorId(authorId); // TODO: get current userID
+            var plansDomain = await api.GetAllPlansByAuthorId(authorId);
             plans = mapper.ListBusinessPlanDomainToData(plansDomain);
         }
         catch (Exception)

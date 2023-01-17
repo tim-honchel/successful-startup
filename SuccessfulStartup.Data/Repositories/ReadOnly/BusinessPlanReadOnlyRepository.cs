@@ -7,8 +7,8 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
 {
     public class BusinessPlanReadOnlyRepository : IBusinessPlanReadOnlyRepository // performs CRUD operations on the BusinessPlan table
     {
-        public IDbContextFactory<AuthenticationDbContext> _factory; // creates context for database connection
-        public MappingProfile _mapper; // converts data and domain entities
+        private IDbContextFactory<AuthenticationDbContext> _factory; // creates context for database connection
+        private MappingProfile _mapper; // converts data and domain entities
         public BusinessPlanReadOnlyRepository(IDbContextFactory<AuthenticationDbContext> factory)
         {
             _factory = factory;

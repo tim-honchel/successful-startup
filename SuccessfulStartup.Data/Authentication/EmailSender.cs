@@ -5,7 +5,7 @@ using System.Net.Mail; // for composing email with MailMessage, MailAddress, and
 
 namespace SuccessfulStartup.Data.Authentication
 {
-    public class EmailSender : IEmailSender // interface is for sending Identity-related emails
+    internal class EmailSender : IEmailSender // interface is for sending Identity-related emails
     {
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {

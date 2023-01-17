@@ -6,7 +6,10 @@ using Microsoft.Extensions.DependencyInjection; // for IServiceCollection
 using SuccessfulStartup.Data.APIs;
 using SuccessfulStartup.Data.Authentication;
 using SuccessfulStartup.Data.Contexts;
+using SuccessfulStartup.Data.Repositories.ReadOnly;
 using SuccessfulStartup.Data.Repositories.WriteOnly;
+using SuccessfulStartup.Domain.APIs;
+using SuccessfulStartup.Domain.Repositories.ReadOnly;
 using SuccessfulStartup.Domain.Repositories.WriteOnly;
 
 namespace SuccessfulStartup.Data
@@ -22,11 +25,14 @@ namespace SuccessfulStartup.Data
             services.AddDbContextFactory<AuthenticationDbContext>(options => options.UseSqlServer(connectionString));
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AuthenticationDbContext>(); // adds default UI for Identity, eliminating need to create custom register and login pages, also requires account verification prior to first login
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<AppUser>>(); // periodically checks whether user credentials are still valid
-            services.AddScoped<IWriteOnlyApi, WriteOnlyApi>();
-            services.AddScoped<IReadOnlyApi, ReadOnlyApi>();
+            //services.AddScoped<IWriteOnlyApi, WriteOnlyApi>(); // requires presentation layer to access domain layer
+            //services.AddScoped<IReadOnlyApi, ReadOnlyApi>(); // requires presentation layer to access domain layer
+            services.AddScoped<WriteOnlyApi>();
+            services.AddScoped<ReadOnlyApi>();
             services.AddScoped<MappingProfile>(); 
             services.AddTransient<IEmailSender, EmailSender>(); // enables email sends
-            services.AddTransient<IBusinessPlanWriteOnlyRepository, BusinessPlanWriteOnlyRepository>(); 
+            services.AddTransient<IBusinessPlanReadOnlyRepository, BusinessPlanReadOnlyRepository>();
+            services.AddTransient<IBusinessPlanWriteOnlyRepository, BusinessPlanWriteOnlyRepository>();
             return services;
         }
     }

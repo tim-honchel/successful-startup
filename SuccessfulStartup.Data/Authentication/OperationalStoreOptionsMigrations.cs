@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options; // for IOptions interface
 
 namespace SuccessfulStartup.Data.Authentication
 {
-    public class OperationalStoreOptionsMigrations : IOptions<OperationalStoreOptions> // options for persistence of grants, tokens, cache, etc.
+    internal class OperationalStoreOptionsMigrations : IOptions<OperationalStoreOptions> // options for persistence of grants, tokens, cache, etc.
     {
         public OperationalStoreOptions Value => new OperationalStoreOptions()
         {
