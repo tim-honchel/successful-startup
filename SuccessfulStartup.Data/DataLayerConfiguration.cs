@@ -31,9 +31,9 @@ namespace SuccessfulStartup.Data
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<AppUser>>(); // periodically checks whether user credentials are still valid
             //services.AddScoped<IWriteOnlyApi, WriteOnlyApi>(); // requires presentation layer to access domain layer
             //services.AddScoped<IReadOnlyApi, ReadOnlyApi>(); // requires presentation layer to access domain layer
-            services.AddScoped<WriteOnlyApi>();
+            services.AddScoped<EntityConverter>();
             services.AddScoped<ReadOnlyApi>();
-            //services.AddScoped<AllMappingProfiles>();
+            services.AddScoped<WriteOnlyApi>();
             services.AddTransient<IEmailSender, EmailSender>(); // enables email sends
             services.AddTransient<IBusinessPlanReadOnlyRepository, BusinessPlanReadOnlyRepository>();
             services.AddTransient<IBusinessPlanWriteOnlyRepository, BusinessPlanWriteOnlyRepository>();

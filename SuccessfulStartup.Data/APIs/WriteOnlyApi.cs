@@ -9,9 +9,9 @@ namespace SuccessfulStartup.Data.APIs
 {
     public class WriteOnlyApi : IWriteOnlyApi // single API manages all repositories; individual repositories perform table-specific CRUD operations
     {
-        public IDbContextFactory<AuthenticationDbContext> _factory; // used to create a new context each time a database connection is needed, improving thread safety
-        public IMapper _mapper;
-        public BusinessPlanWriteOnlyRepository _repositoryForBusinessPlan;
+        private IDbContextFactory<AuthenticationDbContext> _factory; // used to create a new context each time a database connection is needed, improving thread safety
+        private IMapper _mapper;
+        private BusinessPlanWriteOnlyRepository _repositoryForBusinessPlan;
 
         public WriteOnlyApi(IDbContextFactory<AuthenticationDbContext> factory, IMapper mapper) // factory and mapper are injected from DataLayerConfiguration
         {

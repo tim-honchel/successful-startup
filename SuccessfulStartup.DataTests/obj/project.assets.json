@@ -1187,6 +1187,19 @@
           }
         }
       },
+      "Moq.EntityFrameworkCore/6.0.1.4": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.5",
+          "Moq": "4.18.1"
+        },
+        "compile": {
+          "lib/net6.0/Moq.EntityFrameworkCore.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Moq.EntityFrameworkCore.dll": {}
+        }
+      },
       "NETStandard.Library/2.0.0": {
         "type": "package",
         "dependencies": {
@@ -1610,6 +1623,7 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.12",
           "Microsoft.AspNetCore.Identity.UI": "6.0.12",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.12",
+          "Moq.EntityFrameworkCore": "6.0.1.4",
           "SuccessfulStartup.Domain": "1.0.0"
         },
         "compile": {
@@ -3463,6 +3477,19 @@
         "moq.4.18.4.nupkg.sha512",
         "moq.nuspec",
         "moq.png"
+      ]
+    },
+    "Moq.EntityFrameworkCore/6.0.1.4": {
+      "sha512": "AU2ksid0n2VPmG+qKSUXs4ZoZNbZXdLs/mkuGQ7JBAefzYNF/6qMJlJwDTF2iW2C0guiaLqtNzjPiAAJKvSJlQ==",
+      "type": "package",
+      "path": "moq.entityframeworkcore/6.0.1.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net6.0/Moq.EntityFrameworkCore.dll",
+        "moq.entityframeworkcore.6.0.1.4.nupkg.sha512",
+        "moq.entityframeworkcore.nuspec"
       ]
     },
     "NETStandard.Library/2.0.0": {

@@ -6,10 +6,9 @@
 @inject AuthenticationStateProvider provider
 @*for reading database*@
 @inject ReadOnlyApi api
-@*for converting Domain entities to Data entities*@
-@inject IMapper mapper
+@*for converting Domain entities to Data entities, without the need to access Automapper and domain level*@
+@inject EntityConverter entityConverter
 
-@using AutoMapper @*for IMapper*@
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using SuccessfulStartup.Data
 @using SuccessfulStartup.Data.APIs
@@ -53,19 +52,21 @@
 <p><a href="/newplan">Create a new plan</a></p>
 
 @code {
-    private List<BusinessPlan> plans { get; set; } = new List<BusinessPlan>();
+    private List<BusinessPlan> plans { get; set; }
     private string message = "";
 
 
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnParametersSetAsync() @*don't use OnInitialized, causes runtime error where model can't be found*@
     {
+        plans = new List<BusinessPlan>();
+
         var authenticationState = await provider.GetAuthenticationStateAsync();
         var user = authenticationState.User.Identity.Name;
-        var authorId = await api.GetUserIdByUsername(user); @*gets ID of current user*@
+        var authorId = await api.GetUserIdByUsername(user);  @*gets ID of current user*@
         try
         {
             var plansDomain = await api.GetAllPlansByAuthorId(authorId);
-            plans = mapper.Map<List<BusinessPlan>>(plansDomain);
+            plans = entityConverter.Convert(plansDomain); // converts to List<BusinessPlan> type, which can be displayed
         }
         catch (Exception)
         {

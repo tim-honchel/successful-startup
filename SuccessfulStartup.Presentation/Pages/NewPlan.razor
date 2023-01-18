@@ -7,17 +7,15 @@
 @*for reading and writing to database*@
 @inject ReadOnlyApi readApi
 @inject WriteOnlyApi writeApi
-@*for converting Domain entities to Data entities*@
-@inject IMapper mapper
+@*for converting Domain entities to Data entities, without the need to access Automapper and domain level*@
+@inject EntityConverter entityConverter
 
-@using AutoMapper @*for IMapper*@
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
 @using SuccessfulStartup.Data.Authentication
 @using SuccessfulStartup.Data
 @using SuccessfulStartup.Data.APIs
 @using SuccessfulStartup.Data.Entities
-@using SuccessfulStartup.Domain.Entities
 
 
 
@@ -69,14 +67,14 @@
 
 
 @code{
-    private BusinessPlan plan { get; set; } = new BusinessPlan(); @*needs to be initialized or there is a runtime error stating no model was found*@
+    private BusinessPlan plan { get; set; }
     private string message = "";
 
     public void HandleValidSubmit()
     {
         try
         {
-            writeApi.SaveNewPlan(mapper.Map<BusinessPlanDomain>(plan));
+            writeApi.SaveNewPlan(entityConverter.Convert(plan)); // converts plan to domain entity as required by API
             message = "New business plan created successfully!";
         }
         catch (Exception)
@@ -85,8 +83,10 @@
         }
     }
 
-    protected async override Task OnParametersSetAsync()
+    protected async override Task OnParametersSetAsync() // don't use OnInitialized, results in runtime error where model cannot be found 
     {
+        plan = new BusinessPlan();
+
         var authenticationState = await provider.GetAuthenticationStateAsync();
         var user = authenticationState.User.Identity.Name;
         plan.AuthorId = await readApi.GetUserIdByUsername(user); @*gets ID of current user to save as foreign key*@

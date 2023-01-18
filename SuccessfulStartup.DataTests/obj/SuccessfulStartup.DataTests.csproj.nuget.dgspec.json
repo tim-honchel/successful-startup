@@ -162,6 +162,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[6.0.12, )"
+            },
+            "Moq.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.1.4, )"
             }
           },
           "imports": [

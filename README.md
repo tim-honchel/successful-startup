@@ -8,6 +8,7 @@ I created Successful Startup to practice using the following technologies in a r
 * SQL Server
 * MySQL Lite
 * Entity Framework
+* Swagger
 * Identity
 * Bootstrap
 * NUnit
@@ -21,7 +22,7 @@ I used a 3 layer approach, with each layer residing in a separate project within
 Class library. Inner-most layer. Business logic. Contains entity base classes, repository interfaces, and API interfaces. Creates blueprints that data layers must follow, ensuring that all requirements are met and making it easier to substitute databases as needed without risking errors.
 
 ### Data
-Class library. Middle layer. Database access. Contains APIs, Identity authentication tools, database contexts and factories, entities, code-first database migrations, repositories for CRUD operations, and a mapping profile to map data and domain entities. Provides APIs that allow the presentation layer to read and write to the database.
+Class library. Middle layer. Database access. Contains APIs, Identity authentication tools, database contexts and factories, entities, code-first database migrations, repositories for CRUD operations, and a mapping profile to map data and domain entities. Provides APIs that allow the presentation layer to read and write to the database. *I would like to add a separate layer for the API that sits between the presentation and data layers. The presentation layer would only interact with the API.*
 
 ### Presentation
 Blazer Server app. Outer layer. User interface. Contains Razor components, pages, and layouts. Displays content and allows for user input. This is set as the startup project and contains Program.cs for app build and service configuration, so when the application runs, this project will be loaded first.
@@ -39,16 +40,16 @@ BUnit test project. Contains unit tests for the methods in the Presentation laye
 As a junior developer, I created this application to integrate and reinforce my understanding of various technologies and principles. Therefore, I decided to document the process, including my mistakes and lessons learned. I also used explanatory comments as often as possible for why classes and lines of code are necessary. These can serve as references when building projects in the future.
 
 ### API
-Instead of the presentation having to inject from a variety of repositories, I decided it would be better to inject one of 2 APIs (read-only and write-only). Those APIs would implement all the necessary repositories and call their methods. I used domain-level interfaces to create a blueprint for each API. *I would like to find an easy way to use parameterized constructors or dependency injection to implement the repositories and make it more loosely coupled.*
+Instead of the presentation having to inject from a variety of repositories, I decided it would be better to inject one of 2 APIs (read-only and write-only). Those APIs would implement all the necessary repositories and call their methods. I used domain-level interfaces to create a blueprint for each API. The API's use parameterized constructors for the context factory and mapper, which are injected in the configuration class.
 
 ### ASP.NET Core Identity
-I used a single database context for Identity tables and other application tables. The context inherits from IdentityDbContext. I added the DbContext and DefaultIdentity to services in Program.cs and the database connection string to appsettings.json. I learned that Identity works differently on a Blazor Server project than on an ASP.NET Core Web App project; use AddDefaultIdentity<AppUser> rather than AddIdentity and use the built-in Identity.UI instead of manually creating Login, Logout, and Register pages and view models. It is still possible to custom override those pages by creating a Pages/Account folder. Also, a _LoginPartial page is required for the Identity.UI. At first, I had the Authentication-related files in the Presentation layer, but I ultimately moved them to the Data layer. *I'm trying to figure out the best way to get the current user's ID in order to use it as a foreign key in other tables.*
+I used a single database context for Identity tables and other application tables. The context inherits from IdentityDbContext. I added the DbContext and DefaultIdentity to services in Program.cs and the database connection string to appsettings.json. I learned that Identity works differently on a Blazor Server project than on an ASP.NET Core Web App project; use AddDefaultIdentity<AppUser> rather than AddIdentity and use the built-in Identity.UI instead of manually creating Login, Logout, and Register pages and view models. It is still possible to custom override those pages by creating a Pages/Account folder. Also, a _LoginPartial page is required for the Identity.UI. At first, I had the Authentication-related files in the Presentation layer, but I ultimately moved them to the Data layer. I tried several ways to get the current user's ID in order to use it as a foreign key in other tables. The best way I found was to inject AuthenticationStateProvider into the Razor page, use it to get the current user's username (must be unique), then use it in an API call that searches for and returns the Id of that username.
 
 ### Database Context Factory
 I initially tried implementing the context directly, but I found that it worked better to use a factory. One, it is more thread safe. Two, it is more loosely coupled. Three, it was actually easier to configure.
 
 ### Dependency Injection
-Currently, all configurations take place in the Presentation layer in Program.cs. *I would like to attempt creating service configuration classes in the Data project in order to move certain Domain-layer injections into the Data layer.* For example, the API, repositories, and entities.
+Presentation level service configurations take place in Program.cs. I created a separate static class in the data layer containing additional configurations for that layer. Program.cs calls the AddDataScope method of that configuration class in order to add those services.
 
 ### Email Send Service
 If Identity is configured to SignIn.RequiredConfirmedAccount = true, it's necessary to set up an email service in order for users to verify their accounts. I used the IEmailSender interface with an SMTP client set up to a Gmail account's app password, stored in appsettings.json. 
