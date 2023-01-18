@@ -10,9 +10,9 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
 {
     public class BusinessPlanWriteOnlyRepository : IBusinessPlanWriteOnlyRepository
     {
-        private IDbContextFactory<AuthenticationDbContext> _factory;
+        private AuthenticationDbContextFactory _factory;
         private IMapper _mapper;
-        public BusinessPlanWriteOnlyRepository(IDbContextFactory<AuthenticationDbContext> factory, IMapper mapper)
+        public BusinessPlanWriteOnlyRepository(AuthenticationDbContextFactory factory, IMapper mapper)
         {
             _factory = factory;
             _mapper = mapper;

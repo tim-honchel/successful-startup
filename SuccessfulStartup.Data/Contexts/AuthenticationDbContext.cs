@@ -8,7 +8,7 @@ namespace SuccessfulStartup.Data.Contexts
     public class AuthenticationDbContext : ApiAuthorizationDbContext<AppUser> // context creates a session where it is possible to interact with database objects, base class is unique to Identity Server
     {
         public string? _connectionString;
-        public DbSet<BusinessPlan> BusinessPlans { get; set; }
+        public virtual DbSet<BusinessPlan> BusinessPlans { get; set; } // virtual necessary so unit test mocks can override
         public AuthenticationDbContext(DbContextOptions options, string? connectionString = null) : base(options, new OperationalStoreOptionsMigrations()) // manages persistence of tokens, grants, cache, etc.
         {
             _connectionString= connectionString;
