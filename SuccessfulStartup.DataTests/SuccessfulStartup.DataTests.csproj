@@ -1,3 +1,5 @@
+<!--test the data layer-->
+
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
@@ -9,14 +11,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GenFu" Version="1.6.0" />
+    <PackageReference Include="GenFu" Version="1.6.0" /> <!--generate mock data sets-->
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
-    <PackageReference Include="Moq" Version="4.18.4" />
+    <PackageReference Include="Moq" Version="4.18.4" /> <!--simulate behavior of databases-->
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
-    <PackageReference Include="Shouldly" Version="4.1.0" />
+    <PackageReference Include="Shouldly" Version="4.1.0" /> <!--assertion-->
   </ItemGroup>
 
   <ItemGroup>

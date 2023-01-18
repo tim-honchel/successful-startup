@@ -19,7 +19,10 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
         }
         public async Task SaveNewPlanAsync(BusinessPlanDomain planToSave)
         {
+            if (planToSave == null || string.IsNullOrWhiteSpace(planToSave.Name) || string.IsNullOrWhiteSpace(planToSave.Description) || string.IsNullOrWhiteSpace(planToSave.AuthorId) ) { throw new ArgumentNullException(nameof(planToSave)); }
+
             using var context = _factory.CreateDbContext();
+
             await context.AddAsync(_mapper.Map<BusinessPlan>(planToSave));
             await context.SaveChangesAsync();
         }

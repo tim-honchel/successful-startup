@@ -18,10 +18,7 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
         }
         public async Task<List<BusinessPlanDomain>> GetAllPlansByAuthorIdAsync(string authorId)
         {
-            if (string.IsNullOrWhiteSpace(authorId))
-            {
-                throw new ArgumentNullException(nameof(authorId));
-            }
+            if (string.IsNullOrWhiteSpace(authorId)) {throw new ArgumentNullException(nameof(authorId));}
 
             using var context = _factory.CreateDbContext();
 
@@ -38,10 +35,7 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
         }
         public async Task<string> GetUserIdByUsernameAsync(string username)
         {
-            if (string.IsNullOrWhiteSpace(username))
-            {
-                throw new ArgumentNullException(nameof(username));
-            }
+            if (string.IsNullOrWhiteSpace(username)) {throw new ArgumentNullException(nameof(username));}
 
             using var context = _factory.CreateDbContext();
 
