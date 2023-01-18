@@ -29,6 +29,7 @@ namespace SuccessfulStartup.Data
             services.AddDbContextFactory<AuthenticationDbContext>(options => options.UseSqlServer(connectionString));
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AuthenticationDbContext>(); // adds default UI for Identity, eliminating need to create custom register and login pages, also requires account verification prior to first login
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<AppUser>>(); // periodically checks whether user credentials are still valid
+            services.AddScoped<AuthenticationDbContextFactory>();
             //services.AddScoped<IWriteOnlyApi, WriteOnlyApi>(); // requires presentation layer to access domain layer
             //services.AddScoped<IReadOnlyApi, ReadOnlyApi>(); // requires presentation layer to access domain layer
             services.AddScoped<EntityConverter>();

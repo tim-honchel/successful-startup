@@ -9,7 +9,7 @@ namespace SuccessfulStartup.Data.Contexts
         private const string connectionKey = "ConnectionStrings:IdentityConnectionString";
         private const string fileLocation = "appsettings.json";
         private static string connectionString = new ConfigurationBuilder().AddJsonFile(fileLocation).Build()[connectionKey];
-        public AuthenticationDbContext CreateDbContext(string[] args)
+        public virtual AuthenticationDbContext CreateDbContext(string[] args)
         {            
             DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder<AuthenticationDbContext>();
             optionsBuilder.UseSqlServer(connectionString);
