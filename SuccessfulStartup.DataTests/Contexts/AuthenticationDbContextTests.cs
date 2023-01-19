@@ -1,6 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-using Shouldly;
+﻿using Shouldly;
 using SuccessfulStartup.Data.Contexts;
 
 namespace SuccessfulStartup.DataTests.Contexts

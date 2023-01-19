@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration; // for ConfigurationBuilder
+﻿using Microsoft.AspNetCore.ApiAuthorization.IdentityServer; // for ApiAuthorizationDbContext
+using Microsoft.EntityFrameworkCore; // for context members
 using Shouldly; // for assertion
 using SuccessfulStartup.Data.Authentication;
 using SuccessfulStartup.Data.Contexts;
