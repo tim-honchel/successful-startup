@@ -2,11 +2,17 @@
 A tool for entrepreneurs to easily create useful business plans for small startups.
 
 ## Overview
-I created Successful Startup to practice using the following technologies in a real test case:
+I created Successful Startup to practice using the following principles and technologies in a real test case:
+
+### Principles
+* Agile Methodology
+* Clean Architecture
+* Test-Driven Development
+
+### Technologies
 * ASP.NET Core 6.0
 * Blazor Server
 * SQL Server
-* MySQL Lite
 * Entity Framework
 * Swagger
 * Identity
