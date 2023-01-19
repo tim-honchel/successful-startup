@@ -1,5 +1,7 @@
 ﻿using Shouldly; // for assertion
 using SuccessfulStartup.Data.Authentication;
+using System.Diagnostics.Contracts;
+using System.Net;
 using System.Net.Mail; // for MailMessage, MailAddress, MailAddressCollection
 
 namespace SuccessfulStartup.DataTests.Authentication
@@ -64,7 +66,20 @@ namespace SuccessfulStartup.DataTests.Authentication
         [Test]
         public void CreateSmtpClient_ReturnsSmtpClient()
         {
-            Assert.Ignore();
+            var client = _sender.CreateSmtpClient();
+            client.ShouldBeOfType<SmtpClient>();
+        }
+
+        [Test]
+        public void CreateSmtpClient_ReturnsValidSmtpClient()
+        {
+            var client = _sender.CreateSmtpClient();
+            client.ShouldSatisfyAllConditions(
+                () => client.Host.ShouldBe("smtp.gmail.com"),
+                () => client.Port.ShouldBe(587),
+                () => client.Credentials.ShouldBeEquivalentTo(new NetworkCredential(EmailSender._fromMail, EmailSender._fromPassword)),
+                () => client.EnableSsl.ShouldBeTrue()
+                );
         }
     }
 }

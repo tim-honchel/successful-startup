@@ -20,33 +20,35 @@
 <h1>Your Business Plans</h1>
 <br />
 
-<AuthorizeView> @*determines which content to show, based on user authorization*@
+<CascadingAuthenticationState> @*provides authentication and authorization state data*@
+    <AuthorizeView> @*determines which content to show, based on user authorization*@
 
-    <Authorized>
+        <Authorized>
 
-        <table class="table">
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-            </tr>
-            @foreach (var plan in plans)
-            {
+            <table class="table">
                 <tr>
-                    <td>@plan.Name</td>
-                    <td>@plan.Description</td>
+                    <th>Title</th>
+                    <th>Description</th>
                 </tr>
-            }
-        </table>
+                @foreach (var plan in plans)
+                {
+                    <tr>
+                        <td>@plan.Name</td>
+                        <td>@plan.Description</td>
+                    </tr>
+                }
+            </table>
 
-        <p style="color:red">@message</p>
+            <p style="color:red">@message</p>
 
-    </Authorized>
+        </Authorized>
 
-    <NotAuthorized>
-        <p style="color:red">You must be logged in to see this information.</p>
-    </NotAuthorized>
+        <NotAuthorized>
+            <p style="color:red">You must be logged in to see this information.</p>
+        </NotAuthorized>
 
-</AuthorizeView>
+    </AuthorizeView>
+</CascadingAuthenticationState>
 
 <br />
 <p><a href="/newplan">Create a new plan</a></p>
@@ -62,7 +64,8 @@
 
         var authenticationState = await provider.GetAuthenticationStateAsync();
         var user = authenticationState.User.Identity.Name;
-        var authorId = await api.GetUserIdByUsername(user);  @*gets ID of current user*@
+        var authorId = await api.GetUserIdByUsername(user);  
+        @*gets ID of current user*@
         try
         {
             var plansDomain = await api.GetAllPlansByAuthorId(authorId);

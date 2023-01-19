@@ -18,11 +18,11 @@ namespace SuccessfulStartup.Data.APIs
             _mapper = mapper;
             _repositoryForBusinessPlan = new BusinessPlanReadOnlyRepository(_factory, _mapper);
         }
-        public async Task<List<BusinessPlanDomain>> GetAllPlansByAuthorId(string authorId)
+        public virtual async Task<List<BusinessPlanDomain>> GetAllPlansByAuthorId(string authorId)
         {
             return await _repositoryForBusinessPlan.GetAllPlansByAuthorIdAsync(authorId);
         }
-        public async Task<string> GetUserIdByUsername(string username)
+        public virtual async Task<string> GetUserIdByUsername(string username)
         {
             return await _repositoryForBusinessPlan.GetUserIdByUsernameAsync(username);
         }
