@@ -2,6 +2,7 @@
 using Duende.IdentityServer.Extensions;
 using Microsoft.EntityFrameworkCore; // for database queries
 using SuccessfulStartup.Data.Contexts;
+using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Domain.Entities;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 
@@ -33,6 +34,24 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
             }
 
         }
+
+        public async Task<BusinessPlanDomain> GetPlanByIdAsync(int id)
+        {
+            if (id == 0) { throw new ArgumentNullException(nameof(id)); }
+
+            using var context = _factory.CreateDbContext();
+
+            try
+            {
+                var plan = await context.BusinessPlans.Where(plan => plan.Id == id).SingleOrDefaultAsync();
+                return _mapper.Map<BusinessPlanDomain>(plan);
+            }
+            catch (ArgumentNullException)
+            {
+                throw new NullReferenceException(nameof(id)); // if no user with that name is found
+            }
+        }
+
         public async Task<string> GetUserIdByUsernameAsync(string username)
         {
             if (string.IsNullOrWhiteSpace(username)) {throw new ArgumentNullException(nameof(username));}

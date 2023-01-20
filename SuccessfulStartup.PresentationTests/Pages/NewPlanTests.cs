@@ -1,7 +1,5 @@
 ﻿using Shouldly;
 using SuccessfulStartup.Presentation.Pages;
-using System;
-using System.Linq;
 
 namespace SuccessfulStartup.PresentationTests.Pages
 {
@@ -63,8 +61,8 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [TestCase("", "")]
         [TestCase("name only","")]
         [TestCase("", "description only")]
-        [TestCase("name is really really really really really really really long", "description")]
-        public void FormSubmit_RendersNoMessage_GivenInvalidInput(string name, string description)
+        [TestCase("name is really really really really really really really long", "description")] // name exceeds max length
+        public void FormSubmit_RendersNoMessage_GivenInvalidInput(string name, string description) // field messages will appear, but no form message
         {
             using var testContext = _helper.GetTestContext();
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
@@ -72,9 +70,9 @@ namespace SuccessfulStartup.PresentationTests.Pages
 
             component.Find("input[id=\"Name\"]").Change(name);
             component.Find("input[id=\"Description\"]").Change(description);
-            component.Find("form").Submit();
+            component.Find("form").Submit(); // EditForm is rendered as "form"
 
-            var message = component.Find("p[id =\"Message\"]").TextContent;
+            var message = component.Find("p[id =\"Message\"]").TextContent; // component re-renders automatically, no need to render new component
             message.ShouldBeEmpty();
         }
     }

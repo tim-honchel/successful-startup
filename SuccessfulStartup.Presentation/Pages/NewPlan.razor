@@ -1,6 +1,6 @@
 ﻿@*complete a form to create a new business plan*@
 
-@page "/newplan"
+@page "/plans/new"
 
 @*for getting current user information*@
 @inject AuthenticationStateProvider provider
@@ -67,7 +67,7 @@
 
 
 @code{
-    private BusinessPlan plan { get; set; }
+    private BusinessPlan plan { get; set; } = new BusinessPlan();
     private string message = "";
 
     public void HandleValidSubmit()

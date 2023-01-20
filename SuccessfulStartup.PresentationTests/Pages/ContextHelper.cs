@@ -1,6 +1,4 @@
-﻿
-
-using SuccessfulStartup.Data.APIs;
+﻿using SuccessfulStartup.Data.APIs;
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Data.Mapping;
 

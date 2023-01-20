@@ -22,6 +22,10 @@ namespace SuccessfulStartup.Data.APIs
         {
             return await _repositoryForBusinessPlan.GetAllPlansByAuthorIdAsync(authorId);
         }
+        public async Task<BusinessPlanDomain> GetPlanById(int id)
+        {
+            return await _repositoryForBusinessPlan.GetPlanByIdAsync(id);
+        }
         public virtual async Task<string> GetUserIdByUsername(string username)
         {
             return await _repositoryForBusinessPlan.GetUserIdByUsernameAsync(username);

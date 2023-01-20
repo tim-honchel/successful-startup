@@ -1,0 +1,50 @@
+﻿@*view the details of an existing business plan*@
+
+@page "/plans/{planId:int}"
+
+@*for reading and writing to database*@
+@inject ReadOnlyApi readApi
+@*for converting Domain entities to Data entities, without the need to access Automapper and domain level*@
+@inject EntityConverter entityConverter
+
+@using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
+@using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
+@using SuccessfulStartup.Data.Authentication
+@using SuccessfulStartup.Data
+@using SuccessfulStartup.Data.APIs
+@using SuccessfulStartup.Data.Entities
+
+<h1>Your Business Plan</h1>
+
+<br />
+
+<AuthorizeView> @*determines which content to show, based on user authorization*@
+
+    <Authorized>
+
+        <h6>Name</h6>
+        <p id="Name">@plan.Name</p>
+        <br />
+
+        <h6>Description</h6>
+        <p id="Description">@plan.Description</p>
+
+    </Authorized>
+
+    <NotAuthorized>
+         <p style="color:red">You must be logged in to see this information.</p>
+    </NotAuthorized>
+
+</AuthorizeView>
+
+@code {
+    [Parameter]
+    public int planId { get; set; }
+
+    private BusinessPlan plan { get; set; } = new BusinessPlan();
+
+    protected async override Task OnParametersSetAsync() // don't use OnInitialized, results in runtime error where model cannot be found
+    {
+        plan = entityConverter.Convert(await readApi.GetPlanById(planId));
+    }
+}
