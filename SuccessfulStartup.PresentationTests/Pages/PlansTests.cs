@@ -1,10 +1,4 @@
-﻿using GenFu;
-using Moq;
-using Shouldly; // for assertion
-using SuccessfulStartup.Data.APIs;
-using SuccessfulStartup.Data.Contexts;
-using SuccessfulStartup.Data.Mapping;
-using SuccessfulStartup.Domain.Entities;
+﻿using Shouldly; // for assertion
 using SuccessfulStartup.Presentation.Pages;
 using System.Threading.Tasks;
 
@@ -13,6 +7,12 @@ namespace SuccessfulStartup.PresentationTests.Pages
     internal class PlansTests : Bunit.TestContext // TestContext class allows addition of service configurations
     {
         private ContextHelper _helper = new ContextHelper(); // contains helper methods for TestContext and TestAuthorizationContext
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+           
+        }
 
         [Test]
         public void RendersCorrectHeaderText()
@@ -53,18 +53,16 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public async Task RendersRows_GivenAuthorizationAndMatchingRecords()
         {
+            var usernameWithMatchingBusinessPlans = "tim.honchel@gmail.com"; // TODO: find a way to mock API or context
             using var testContext = _helper.GetTestContext();
-            var authorizationContext = _helper.GetAuthorizationContext(testContext, "userIdWithMatchingBusinessPlans");
-            var plans = A.ListOf<BusinessPlanDomain>();
-            var mockApi = new Mock<ReadOnlyApi>(new AuthenticationDbContextFactory(), AllMappingProfiles.GetMapper()); // TODO: the mock is not being injected or called
-            mockApi.Setup(api => api.GetUserIdByUsername(It.IsAny<string>())).ReturnsAsync("userIdWithMatchingBusinessPlans");
-            mockApi.Setup(api => api.GetAllPlansByAuthorId(It.IsAny<string>())).ReturnsAsync(plans);
+            var authorizationContext = _helper.GetAuthorizationContext(testContext, usernameWithMatchingBusinessPlans);
 
             var component = testContext.RenderComponent<Plans>(); // render the page
 
+            System.Threading.Thread.Sleep(500); // time for component to fully render
             var rendersRows = component.FindAll("tr").Count > 1;
-            // rendersRows.ShouldBeTrue();
-            Assert.Ignore();
+            rendersRows.ShouldBeTrue();
+            
         }
     }
 }

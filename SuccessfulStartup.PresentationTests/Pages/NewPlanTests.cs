@@ -1,4 +1,4 @@
-﻿using Shouldly;
+﻿using Shouldly; // for assertion
 using SuccessfulStartup.Presentation.Pages;
 
 namespace SuccessfulStartup.PresentationTests.Pages
