@@ -23,15 +23,8 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
 
             using var context = _factory.CreateDbContext();
 
-            try
-            {
-                var plansByUser = await context.BusinessPlans.Where(plan => plan.AuthorId == authorId).ToListAsync();
-                return _mapper.Map<List<BusinessPlanDomain>>(plansByUser);
-            }
-            catch (ArgumentNullException)
-            {
-                return new List<BusinessPlanDomain>() { }; // returns empty list if no results are found
-            }
+            var plansByUser = await context.BusinessPlans.Where(plan => plan.AuthorId == authorId).ToListAsync();
+            return _mapper.Map<List<BusinessPlanDomain>>(plansByUser); // returns empty list if no plans are found
 
         }
 
@@ -41,15 +34,14 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
 
             using var context = _factory.CreateDbContext();
 
-            try
-            {
-                var plan = await context.BusinessPlans.Where(plan => plan.Id == id).SingleOrDefaultAsync();
-                return _mapper.Map<BusinessPlanDomain>(plan);
-            }
-            catch (ArgumentNullException)
+            var plan = await context.BusinessPlans.Where(plan => plan.Id == id).SingleOrDefaultAsync(); // returns null if no plan is found
+
+            if (plan == null)
             {
                 throw new NullReferenceException(nameof(id)); // if no user with that name is found
             }
+            return _mapper.Map<BusinessPlanDomain>(plan);
+            
         }
 
         public async Task<string> GetUserIdByUsernameAsync(string username)

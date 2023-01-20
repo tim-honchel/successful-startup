@@ -1,12 +1,24 @@
-﻿using Microsoft.CodeAnalysis.Differencing;
+﻿using AutoMapper;
+using Microsoft.CodeAnalysis.Differencing;
 using Shouldly; // for assertion
+using SuccessfulStartup.Data.APIs;
+using SuccessfulStartup.Data.Mapping;
 using SuccessfulStartup.Presentation.Pages;
+using System.Threading.Tasks;
 
 namespace SuccessfulStartup.PresentationTests.Pages
 {
     internal class ViewPlanTests
     {
-        private ContextHelper _helper = new ContextHelper(); // contains helper methods for TestContext and TestAuthorizationContext
+        private ContextHelper _helper; // contains helper methods for TestContext and TestAuthorizationContext
+        private ReadOnlyApi _api;
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            _helper = new ContextHelper();
+            _api = new ReadOnlyApi(new Data.Contexts.AuthenticationDbContextFactory(), AllMappingProfiles.GetMapper());
+        }
 
         [Test]
         public void RendersCorrectHeaderText()
@@ -14,7 +26,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
             using var testContext = _helper.GetTestContext();
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
-            var component = testContext.RenderComponent<ViewPlan>(parameters => parameters.Add(p => p.planId, 24)); // render the page 
+            var component = testContext.RenderComponent<ViewPlan>(parameters => parameters.Add(p => p.planId, 24)); // render the page with parameters passed in
 
             var header = component.Find("h1").TextContent;
             header.ShouldBe("Your Business Plan");
@@ -45,16 +57,18 @@ namespace SuccessfulStartup.PresentationTests.Pages
         }
 
         [Test]
-        public void DetailsContainInfoFromParameter()
+        public async Task DetailsContainInfoFromParameter()
         {
             using var testContext = _helper.GetTestContext();
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
+            var existingPlanId = 24;
 
-            var component = testContext.RenderComponent<ViewPlan>(parameters => parameters.Add(p => p.planId, 24));
-            System.Threading.Thread.Sleep(500); // time for component to fully render
+            var component = testContext.RenderComponent<ViewPlan>(parameters => parameters.Add(p => p.planId, existingPlanId));
 
+            var fetchedPlan = await _api.GetPlanById(existingPlanId);
+            System.Threading.Thread.Sleep(50); // time for component to fully render
             var name = component.Find("p[id=\"Name\"]").TextContent;
-            name.ShouldBe("nineteenth plan"); // change to API call
+            name.ShouldBe(fetchedPlan.Name);
         }
     }
 }
