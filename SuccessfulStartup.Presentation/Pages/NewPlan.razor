@@ -33,7 +33,7 @@
 
             <label for="Name" class="control-label">Title: </label>
             <br />
-            <InputText @bind-Value="plan.Name" /> @*links input box to property*@
+            <InputText @bind-Value="plan.Name" id="Name" /> @*links input box to property*@
             <ValidationMessage For="( () =>plan.Name )" style="color:red" /> @*displays only if input is invalid and the entity model property includes a validation message*@
 
             <br />
@@ -41,7 +41,7 @@
 
             <label for="Description" class="control-label">Description: </label>
             <br />
-            <InputText @bind-Value="plan.Description" />
+            <InputText @bind-Value="plan.Description" id="Description"/>
             <ValidationMessage For="( () =>plan.Description )" style="color:red" />
 
 
@@ -52,7 +52,7 @@
 
             <br />
             <br />
-            <p style="color:red">@message</p>
+            <p id="Message" style="color:red">@message</p>
 
         </EditForm>
 

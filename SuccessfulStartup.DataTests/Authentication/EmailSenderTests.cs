@@ -1,6 +1,5 @@
 ﻿using Shouldly; // for assertion
 using SuccessfulStartup.Data.Authentication;
-using System.Diagnostics.Contracts;
 using System.Net;
 using System.Net.Mail; // for MailMessage, MailAddress, MailAddressCollection
 
