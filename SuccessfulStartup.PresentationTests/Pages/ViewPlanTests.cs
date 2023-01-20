@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.CodeAnalysis.Differencing;
-using Shouldly; // for assertion
+﻿using Shouldly; // for assertion
 using SuccessfulStartup.Data.APIs;
 using SuccessfulStartup.Data.Mapping;
 using SuccessfulStartup.Presentation.Pages;
-using System.Threading.Tasks;
+using System.Threading.Tasks; // for Sleep
 
 namespace SuccessfulStartup.PresentationTests.Pages
 {

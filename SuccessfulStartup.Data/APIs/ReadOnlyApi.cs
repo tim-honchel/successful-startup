@@ -11,12 +11,14 @@ namespace SuccessfulStartup.Data.APIs
         private AuthenticationDbContextFactory _factory; // used to create a new context each time a database connection is needed, improving thread safety
         private IMapper _mapper;
         private BusinessPlanReadOnlyRepository _repositoryForBusinessPlan;
+        private UserReadOnlyRepository _repositoryForUsers;
 
         public ReadOnlyApi(AuthenticationDbContextFactory factory, IMapper mapper) // factory and mapper are injected from DataLayerConfiguration
         {
             _factory = factory;
             _mapper = mapper;
             _repositoryForBusinessPlan = new BusinessPlanReadOnlyRepository(_factory, _mapper);
+            _repositoryForUsers = new UserReadOnlyRepository(_factory);
         }
         public virtual async Task<List<BusinessPlanDomain>> GetAllPlansByAuthorId(string authorId)
         {
@@ -28,7 +30,7 @@ namespace SuccessfulStartup.Data.APIs
         }
         public virtual async Task<string> GetUserIdByUsername(string username)
         {
-            return await _repositoryForBusinessPlan.GetUserIdByUsernameAsync(username);
+            return await _repositoryForUsers.GetUserIdByUsernameAsync(username);
         }
     }
 }

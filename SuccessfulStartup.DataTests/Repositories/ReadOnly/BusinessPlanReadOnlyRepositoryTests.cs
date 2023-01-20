@@ -4,13 +4,11 @@ using Microsoft.EntityFrameworkCore; // for DbContextOptionsBuilder
 using Moq; // for Mock
 using Moq.EntityFrameworkCore; // for ReturnsDbSet
 using Shouldly; // for assertions
-using SuccessfulStartup.Data.Authentication;
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Data.Mapping;
 using SuccessfulStartup.Data.Repositories.ReadOnly;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
-using System.Runtime.CompilerServices;
 
 namespace SuccessfulStartup.DataTests.Repositories.ReadOnly
 {
@@ -98,36 +96,5 @@ namespace SuccessfulStartup.DataTests.Repositories.ReadOnly
         {
             Should.Throw<ArgumentNullException>(async () => await _repository.GetPlanByIdAsync(planId));
         }
-
-
-        [Test]
-        public async Task GetUserIdByUsernameAsync_ReturnsMatchingId_GivenExistingUsername()
-        {
-            var savedUsers = A.ListOf<AppUser>(5); // generates list of 5 Identity users
-            savedUsers[0].UserName = "existingUsername";
-            savedUsers[0].Id = "idThatMatchesUsername";
-            _mockContext.Setup(context => context.Users).ReturnsDbSet(savedUsers);
-
-            var id = await _repository.GetUserIdByUsernameAsync("existingUsername");
-
-            id.ShouldBe("idThatMatchesUsername");
-        }
-
-        [Test]
-        public async Task GetUserIdByUsernameAsync_ThrowsNullReferenceException_GivenNonexistentUsername()
-        {
-            var savedUsers = A.ListOf<AppUser>(); // generates list of 25 Identity users
-
-            Should.Throw<NullReferenceException>(async () => await _repository.GetUserIdByUsernameAsync("nonexistentUsername"));
-        }
-
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("     ")]
-        public async Task GetUserIdByUsernameAsync_ThrowsArgumentNullException_GivenInvalidUsername(string? username)
-        {
-            Should.Throw<ArgumentNullException>(async () => await _repository.GetUserIdByUsernameAsync(username));
-        }
-
     }
 }

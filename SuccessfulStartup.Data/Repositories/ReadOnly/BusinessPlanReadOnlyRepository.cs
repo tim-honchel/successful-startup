@@ -1,8 +1,6 @@
 ﻿using AutoMapper; // for AutoMapper
-using Duende.IdentityServer.Extensions;
 using Microsoft.EntityFrameworkCore; // for database queries
 using SuccessfulStartup.Data.Contexts;
-using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Domain.Entities;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 
@@ -44,21 +42,6 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
             
         }
 
-        public async Task<string> GetUserIdByUsernameAsync(string username)
-        {
-            if (string.IsNullOrWhiteSpace(username)) {throw new ArgumentNullException(nameof(username));}
-
-            using var context = _factory.CreateDbContext();
-
-            try
-            {
-                var authorId = await context.Users.Where(user => user.UserName == username).Select(user => user.Id).SingleOrDefaultAsync();
-                return authorId;
-            }
-            catch (ArgumentNullException)
-            {
-                throw new NullReferenceException(nameof(username)); // if no user with that name is found
-            }
-        }
+        
     }
 }

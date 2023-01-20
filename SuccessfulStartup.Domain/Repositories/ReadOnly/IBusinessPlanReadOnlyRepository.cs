@@ -6,7 +6,6 @@ namespace SuccessfulStartup.Domain.Repositories.ReadOnly
     {
         Task<List<BusinessPlanDomain>> GetAllPlansByAuthorIdAsync(string authorId);
         Task<BusinessPlanDomain> GetPlanByIdAsync(int id);
-        Task<string> GetUserIdByUsernameAsync(string username);
         
     }
 }
