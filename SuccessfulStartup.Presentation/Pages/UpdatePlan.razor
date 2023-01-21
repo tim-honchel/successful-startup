@@ -1,9 +1,5 @@
-﻿@*complete a form to create a new business plan*@
+﻿@page "/plans/{planId:int}/update"
 
-@page "/plans/new"
-
-@*for getting current user information*@
-@inject AuthenticationStateProvider provider
 @*for reading and writing to database*@
 @inject ReadOnlyApi readApi
 @inject WriteOnlyApi writeApi
@@ -12,16 +8,14 @@
 
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
-@using SuccessfulStartup.Data.Authentication
-@using SuccessfulStartup.Data
 @using SuccessfulStartup.Data.APIs
 @using SuccessfulStartup.Data.Entities
 
-
-
-<h1>Create a New Business Plan</h1>
+<h1>Edit Your Plan</h1>
+<p> Make the desired changes, then click "Save Changes" to update your plan.</p>
 
 <br />
+
 
 <AuthorizeView> @*determines which content to show, based on user authorization*@
 
@@ -48,7 +42,7 @@
             <br/>
             <br/>
 
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
 
             <br />
             <br />
@@ -64,9 +58,10 @@
 
 </AuthorizeView>
 
+@code {
+    [Parameter]
+    public int planId { get; set; }
 
-
-@code{
     private BusinessPlan plan { get; set; } = new BusinessPlan();
     private string message = "";
 
@@ -74,21 +69,18 @@
     {
         try
         {
-            await writeApi.SaveNewPlan(entityConverter.Convert(plan)); // converts plan to domain entity as required by API
-            message = "New business plan created successfully!";
+            await writeApi.UpdatePlan(entityConverter.Convert(plan));
+            message = "Business plan updated successfully!";
         }
         catch (Exception)
         {
-            message = "Failed to create new business plan.";
+            message = "Failed to update business plan.";
         }
+
     }
 
-    protected async override Task OnParametersSetAsync() // don't use OnInitialized, results in runtime error where model cannot be found 
+    protected async override Task OnParametersSetAsync() // don't use OnInitialized, results in runtime error where model cannot be found
     {
-        plan = new BusinessPlan();
-
-        var authenticationState = await provider.GetAuthenticationStateAsync();
-        var user = authenticationState.User.Identity.Name;
-        plan.AuthorId = await readApi.GetUserIdByUsername(user); @*gets ID of current user to save as foreign key*@
+        plan = entityConverter.Convert(await readApi.GetPlanById(planId));
     }
 }

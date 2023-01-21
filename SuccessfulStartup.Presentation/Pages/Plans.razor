@@ -57,22 +57,18 @@
 <p><a href="/plans/new">Create a new plan</a></p>
 
 @code {
-    private List<BusinessPlan> plans { get; set; }
+    private List<BusinessPlan> plans { get; set; } = new List<BusinessPlan>();
     private string message = "";
 
 
     protected override async Task OnParametersSetAsync() @*don't use OnInitialized, causes runtime error where model can't be found*@
     {
-        plans = new List<BusinessPlan>();
-
         var authenticationState = await provider.GetAuthenticationStateAsync();
         var user = authenticationState.User.Identity.Name;
-        var authorId = await api.GetUserIdByUsername(user);  
-        @*gets ID of current user*@
+        var authorId = await api.GetUserIdByUsername(user);  @*gets ID of current user*@
         try
         {
-            var plansDomain = await api.GetAllPlansByAuthorId(authorId);
-            plans = entityConverter.Convert(plansDomain); // converts to List<BusinessPlan> type, which can be displayed
+            plans = entityConverter.Convert(await api.GetAllPlansByAuthorId(authorId)); // converts to List<BusinessPlan> type, which can be displayed
         }
         catch (Exception)
         {

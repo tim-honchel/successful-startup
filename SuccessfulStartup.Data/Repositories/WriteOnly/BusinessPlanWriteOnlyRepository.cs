@@ -17,6 +17,14 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
             _factory = factory;
             _mapper = mapper;
         }
+        public async Task UpdatePlanAsync(BusinessPlanDomain planToUpdate)
+        {
+            using var context = _factory.CreateDbContext();
+
+            context.Update(_mapper.Map<BusinessPlan>(planToUpdate));
+            context.SaveChanges();
+
+        }
         public async Task SaveNewPlanAsync(BusinessPlanDomain planToSave)
         {
             if (planToSave == null || string.IsNullOrWhiteSpace(planToSave.Name) || string.IsNullOrWhiteSpace(planToSave.Description) || string.IsNullOrWhiteSpace(planToSave.AuthorId) ) { throw new ArgumentNullException(nameof(planToSave)); }

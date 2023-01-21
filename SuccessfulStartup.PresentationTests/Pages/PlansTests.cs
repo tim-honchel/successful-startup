@@ -51,7 +51,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         }
 
         [Test]
-        public async Task RendersRows_GivenAuthorizationAndMatchingRecords()
+        public void RendersRows_GivenAuthorizationAndMatchingRecords()
         {
             var usernameWithMatchingBusinessPlans = "tim.honchel@gmail.com"; // TODO: find a way to mock API or context
             using var testContext = _helper.GetTestContext();
