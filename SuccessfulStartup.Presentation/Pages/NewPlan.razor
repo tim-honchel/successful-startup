@@ -47,8 +47,11 @@
 
             <br/>
             <br/>
+            @if (creationStatus == "unsaved")
+            {
+                <button type="submit" class="btn btn-primary">Create</button>
+            }
 
-            <button type="submit" class="btn btn-primary">Create</button>
 
             <br />
             <br />
@@ -69,16 +72,20 @@
 @code{
     private BusinessPlan plan { get; set; } = new BusinessPlan();
     private string message = "";
+    private string creationStatus = "unsaved";
 
     public async void HandleValidSubmit()
     {
+        creationStatus = "saved";
+        message = "Saving plan...";
         try
         {
-            await writeApi.SaveNewPlan(entityConverter.Convert(plan)); // converts plan to domain entity as required by API
-            message = "New business plan created successfully!";
+            message = "New business plan created successfully!"; // needs to be before API call in order to render
+            await writeApi.SaveNewPlan(entityConverter.Convert(plan)); // converts plan to domain entity as required by API     
         }
         catch (Exception)
         {
+            creationStatus = "unsaved";
             message = "Failed to create new business plan.";
         }
     }
@@ -89,6 +96,7 @@
 
         var authenticationState = await provider.GetAuthenticationStateAsync();
         var user = authenticationState.User.Identity.Name;
-        plan.AuthorId = await readApi.GetUserIdByUsername(user); @*gets ID of current user to save as foreign key*@
+        plan.AuthorId = await readApi.GetUserIdByUsername(user); 
+    @*gets ID of current user to save as foreign key*@
     }
 }

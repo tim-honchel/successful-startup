@@ -41,9 +41,9 @@ namespace SuccessfulStartup.DataTests.Repositories.WriteOnly
         {
             var planToDelete = A.New<BusinessPlanDomain>();
 
-            await _repository.UpdatePlanAsync(planToDelete);
+            await _repository.DeletePlanAsync(planToDelete);
 
-            _mockContext.Verify(context => context.Update<BusinessPlan>(It.Is<BusinessPlan>(plan => plan.Id == planToDelete.Id)), Times.Once()); // verifies that the context deleted the specific business plan, only one time
+            _mockContext.Verify(context => context.Remove<BusinessPlan>(It.Is<BusinessPlan>(plan => plan.Id == planToDelete.Id)), Times.Once()); // verifies that the context deleted the specific business plan, only one time
         }
 
         [Test]

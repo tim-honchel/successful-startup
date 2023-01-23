@@ -1,10 +1,10 @@
 ﻿@page "/plans/{planId:int}/update"
 
 @*for reading and writing to database*@
-@inject ReadOnlyApi readApi
-@inject WriteOnlyApi writeApi
+@inject ReadOnlyApi _readApi
+@inject WriteOnlyApi _writeApi
 @*for converting Domain entities to Data entities, without the need to access Automapper and domain level*@
-@inject EntityConverter entityConverter
+@inject EntityConverter _entityConverter
 
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
@@ -21,7 +21,9 @@
 
     <Authorized>
 
-        <EditForm Model="plan" Context="planContext" OnValidSubmit="HandleValidSubmit">
+        @if (deletionStatus != "deleted")
+        {
+            <EditForm Model="plan" Context="planContext" OnValidSubmit="HandleValidSubmit">
 
             <DataAnnotationsValidator /> @*checks if input meets requirements specified by data annotations in entity model*@
 
@@ -45,10 +47,25 @@
             <button type="submit" class="btn btn-primary">Save Changes</button>
 
             <br />
-            <br />
-            <p id="Message" style="color:red">@message</p>
+
 
         </EditForm>
+        }
+
+        <br />
+        <p id="Message" style="color:red">@message</p>
+
+        @if (deletionStatus == "active")
+        {
+            <btn id="Delete" class="btn btn-danger" @onclick="PromptDelete">Delete Plan</btn>
+        }
+        else if (deletionStatus == "prompt")
+        {
+            <p style="color:red">Are you sure you want to delete this business plan permanently?</p>
+             <btn id="ConfirmDelete" class="btn btn-danger" @onclick="HandleDelete">Confirm Delete</btn>
+            <btn id="CancelDelete" class="btn btn-success" @onclick="CancelDelete">Cancel</btn>
+        }
+        
 
     </Authorized>
 
@@ -64,12 +81,38 @@
 
     private BusinessPlan plan { get; set; } = new BusinessPlan();
     private string message = "";
+    private string deletionStatus = "active";
+
+    public async void CancelDelete()
+    {
+        deletionStatus = "active";
+
+    }
+
+    public async void PromptDelete()
+    {
+        deletionStatus = "prompt";   
+    }
+
+    public async void HandleDelete()
+    {
+        try
+        {
+            await _writeApi.DeletePlan(_entityConverter.Convert(plan));
+            deletionStatus = "deleted";
+            message = "Business plan deleted successfully!";
+        }
+        catch (Exception)
+        {
+            message = "Failed to delete business plan.";
+        }
+    }
 
     public async void HandleValidSubmit()
     {
         try
         {
-            await writeApi.UpdatePlan(entityConverter.Convert(plan));
+            await _writeApi.UpdatePlan(_entityConverter.Convert(plan));
             message = "Business plan updated successfully!";
         }
         catch (Exception)
@@ -81,6 +124,6 @@
 
     protected async override Task OnParametersSetAsync() // don't use OnInitialized, results in runtime error where model cannot be found
     {
-        plan = entityConverter.Convert(await readApi.GetPlanById(planId));
+        plan = _entityConverter.Convert(await _readApi.GetPlanById(planId));
     }
 }

@@ -17,9 +17,12 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
             _factory = factory;
             _mapper = mapper;
         }
-        public async Task DeletePlan(BusinessPlanDomain planToDelete)
+        public async Task DeletePlanAsync(BusinessPlanDomain planToDelete)
         {
+            using var context = _factory.CreateDbContext();
 
+            context.Remove(_mapper.Map<BusinessPlan>(planToDelete));
+            context.SaveChanges();
         }
         public async Task UpdatePlanAsync(BusinessPlanDomain planToUpdate)
         {

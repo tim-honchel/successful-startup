@@ -19,6 +19,12 @@ namespace SuccessfulStartup.Data.APIs
             _mapper = mapper;
             _repositoryForBusinessPlan = new BusinessPlanWriteOnlyRepository(_factory, _mapper) ;
         }
+
+        public async Task DeletePlan(BusinessPlanDomain planToDelete) 
+        {
+            await _repositoryForBusinessPlan.DeletePlanAsync(planToDelete);
+        }
+
         public async Task UpdatePlan(BusinessPlanDomain planToUpdate)
         {
             await _repositoryForBusinessPlan.UpdatePlanAsync(planToUpdate);
