@@ -14,7 +14,7 @@
 @using SuccessfulStartup.Data.APIs
 @using SuccessfulStartup.Data.Entities
 
-<h1>Your Business Plan</h1>
+<h1 id="header">Your Business Plan</h1>
 
 <br />
 
@@ -24,12 +24,12 @@
         <p><a href="/plans/@plan.Id/update">Edit your plan</a></p>
         <br />
 
-        <h6>Name</h6>
-        <p id="Name">@plan.Name</p>
+        <h6 id="plan">Name</h6>
+        <p id="name">@plan.Name</p>
         <br />
 
         <h6>Description</h6>
-        <p id="Description">@plan.Description</p>
+        <p id="description">@plan.Description</p>
 
     </Authorized>
 

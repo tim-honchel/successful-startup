@@ -17,7 +17,7 @@
 
 
 
-<h1>Your Business Plans</h1>
+<h1 id="header">Your Business Plans</h1>
 <br />
 
 <CascadingAuthenticationState> @*provides authentication and authorization state data*@
@@ -28,14 +28,14 @@
             <p>Click on a plan to see more details</p>
             <br />
 
-            <table class="table">
+            <table id="plans" class="table">
                 <tr>
                     <th>Title</th>
                     <th>Description</th>
                 </tr>
                 @foreach (var plan in plans)
                 {
-                    <tr>
+                    <tr id="plan">
                         <td><a href="/plans/@plan.Id">@plan.Name</a></td>
                         <td>@plan.Description</td>
                     </tr>

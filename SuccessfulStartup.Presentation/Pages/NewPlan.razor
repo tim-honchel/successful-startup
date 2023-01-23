@@ -19,7 +19,7 @@
 
 
 
-<h1>Create a New Business Plan</h1>
+<h1 id="header">Create a New Business Plan</h1>
 
 <br />
 
@@ -27,13 +27,13 @@
 
     <Authorized>
 
-        <EditForm Model="plan" Context="planContext" OnValidSubmit="HandleValidSubmit">
+        <EditForm id="form" Model="plan" Context="planContext" OnValidSubmit="HandleValidSubmit">
 
             <DataAnnotationsValidator /> @*checks if input meets requirements specified by data annotations in entity model*@
 
             <label for="Name" class="control-label">Title: </label>
             <br />
-            <InputText @bind-Value="plan.Name" id="Name" /> @*links input box to property*@
+            <InputText @bind-Value="plan.Name" id="name" /> @*links input box to property*@
             <ValidationMessage For="( () =>plan.Name )" style="color:red" /> @*displays only if input is invalid and the entity model property includes a validation message*@
 
             <br />
@@ -41,7 +41,7 @@
 
             <label for="Description" class="control-label">Description: </label>
             <br />
-            <InputText @bind-Value="plan.Description" id="Description"/>
+            <InputText @bind-Value="plan.Description" id="description"/>
             <ValidationMessage For="( () =>plan.Description )" style="color:red" />
 
 
@@ -55,7 +55,7 @@
 
             <br />
             <br />
-            <p id="Message" style="color:red">@message</p>
+            <p id="message" style="color:red">@message</p>
 
         </EditForm>
 

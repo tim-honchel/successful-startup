@@ -11,7 +11,7 @@
 @using SuccessfulStartup.Data.APIs
 @using SuccessfulStartup.Data.Entities
 
-<h1>Edit Your Plan</h1>
+<h1 id="header">Edit Your Plan</h1>
 <p> Make the desired changes, then click "Save Changes" to update your plan.</p>
 
 <br />
@@ -23,13 +23,13 @@
 
         @if (deletionStatus != "deleted")
         {
-            <EditForm Model="plan" Context="planContext" OnValidSubmit="HandleValidSubmit">
+            <EditForm id="form" Model="plan" Context="planContext" OnValidSubmit="HandleValidSubmit">
 
             <DataAnnotationsValidator /> @*checks if input meets requirements specified by data annotations in entity model*@
 
             <label for="Name" class="control-label">Title: </label>
             <br />
-            <InputText @bind-Value="plan.Name" id="Name" /> @*links input box to property*@
+            <InputText @bind-Value="plan.Name" id="name" /> @*links input box to property*@
             <ValidationMessage For="( () =>plan.Name )" style="color:red" /> @*displays only if input is invalid and the entity model property includes a validation message*@
 
             <br />
@@ -37,7 +37,7 @@
 
             <label for="Description" class="control-label">Description: </label>
             <br />
-            <InputText @bind-Value="plan.Description" id="Description"/>
+            <InputText @bind-Value="plan.Description" id="description"/>
             <ValidationMessage For="( () =>plan.Description )" style="color:red" />
 
 
@@ -53,17 +53,17 @@
         }
 
         <br />
-        <p id="Message" style="color:red">@message</p>
+        <p id="message" style="color:red">@message</p>
 
         @if (deletionStatus == "active")
         {
-            <btn id="Delete" class="btn btn-danger" @onclick="PromptDelete">Delete Plan</btn>
+            <btn id="delete" class="btn btn-danger" @onclick="PromptDelete">Delete Plan</btn>
         }
         else if (deletionStatus == "prompt")
         {
             <p style="color:red">Are you sure you want to delete this business plan permanently?</p>
-             <btn id="ConfirmDelete" class="btn btn-danger" @onclick="HandleDelete">Confirm Delete</btn>
-            <btn id="CancelDelete" class="btn btn-success" @onclick="CancelDelete">Cancel</btn>
+             <btn id="confirmDelete" class="btn btn-danger" @onclick="HandleDelete">Confirm Delete</btn>
+            <btn id="cancelDelete" class="btn btn-success" @onclick="CancelDelete">Cancel</btn>
         }
         
 

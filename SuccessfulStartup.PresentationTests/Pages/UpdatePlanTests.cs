@@ -1,68 +1,82 @@
-﻿using Shouldly;
-using SuccessfulStartup.Data.APIs;
-using SuccessfulStartup.Data.Mapping;
+﻿using GenFu; // for generating mock objects
+using Microsoft.EntityFrameworkCore; // for DbContextOptionsBuilder
+using Moq; // for Mockc, Setup
+using Moq.EntityFrameworkCore; // for ReturnsDbSet
+using Shouldly; // for assertion
+using SuccessfulStartup.Data.Contexts;
+using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Presentation.Pages;
-using System.Threading.Tasks;
+using System.Threading.Tasks; // for Sleep
 
 namespace SuccessfulStartup.PresentationTests.Pages
 {
     internal class UpdatePlanTests
     {
         private ContextHelper _helper; // contains helper methods for TestContext and TestAuthorizationContext
-        private ReadOnlyApi _api;
-        private int _validPlanId;
+        private Mock<AuthenticationDbContext> _mockContext; // to simulate database calls
+        private BusinessPlan _firstPlanInMockSet; // record to be updated or deleted
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            _helper = new ContextHelper();
-            _api = new ReadOnlyApi(new Data.Contexts.AuthenticationDbContextFactory(), AllMappingProfiles.GetMapper());
-            _validPlanId = 26;
+            _helper = new ContextHelper(); // contains helper methods to et TestContext and AuthenticationTestContext
+        }
+
+        [SetUp]
+        public void SetUp() // resets before each test for clean data set
+        {
+            _mockContext = new Mock<AuthenticationDbContext>(new DbContextOptionsBuilder<AuthenticationDbContext>().Options, "dummyConnectionString");
+            var allPlans = A.ListOf<BusinessPlan>(5);
+            _firstPlanInMockSet = allPlans[0];
+            _mockContext.Setup(context => context.BusinessPlans).ReturnsDbSet(allPlans); // when database is called, will return the 5 generated business plans
         }
 
         [Test]
         public async Task CancelButton_RendersDeleteButton_OnClick()
         {
-            using var testContext = _helper.GetTestContext();
+            var planToDelete = _firstPlanInMockSet;
+            using var testContext = _helper.GetTestContextWithMock(_mockContext);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
-            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, _validPlanId));
-            component.Find("btn[id=\"Delete\"]").Click();
+            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToDelete.Id));
+            component.Find("btn[id=\"delete\"]").Click();
             System.Threading.Thread.Sleep(300); // time for component to fully render
-            component.Find("btn[id=\"CancelDelete\"]").Click();
+            component.Find("btn[id=\"cancelDelete\"]").Click();
             System.Threading.Thread.Sleep(300); // time for component to fully render
 
-            var rendersDeleteButton = component.FindAll("btn[id=\"Delete\"]").Count > 0;
+            var rendersDeleteButton = component.FindAll("btn[id=\"delete\"]").Count > 0;
             rendersDeleteButton.ShouldBeTrue();
         }
 
         [Test]
         public async Task ConfirmDeleteButton_RendersSuccessMessage_OnClick()
         {
-            using var testContext = _helper.GetTestContext();
+            var planToDelete = _firstPlanInMockSet;
+            using var testContext = _helper.GetTestContextWithMock(_mockContext);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
-            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, _validPlanId));
-            component.Find("btn[id=\"Delete\"]").Click();
+            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToDelete.Id)); // URL passes in plan Id
+            component.Find("btn[id=\"delete\"]").Click(); // clicks the delete button
             System.Threading.Thread.Sleep(300); // time for component to fully render
-            component.Find("btn[id=\"ConfirmDelete\"]").Click();
+            component.Find("btn[id=\"confirmDelete\"]").Click(); // clicks the confirm delete button
             System.Threading.Thread.Sleep(300); // time for component to fully render
 
-            var rendersSuccessMessage = component.Find("p[id =\"Message\"]").TextContent == "Business plan deleted successfully!";
+            var rendersSuccessMessage = component.Find("p[id =\"message\"]").TextContent == "Business plan deleted successfully!"; // finds whether the message is shown
             rendersSuccessMessage.ShouldBeTrue();
         }
 
         [Test]
         public async Task DeleteButton_RendersPrompt_OnClick()
         {
-            using var testContext = _helper.GetTestContext();
+            var planToDelete = _firstPlanInMockSet;
+            using var testContext = _helper.GetTestContextWithMock(_mockContext);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
-            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, _validPlanId));
-            component.Find("btn[id=\"Delete\"]").Click();
+            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToDelete.Id));
+            component.Find("btn[id=\"delete\"]").Click();
             System.Threading.Thread.Sleep(300); // time for component to fully render
 
-            var rendersPrompt = component.FindAll("btn[id=\"ConfirmDelete\"]").Count > 0;
+            var rendersPrompt = component.FindAll("btn[id=\"confirmDelete\"]").Count > 0;
             rendersPrompt.ShouldBeTrue();
         }
 
@@ -70,32 +84,33 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public async Task DetailsContainInfoFromParameter()
         {
-            using var testContext = _helper.GetTestContext();
+            var planToUpdate = _firstPlanInMockSet;
+            using var testContext = _helper.GetTestContextWithMock(_mockContext);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
-            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, _validPlanId));
+            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToUpdate.Id));
 
-            var fetchedPlan = await _api.GetPlanById(_validPlanId);
             System.Threading.Thread.Sleep(300); // time for component to fully render
-            var input = component.Find("input[id=\"Name\"]").ToMarkup();
+            var input = component.Find("input[id=\"name\"]").ToMarkup();
             var startPosition = input.IndexOf("value") + 7;
             var endPosition = input.IndexOf("blazor") - 2;
             var name = input.Substring(startPosition, endPosition - startPosition);
-            name.ShouldBe(fetchedPlan.Name);
+            name.ShouldBe(planToUpdate.Name);
         }
 
         [Test]
         public void FormSubmit_RendersMessage_GivenValidInput()
         {
-            using var testContext = _helper.GetTestContext();
+            var planToUpdate = _firstPlanInMockSet;
+            using var testContext = _helper.GetTestContextWithMock(_mockContext);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
-            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, _validPlanId));
+            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToUpdate.Id));
 
-            component.Find("input[id=\"Name\"]").Change("test name");
-            component.Find("input[id=\"Description\"]").Change("test description");
+            component.Find("input[id=\"name\"]").Change("test name");
+            component.Find("input[id=\"description\"]").Change("test description");
             component.Find("form").Submit();
 
-            var message = component.Find("p[id =\"Message\"]").TextContent;
+            var message = component.Find("p[id =\"message\"]").TextContent;
             message.ShouldNotBeEmpty();
         }
 
@@ -105,51 +120,55 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [TestCase("name is really really really really really really really long", "description")] // name exceeds max length
         public void FormSubmit_RendersNoMessage_GivenInvalidInput(string name, string description) // field messages will appear, but no form message
         {
-            using var testContext = _helper.GetTestContext();
+            var planToUpdate = _firstPlanInMockSet;
+            using var testContext = _helper.GetTestContextWithMock(_mockContext);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
-            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, _validPlanId));
+            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToUpdate.Id));
 
-            component.Find("input[id=\"Name\"]").Change(name);
-            component.Find("input[id=\"Description\"]").Change(description);
+            component.Find("input[id=\"name\"]").Change(name);
+            component.Find("input[id=\"description\"]").Change(description);
             component.Find("form").Submit(); // EditForm is rendered as "form"
 
-            var message = component.Find("p[id =\"Message\"]").TextContent; // component re-renders automatically, no need to render new component
+            var message = component.Find("p[id =\"message\"]").TextContent; // component re-renders automatically, no need to render new component
             message.ShouldBeEmpty();
         }
 
         [Test]
         public void RendersCorrectHeaderText()
         {
-            using var testContext = _helper.GetTestContext();
+            var planToUpdate = _firstPlanInMockSet;
+            using var testContext = _helper.GetTestContextWithMock(_mockContext);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
-            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, _validPlanId)); // render the page 
+            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToUpdate.Id)); // render the page 
 
-            var header = component.Find("h1").TextContent;
+            var header = component.Find("h1[id =\"header\"]").TextContent;
             header.ShouldBe("Edit Your Plan");
         }
 
         [Test]
         public void RendersForm_GivenAuthorization()
         {
-            using var testContext = _helper.GetTestContext();
+            var planToUpdate = _firstPlanInMockSet;
+            using var testContext = _helper.GetTestContextWithMock(_mockContext);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
-            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, _validPlanId));
+            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToUpdate.Id));
 
-            var rendersForm = component.FindAll("form").Count > 0;
+            var rendersForm = component.FindAll("form[id=\"form\"]").Count > 0;
             rendersForm.ShouldBeTrue();
         }
 
         [Test]
         public void RendersNoForm_GivenUnauthorization()
         {
-            using var testContext = _helper.GetTestContext();
+            var planToUpdate = _firstPlanInMockSet;
+            using var testContext = _helper.GetTestContextWithMock(_mockContext);
             var authorizationContext = _helper.GetAuthorizationContext(testContext, "email@gmail.com", false);
 
-            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, _validPlanId));
+            var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToUpdate.Id));
 
-            var rendersForm = component.FindAll("form").Count > 0;
+            var rendersForm = component.FindAll("form[id=\"form\"]").Count > 0;
             rendersForm.ShouldBeFalse();
         }
 
