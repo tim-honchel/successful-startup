@@ -12,6 +12,7 @@ using SuccessfulStartup.Data.Repositories.WriteOnly;
 using SuccessfulStartup.Domain.Entities;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 using SuccessfulStartup.Domain.Repositories.WriteOnly;
+using System.Diagnostics.Contracts;
 
 namespace SuccessfulStartup.DataTests.Repositories.WriteOnly
 {
@@ -36,13 +37,23 @@ namespace SuccessfulStartup.DataTests.Repositories.WriteOnly
         }
 
         [Test]
+        public async Task DeletePlan_RemovesPlanFromDatabase()
+        {
+            var planToDelete = A.New<BusinessPlanDomain>();
+
+            await _repository.UpdatePlanAsync(planToDelete);
+
+            _mockContext.Verify(context => context.Update<BusinessPlan>(It.Is<BusinessPlan>(plan => plan.Id == planToDelete.Id)), Times.Once()); // verifies that the context deleted the specific business plan, only one time
+        }
+
+        [Test]
         public async Task UpdatePlanAsync_SavesChangesToPlan()
         {
             var updatedPlan = A.New<BusinessPlanDomain>();
 
             await _repository.UpdatePlanAsync(updatedPlan);
 
-            _mockContext.Verify(context => context.Update<BusinessPlan>(It.Is<BusinessPlan>(plan => plan.Id == updatedPlan.Id)), Times.Once()); // verifies that the context added the specific business plan, only one time
+            _mockContext.Verify(context => context.Update<BusinessPlan>(It.Is<BusinessPlan>(plan => plan.Id == updatedPlan.Id)), Times.Once()); // verifies that the context updated the specific business plan, only one time
         }
 
         [Test]
