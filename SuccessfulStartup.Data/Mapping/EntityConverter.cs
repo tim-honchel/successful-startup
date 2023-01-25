@@ -4,7 +4,7 @@ using AutoMapper; // for IMapper
 using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Domain.Entities;
 
-namespace SuccessfulStartup.Data.APIs
+namespace SuccessfulStartup.Data.Mapping
 {
     public class EntityConverter
     {
@@ -34,5 +34,6 @@ namespace SuccessfulStartup.Data.APIs
         {
             return _mapper.Map<List<BusinessPlanDomain>>(plans);
         }
+
     }
 }

@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SuccessfulStartup.Api\SuccessfulStartup.Api.csproj" />
     <ProjectReference Include="..\SuccessfulStartup.Data\SuccessfulStartup.Data.csproj" />
   </ItemGroup>
 

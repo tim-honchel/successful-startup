@@ -4,18 +4,9 @@
 
 @*for getting current user information*@
 @inject AuthenticationStateProvider provider
-@*for reading database*@
-@inject ReadOnlyApi api
-@*for converting Domain entities to Data entities, without the need to access Automapper and domain level*@
-@inject EntityConverter entityConverter
 
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
-@using SuccessfulStartup.Data
-@using SuccessfulStartup.Data.APIs
 @using SuccessfulStartup.Data.Entities
-@using SuccessfulStartup.Data.Mapping
-
-
 
 <h1 id="header">Your Business Plans</h1>
 <br />
@@ -58,17 +49,18 @@
 
 @code {
     private List<BusinessPlan> plans { get; set; } = new List<BusinessPlan>();
-    private string message = "";
+    private string message = "Loading...";
 
 
     protected override async Task OnParametersSetAsync() @*don't use OnInitialized, causes runtime error where model can't be found*@
     {
         var authenticationState = await provider.GetAuthenticationStateAsync();
         var user = authenticationState.User.Identity.Name;
-        var authorId = await api.GetUserIdByUsername(user);  @*gets ID of current user*@
+        var authorId = await ApiCallService.GetUserIdByUsernameAsync(user); // service manages all HTTPClient requests to the API
         try
         {
-            plans = entityConverter.Convert(await api.GetAllPlansByAuthorId(authorId)); // converts to List<BusinessPlan> type, which can be displayed
+            plans = await ApiCallService.GetAllPlansByAuthorIdAsync(authorId); // service manages all HTTPClient requests to the API
+            message = "";
         }
         catch (Exception)
         {

@@ -2,16 +2,8 @@
 
 @page "/plans/{planId:int}"
 
-@*for reading and writing to database*@
-@inject ReadOnlyApi readApi
-@*for converting Domain entities to Data entities, without the need to access Automapper and domain level*@
-@inject EntityConverter entityConverter
-
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
-@using SuccessfulStartup.Data.Authentication
-@using SuccessfulStartup.Data
-@using SuccessfulStartup.Data.APIs
 @using SuccessfulStartup.Data.Entities
 
 <h1 id="header">Your Business Plan</h1>
@@ -47,6 +39,6 @@
 
     protected async override Task OnParametersSetAsync() // don't use OnInitialized, results in runtime error where model cannot be found
     {
-        plan = entityConverter.Convert(await readApi.GetPlanById(planId));
+        plan = await ApiCallService.GetPlanByIdAsync(planId); // service manages all HTTPClient requests to the API
     }
 }

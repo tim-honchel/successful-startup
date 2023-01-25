@@ -4,7 +4,7 @@ using SuccessfulStartup.Domain.Repositories.ReadOnly;
 
 namespace SuccessfulStartup.Data.Repositories.ReadOnly
 {
-    internal class UserReadOnlyRepository : IUserReadOnlyRepository // 
+    public class UserReadOnlyRepository : IUserReadOnlyRepository // 
     {
         private AuthenticationDbContextFactory _factory; // creates context for database connection TODO: is it possible to use interface instead
         public UserReadOnlyRepository(AuthenticationDbContextFactory factory)

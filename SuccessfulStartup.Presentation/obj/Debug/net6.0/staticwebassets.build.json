@@ -1,11 +1,23 @@
 {
   "Version": 1,
-  "Hash": "xVimNTPURzKmi/kvN3xU3Z1C6nbNcluiGxweUaKEhrk=",
+  "Hash": "8iYzWxHsUk/9kA6YheHyj0HCxC80/3+GQKnK581SoR8=",
   "Source": "SuccessfulStartup.Presentation",
   "BasePath": "_content/SuccessfulStartup.Presentation",
   "Mode": "Default",
   "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Api\\SuccessfulStartup.Api.csproj",
+      "Version": 2,
+      "Source": "SuccessfulStartup.Api",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
   "DiscoveryPatterns": [
     {
       "Name": "SuccessfulStartup.Presentation\\wwwroot",

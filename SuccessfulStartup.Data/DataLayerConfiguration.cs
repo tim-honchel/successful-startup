@@ -36,8 +36,11 @@ namespace SuccessfulStartup.Data
             services.AddScoped<ReadOnlyApi>();
             services.AddScoped<WriteOnlyApi>();
             services.AddTransient<IEmailSender, EmailSender>(); // enables email sends
-            services.AddTransient<IBusinessPlanReadOnlyRepository, BusinessPlanReadOnlyRepository>();
-            services.AddTransient<IBusinessPlanWriteOnlyRepository, BusinessPlanWriteOnlyRepository>();
+            //services.AddTransient<IBusinessPlanReadOnlyRepository, BusinessPlanReadOnlyRepository>();
+            //services.AddTransient<IBusinessPlanWriteOnlyRepository, BusinessPlanWriteOnlyRepository>();
+            services.AddTransient<BusinessPlanReadOnlyRepository>();
+            services.AddTransient<BusinessPlanWriteOnlyRepository>();
+            services.AddTransient<UserReadOnlyRepository>();
             return services;
         }
     }
