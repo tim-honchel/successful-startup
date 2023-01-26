@@ -10,7 +10,7 @@ namespace SuccessfulStartup.Data.Mapping
     {
         private IMapper _mapper; 
 
-        public EntityConverter(IMapper mapper) // Autompapper injected from configuration
+        public EntityConverter(IMapper mapper) // Autopapper injected from configuration
         {
             _mapper = mapper;
         }

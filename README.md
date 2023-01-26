@@ -23,22 +23,28 @@ I created Successful Startup to practice using the following principles and tech
 * Moq
 
 ## Architecture
-I used a 3 layer approach, with each layer residing in a separate project within the "src" folder. I also used test driven development (TDD), with test projects for each layer, residing in the "test" folder. Following clean architecture principles, the inner layers do not reference the outer layers.
+I used a 4 layer approach, with each layer residing in a separate project within the "src" folder. I also used test driven development (TDD), with test projects for each layer, residing in the "test" folder. Following clean architecture principles, the inner layers do not reference the outer layers.
 
 ### Domain
 Class library. Inner-most layer. Business logic. Contains entity base classes, repository interfaces, and API interfaces. Creates blueprints that data layers must follow, ensuring that all requirements are met and making it easier to substitute databases as needed without risking errors.
 
 ### Data
-Class library. Middle layer. Database access. Contains APIs, Identity authentication tools, database contexts and factories, entities, code-first database migrations, repositories for CRUD operations, and a mapping profile to map data and domain entities. Provides APIs that allow the presentation layer to read and write to the database. *I would like to add a separate layer for the API that sits between the presentation and data layers. The presentation layer would only interact with the API.*
+Class library. Inner-middle layer. Database access. Contains Identity authentication tools, database contexts and factories, entities, code-first database migrations, repositories for CRUD operations, and a mapping profile to map data and domain entities. 
+
+### API
+Web API app. Outer-middle layer. Data exchange. Provides API endpoints for the presentation layer to indirectly read and write to the database using HttpClient requests. Set as the secondary startup project. 
 
 ### Presentation
-Blazer Server app. Outer layer. User interface. Contains Razor components, pages, and layouts. Displays content and allows for user input. This is set as the startup project and contains Program.cs for app build and service configuration, so when the application runs, this project will be loaded first.
+Blazer Server app. Outer-most layer. User interface. Contains Razor components, pages, and layouts. Displays content and allows for user input. This is set as the primary startup project and contains Program.cs for app build and service configuration, so when the application runs, this project will be loaded first.
 
 ### Domain Tests
 NUnit test project. Contains unit tests for the methods in the Domain layer.
 
 ### Data Tests
 NUnit test project. Contains unit tests for the methods in the Data layer.
+
+### API Tests
+NUnit test project. Contains unit tests for the methods in the API layer.
 
 ### Presentation Tests
 BUnit test project. Contains unit tests for the methods in the Presentation layer.
@@ -47,7 +53,7 @@ BUnit test project. Contains unit tests for the methods in the Presentation laye
 As a junior developer, I created this application to integrate and reinforce my understanding of various technologies and principles. Therefore, I decided to document the process, including my mistakes and lessons learned. I also used explanatory comments as often as possible for why classes and lines of code are necessary. These can serve as references when building projects in the future.
 
 ### API
-Instead of the presentation having to inject from a variety of repositories, I decided it would be better to inject one of 2 APIs (read-only and write-only). Those APIs would implement all the necessary repositories and call their methods. I used domain-level interfaces to create a blueprint for each API. The API's use parameterized constructors for the context factory and mapper, which are injected in the configuration class.
+At first, I injected 2 API classes (read-only and write-only) into the presentation layer, with parameterized context factory and mapper constructors that were also injected in the configuration class. Each API implemented all the necessary repositories and called their methods. Later, I decided it was better to create a separate API layer between the presentation and data layers. I created a service so the presentation pages could make API calls.
 
 ### ASP.NET Core Identity
 I used a single database context for Identity tables and other application tables. The context inherits from IdentityDbContext. I added the DbContext and DefaultIdentity to services in Program.cs and the database connection string to appsettings.json. I learned that Identity works differently on a Blazor Server project than on an ASP.NET Core Web App project; use AddDefaultIdentity<AppUser> rather than AddIdentity and use the built-in Identity.UI instead of manually creating Login, Logout, and Register pages and view models. It is still possible to custom override those pages by creating a Pages/Account folder. Also, a _LoginPartial page is required for the Identity.UI. At first, I had the Authentication-related files in the Presentation layer, but I ultimately moved them to the Data layer. I tried several ways to get the current user's ID in order to use it as a foreign key in other tables. The best way I found was to inject AuthenticationStateProvider into the Razor page, use it to get the current user's username (must be unique), then use it in an API call that searches for and returns the Id of that username.

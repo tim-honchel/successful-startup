@@ -7,7 +7,7 @@
 
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
-@using SuccessfulStartup.Data.Entities
+@using SuccessfulStartup.Api.ViewModels
 
 
 
@@ -62,7 +62,7 @@
 
 
 @code{
-    private BusinessPlan plan { get; set; } = new BusinessPlan();
+    private BusinessPlanViewModel plan { get; set; } = new BusinessPlanViewModel();
     public string authorId = "";
     private string message = "";
     private string creationStatus = "unsaved";
@@ -86,7 +86,7 @@
 
     protected async override Task OnParametersSetAsync() // don't use OnInitialized, results in runtime error where model cannot be found 
     {
-        plan = new BusinessPlan();
+        plan = new BusinessPlanViewModel();
 
         var authenticationState = await provider.GetAuthenticationStateAsync();
         var user = authenticationState.User.Identity.Name;

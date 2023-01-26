@@ -4,7 +4,7 @@
 
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
-@using SuccessfulStartup.Data.Entities
+@using SuccessfulStartup.Api.ViewModels;
 
 <h1 id="header">Edit Your Plan</h1>
 <p> Make the desired changes, then click "Save Changes" to update your plan.</p>
@@ -74,7 +74,7 @@
     [Parameter]
     public int planId { get; set; }
 
-    private BusinessPlan plan { get; set; } = new BusinessPlan();
+    private BusinessPlanViewModel plan { get; set; } = new BusinessPlanViewModel();
     private string message = "";
     private string deletionStatus = "active";
 

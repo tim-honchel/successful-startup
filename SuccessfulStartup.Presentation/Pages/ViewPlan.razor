@@ -4,7 +4,7 @@
 
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
-@using SuccessfulStartup.Data.Entities
+@using SuccessfulStartup.Api.ViewModels
 
 <h1 id="header">Your Business Plan</h1>
 
@@ -35,7 +35,7 @@
     [Parameter]
     public int planId { get; set; }
 
-    private BusinessPlan plan { get; set; } = new BusinessPlan();
+    private BusinessPlanViewModel plan { get; set; } = new BusinessPlanViewModel();
 
     protected async override Task OnParametersSetAsync() // don't use OnInitialized, results in runtime error where model cannot be found
     {

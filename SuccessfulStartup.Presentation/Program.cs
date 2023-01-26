@@ -1,5 +1,4 @@
-using SuccessfulStartup.Data;
-using SuccessfulStartup.Presentation.Services;
+using SuccessfulStartup.Data; // TODO: possible to avoid? need authentication
 
 var builder = WebApplication.CreateBuilder(args); // initializes a builder for configuring a new web application
 

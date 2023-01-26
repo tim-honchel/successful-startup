@@ -6,7 +6,7 @@
 @inject AuthenticationStateProvider provider
 
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
-@using SuccessfulStartup.Data.Entities
+@using SuccessfulStartup.Api.ViewModels
 
 <h1 id="header">Your Business Plans</h1>
 <br />
@@ -48,7 +48,7 @@
 <p><a href="/plans/new">Create a new plan</a></p>
 
 @code {
-    private List<BusinessPlan> plans { get; set; } = new List<BusinessPlan>();
+    private List<BusinessPlanViewModel> plans { get; set; } = new List<BusinessPlanViewModel>();
     private string message = "Loading...";
 
 

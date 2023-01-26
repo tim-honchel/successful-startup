@@ -1,5 +1,4 @@
 ﻿using AutoMapper; // for IMapper
-using Microsoft.EntityFrameworkCore; // for IDbContextFactory
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Domain.Entities;
@@ -27,7 +26,6 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
         public async Task UpdatePlanAsync(BusinessPlanDomain planToUpdate)
         {
             using var context = _factory.CreateDbContext();
-
             context.Update(_mapper.Map<BusinessPlan>(planToUpdate));
             context.SaveChanges();
 

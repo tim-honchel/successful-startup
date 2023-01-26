@@ -1,7 +1,7 @@
-﻿using SuccessfulStartup.Data.APIs;
-using SuccessfulStartup.Data.Entities;
-using SuccessfulStartup.Data.Mapping;
-using System.Net.Http.Headers;
+﻿using SuccessfulStartup.Api.Controllers; // temporary workaround with WriteOnlyApi
+using SuccessfulStartup.Api.Mapping;
+using SuccessfulStartup.Api.ViewModels;
+using System.Net.Http.Headers; // for HttpClient
 
 namespace SuccessfulStartup.Presentation.Services
 {
@@ -9,9 +9,9 @@ namespace SuccessfulStartup.Presentation.Services
     {
         private static HttpClient _client = new HttpClient();
         private static bool _isSetup = false;
+        private static ViewModelConverter _converter = new ViewModelConverter(AllViewModelsMappingProfiles.GetMapper());
 
-        private static WriteOnlyApi _writeOnlyApi = new WriteOnlyApi(new Data.Contexts.AuthenticationDbContextFactory(), AllMappingProfiles.GetMapper()); // temporary workaround
-        private static EntityConverter _entityConverter = new EntityConverter(AllMappingProfiles.GetMapper()); // temporary workaround
+        private static WriteOnlyApi _writeOnlyApi = new WriteOnlyApi(); // temporary workaround
 
         internal static void SetupClient()
         {
@@ -31,19 +31,19 @@ namespace SuccessfulStartup.Presentation.Services
             response.EnsureSuccessStatusCode();
         }
 
-        internal static async Task<List<BusinessPlan>> GetAllPlansByAuthorIdAsync(string authorId)
+        internal static async Task<List<BusinessPlanViewModel>> GetAllPlansByAuthorIdAsync(string authorId)
         {
             SetupClient();
             var response = await _client.GetAsync($"Plan/all/{authorId}");
-            var plans = await response.Content.ReadFromJsonAsync<List<BusinessPlan>>();
+            var plans = await response.Content.ReadFromJsonAsync<List<BusinessPlanViewModel>>();
             return plans;
         }
 
-        internal static async Task<BusinessPlan> GetPlanByIdAsync(int planId)
+        internal static async Task<BusinessPlanViewModel> GetPlanByIdAsync(int planId)
         {
             SetupClient();
             var response = await _client.GetAsync($"Plan/{planId}");
-            var plan = await response.Content.ReadFromJsonAsync<BusinessPlan>();
+            var plan = await response.Content.ReadFromJsonAsync<BusinessPlanViewModel>();
             return plan;
         }
 
@@ -57,18 +57,18 @@ namespace SuccessfulStartup.Presentation.Services
         }
 
 
-        internal static async Task SaveNewPlanAsync(BusinessPlan plan) // TODO: not working, using temporary workaround
+        internal static async Task SaveNewPlanAsync(BusinessPlanViewModel plan) // TODO: not working, using temporary workaround
         {
             SetupClient();
-            await _writeOnlyApi.SaveNewPlan(_entityConverter.Convert(plan));
+            await _writeOnlyApi.SaveNewPlan(_converter.Convert(plan));
             //var response = await _client.PostAsJsonAsync("Plan", plan);
             //response.EnsureSuccessStatusCode();
         }
 
-        internal static async Task UpdatePlanAsync(BusinessPlan plan) // TODO: not working, using temporary workaround
+        internal static async Task UpdatePlanAsync(BusinessPlanViewModel plan) // TODO: not working, using temporary workaround
         {
             SetupClient();
-            await _writeOnlyApi.UpdatePlan(_entityConverter.Convert(plan));
+            await _writeOnlyApi.UpdatePlan(_converter.Convert(plan));
             //var response = await _client.PutAsJsonAsync("Plan", plan);
             //response.EnsureSuccessStatusCode();
         }

@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc; // for ControllerBase, HttpGet, HttpPost, HttpPut, HttpDelete)
+using SuccessfulStartup.Api.Mapping;
 // using Newtonsoft.Json; // for JsonConvert, DeserializeObject
 using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Data.Mapping;
 using SuccessfulStartup.Data.Repositories.ReadOnly;
 using SuccessfulStartup.Data.Repositories.WriteOnly;
-using SuccessfulStartup.Domain.Entities;
 
 namespace SuccessfulStartup.Api.Controllers
 {
@@ -14,12 +14,14 @@ namespace SuccessfulStartup.Api.Controllers
     {
         private BusinessPlanReadOnlyRepository _repositoryForReadingBusinessPlans;
         private BusinessPlanWriteOnlyRepository _repositoryForWritingBusinessPlans;
+        private ViewModelConverter _viewModelConverter;
         private EntityConverter _entityConverter;
 
-        public PlanController(BusinessPlanReadOnlyRepository repositoryForReadingBusinessPlans, BusinessPlanWriteOnlyRepository repositoryForWritingBusinessPlans, EntityConverter entityConverter)
+        public PlanController(BusinessPlanReadOnlyRepository repositoryForReadingBusinessPlans, BusinessPlanWriteOnlyRepository repositoryForWritingBusinessPlans, ViewModelConverter viewModelConverter, EntityConverter entityConverter)
         {
             _repositoryForReadingBusinessPlans = repositoryForReadingBusinessPlans;
             _repositoryForWritingBusinessPlans = repositoryForWritingBusinessPlans;
+            _viewModelConverter = viewModelConverter;
             _entityConverter= entityConverter;
         }
 
@@ -35,20 +37,20 @@ namespace SuccessfulStartup.Api.Controllers
         public async Task<IActionResult> GetAllPlansByAuthorId(string authorId)
         {
             var plans = await _repositoryForReadingBusinessPlans.GetAllPlansByAuthorIdAsync(authorId);
-            return new OkObjectResult(_entityConverter.Convert(plans));
+            return new OkObjectResult(plans); // not necessary to convert to ViewModel because JSON format is the same
         }
 
         [HttpGet("{planId}")]
         public async Task<IActionResult> GetPlanById(int planId)
         {
             var plan = await _repositoryForReadingBusinessPlans.GetPlanByIdAsync(planId);
-            return new OkObjectResult(plan);
+            return new OkObjectResult(plan); // not necessary to convert to ViewModel because JSON format is the same
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdatePlan([FromBody] BusinessPlanViewModel plan)
         {
-            await _repositoryForWritingBusinessPlans.UpdatePlanAsync(plan);
+            await _repositoryForWritingBusinessPlans.UpdatePlanAsync(plan); // may need to convert to domain
             return new OkResult();
         }
 
@@ -56,8 +58,7 @@ namespace SuccessfulStartup.Api.Controllers
         public async Task<IActionResult> SaveNewPlan([FromBody] BusinessPlanViewModel plan)
         {
             //plan = JsonConvert.DeserializeObject<BusinessPlanDomain>(json);
-            var planToSave = new BusinessPlanDomain() { Id = plan.Id, Name = plan.Name, Description = plan.Description, AuthorId = plan.AuthorId };
-            await _repositoryForWritingBusinessPlans.SaveNewPlanAsync(planToSave);
+            await _repositoryForWritingBusinessPlans.SaveNewPlanAsync(plan); // may need to convert to domain
             return new OkResult();
         }
 
