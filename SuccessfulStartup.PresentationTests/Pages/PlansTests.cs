@@ -2,17 +2,24 @@
 using Microsoft.EntityFrameworkCore; // for DbContextOptionsBuilder
 using Moq; // for Mock, Setup
 using Moq.EntityFrameworkCore; // for ReturnsDbSet
+using Moq.Protected;
 using Shouldly; // for assertion
 using SuccessfulStartup.Data.Authentication;
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Presentation.Pages;
+using System;
+using System.Net; // for HttpStatusCode
+using System.Net.Http; // for HttpMessageHandler
+using System.Threading.Tasks; // for Task
 
 namespace SuccessfulStartup.PresentationTests.Pages
 {
     internal class PlansTests : Bunit.TestContext // TestContext class allows addition of service configurations
     {
-        private ContextHelper _helper = new ContextHelper(); // contains helper methods for TestContext and TestAuthorizationContext
+        private ContextHelper _helper = new(); // contains helper methods for TestContext and TestAuthorizationContext
+        //private Mock<IHttpClientFactory> _mockHttpClientFactory = new();
+        //private Mock<HttpMessageHandler> _mockHandler = new();
 
         [Test]
         public void RendersCorrectHeaderText()
@@ -53,6 +60,17 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public void RendersRows_GivenAuthorizationAndMatchingRecords()
         {
+            //var allUsers = A.ListOf<AppUser>(5);
+            //var allPlans = A.ListOf<BusinessPlan>(5);
+            //allPlans[0].AuthorId = allUsers[0].Id; // first mock plan was created by first mock user
+            //var mockResponse = new HttpResponseMessage
+            //{
+            //    Content = new StringContent(allPlans[0]),
+            //    StatusCode = HttpStatusCode.OK
+            //};
+            //_mockHandler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.Is<HttpRequestMessage>(message => message.RequestUri == new Uri($"https://localhost:7261/Plan/all/{authorId}"))).ReturnsAsync(mockResponse);
+            //_mockHttpClientFactory.Setup(factory => factory.CreateClient("Client")).Returns(new HttpClient(_mockHandler.Object));
+
             var mockContext = new Mock<AuthenticationDbContext>(new DbContextOptionsBuilder<AuthenticationDbContext>().Options, "dummyConnectionString");
             var allUsers = A.ListOf<AppUser>(5);
             var allPlans = A.ListOf<BusinessPlan>(5);

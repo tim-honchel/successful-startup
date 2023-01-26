@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc; // for ControllerBase, HttpGet
 using SuccessfulStartup.Data.Repositories.ReadOnly;
 
 namespace SuccessfulStartup.Api.Controllers

@@ -1,6 +1,4 @@
-﻿using SuccessfulStartup.Api.Controllers; // temporary workaround with WriteOnlyApi
-using SuccessfulStartup.Api.Mapping;
-using SuccessfulStartup.Api.ViewModels;
+﻿using SuccessfulStartup.Api.ViewModels;
 using System.Net.Http.Headers; // for HttpClient
 
 namespace SuccessfulStartup.Presentation.Services
@@ -9,9 +7,6 @@ namespace SuccessfulStartup.Presentation.Services
     {
         private static HttpClient _client = new HttpClient();
         private static bool _isSetup = false;
-        private static ViewModelConverter _converter = new ViewModelConverter(AllViewModelsMappingProfiles.GetMapper());
-
-        private static WriteOnlyApi _writeOnlyApi = new WriteOnlyApi(); // temporary workaround
 
         internal static void SetupClient()
         {
@@ -60,18 +55,16 @@ namespace SuccessfulStartup.Presentation.Services
         internal static async Task SaveNewPlanAsync(BusinessPlanViewModel plan) // TODO: not working, using temporary workaround
         {
             SetupClient();
-            await _writeOnlyApi.SaveNewPlan(_converter.Convert(plan));
-            //var response = await _client.PostAsJsonAsync("Plan", plan);
-            //response.EnsureSuccessStatusCode();
+            var response = await _client.PostAsJsonAsync("Plan", plan);
         }
 
         internal static async Task UpdatePlanAsync(BusinessPlanViewModel plan) // TODO: not working, using temporary workaround
         {
             SetupClient();
-            await _writeOnlyApi.UpdatePlan(_converter.Convert(plan));
-            //var response = await _client.PutAsJsonAsync("Plan", plan);
-            //response.EnsureSuccessStatusCode();
+            var response = await _client.PutAsJsonAsync("Plan", plan);
         }
 
     }
 }
+
+// var error = response.Content.ReadAsStringAsync().Result; // gets response content for troubleshooting

@@ -50,15 +50,16 @@ namespace SuccessfulStartup.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdatePlan([FromBody] BusinessPlanViewModel plan)
         {
-            await _repositoryForWritingBusinessPlans.UpdatePlanAsync(plan); // may need to convert to domain
+            var planToUpdate = _entityConverter.Convert(_viewModelConverter.Convert(plan));
+            await _repositoryForWritingBusinessPlans.UpdatePlanAsync(planToUpdate);
             return new OkResult();
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveNewPlan([FromBody] BusinessPlanViewModel plan)
+        public async Task<IActionResult> SaveNewPlan(BusinessPlanViewModel plan)
         {
-            //plan = JsonConvert.DeserializeObject<BusinessPlanDomain>(json);
-            await _repositoryForWritingBusinessPlans.SaveNewPlanAsync(plan); // may need to convert to domain
+            var planToSave = _entityConverter.Convert(_viewModelConverter.Convert(plan));
+            await _repositoryForWritingBusinessPlans.SaveNewPlanAsync(planToSave);
             return new OkResult();
         }
 

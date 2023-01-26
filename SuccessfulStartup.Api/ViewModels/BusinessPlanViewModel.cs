@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema; // for indicating foreign ke
 
 namespace SuccessfulStartup.Api.ViewModels
 {
-    public class BusinessPlanViewModel : BusinessPlan // model for Entity Framework
+    public class BusinessPlanViewModel //  originally inherited from business model, but this requires AppUser User as a navigation key, exposing the user information unnecessarily
     {
         public int Id { get; set; }
 
@@ -18,9 +18,6 @@ namespace SuccessfulStartup.Api.ViewModels
         public string Description { get; set; }
 
         public string AuthorId { get; set; }
-
-        [ForeignKey("AuthorId")]
-        public virtual AppUser User { get; set; }
 
         
     }

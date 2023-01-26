@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore; // for SingleOrDefaultAsync
+using SuccessfulStartup.Data.Authentication;
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 
@@ -11,6 +12,7 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
         {
             _factory = factory;
         }
+
         public async Task<string> GetUserIdByUsernameAsync(string username)
         {
             if (string.IsNullOrWhiteSpace(username)) { throw new ArgumentNullException(nameof(username)); }

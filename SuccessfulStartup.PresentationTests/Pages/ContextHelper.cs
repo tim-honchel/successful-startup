@@ -1,6 +1,6 @@
 ﻿using AutoMapper; // for IMapper
 using Moq; // for Mock
-using SuccessfulStartup.Data.APIs;
+using SuccessfulStartup.Api.Controllers;
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Data.Mapping;
 
@@ -17,8 +17,6 @@ namespace SuccessfulStartup.PresentationTests.Pages
         {
             var testContext = new Bunit.TestContext(); // Bunit and Nunit both have TestContext
             testContext.Services.AddSingleton(new EntityConverter(_mapper)); // for injection of EntityConverter
-            testContext.Services.AddSingleton(new ReadOnlyApi(new AuthenticationDbContextFactory(), AllMappingProfiles.GetMapper())); // for injection of ReadOnlyApi
-            testContext.Services.AddSingleton(new WriteOnlyApi(new AuthenticationDbContextFactory(), AllMappingProfiles.GetMapper())); // for injection of WriteOnlyApi
             return testContext;
         }
 
@@ -29,8 +27,6 @@ namespace SuccessfulStartup.PresentationTests.Pages
 
             var testContext = new Bunit.TestContext(); // Bunit and Nunit both have TestContext
             testContext.Services.AddSingleton(new EntityConverter(_mapper)); // for injection of EntityConverter
-            testContext.Services.AddSingleton(new ReadOnlyApi(mockFactory.Object, _mapper)); // for injection of ReadOnlyApi
-            testContext.Services.AddSingleton(new WriteOnlyApi(mockFactory.Object, _mapper)); // for injection of WriteOnlyApi
 
             return testContext;
         }

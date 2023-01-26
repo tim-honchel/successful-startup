@@ -3,10 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using Moq.EntityFrameworkCore;
 using Shouldly; // for assertion
-using SuccessfulStartup.Data.APIs;
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Data.Entities;
-using SuccessfulStartup.Data.Mapping;
 using SuccessfulStartup.Presentation.Pages;
 using System.Threading.Tasks; // for Sleep
 
