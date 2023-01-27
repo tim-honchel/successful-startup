@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc; // for ControllerBase, HttpGet
 using SuccessfulStartup.Data.Repositories.ReadOnly;
+using SuccessfulStartup.Domain.Repositories.ReadOnly;
 
 namespace SuccessfulStartup.Api.Controllers
 {
@@ -7,15 +8,15 @@ namespace SuccessfulStartup.Api.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase // API endpoint for HTTP requests
     {
-        private UserReadOnlyRepository _repositoryForReadingUsers;
+        private IUserReadOnlyRepository _repositoryForReadingUsers;
 
-        public UserController(UserReadOnlyRepository repositoryForReadingUsers)
+        public UserController(IUserReadOnlyRepository repositoryForReadingUsers)
         {
             _repositoryForReadingUsers = repositoryForReadingUsers;
         }
 
         [HttpGet("{username}")]
-        public async Task<IActionResult> GetUserIdByUsername(string username)
+        public virtual async Task<IActionResult> GetUserIdByUsername(string username)
         {
             var id = await _repositoryForReadingUsers.GetUserIdByUsernameAsync(username);
             return new OkObjectResult(id);

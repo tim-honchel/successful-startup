@@ -1,6 +1,5 @@
-using SuccessfulStartup.Api.Controllers;
 using SuccessfulStartup.Api.Mapping;
-using SuccessfulStartup.Data;
+using SuccessfulStartup.Data; // TODO: necessary for authentication, but would like to find an alternative
 
 var builder = WebApplication.CreateBuilder(args);
 

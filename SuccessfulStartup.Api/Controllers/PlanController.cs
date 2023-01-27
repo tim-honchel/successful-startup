@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Mvc; // for ControllerBase, HttpGet, HttpPost, HttpPut, HttpDelete)
 using SuccessfulStartup.Api.Mapping;
-// using Newtonsoft.Json; // for JsonConvert, DeserializeObject
 using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Data.Mapping;
-using SuccessfulStartup.Data.Repositories.ReadOnly;
-using SuccessfulStartup.Data.Repositories.WriteOnly;
+using SuccessfulStartup.Domain.Repositories.ReadOnly;
+using SuccessfulStartup.Domain.Repositories.WriteOnly;
 
 namespace SuccessfulStartup.Api.Controllers
 {
@@ -12,12 +11,12 @@ namespace SuccessfulStartup.Api.Controllers
     [Route("[controller]")]
     public class PlanController : ControllerBase // API endpoints for HTTP requests
     {
-        private BusinessPlanReadOnlyRepository _repositoryForReadingBusinessPlans;
-        private BusinessPlanWriteOnlyRepository _repositoryForWritingBusinessPlans;
+        private IBusinessPlanReadOnlyRepository _repositoryForReadingBusinessPlans;
+        private IBusinessPlanWriteOnlyRepository _repositoryForWritingBusinessPlans;
         private ViewModelConverter _viewModelConverter;
         private EntityConverter _entityConverter;
 
-        public PlanController(BusinessPlanReadOnlyRepository repositoryForReadingBusinessPlans, BusinessPlanWriteOnlyRepository repositoryForWritingBusinessPlans, ViewModelConverter viewModelConverter, EntityConverter entityConverter)
+        public PlanController(IBusinessPlanReadOnlyRepository repositoryForReadingBusinessPlans, IBusinessPlanWriteOnlyRepository repositoryForWritingBusinessPlans, ViewModelConverter viewModelConverter, EntityConverter entityConverter)
         {
             _repositoryForReadingBusinessPlans = repositoryForReadingBusinessPlans;
             _repositoryForWritingBusinessPlans = repositoryForWritingBusinessPlans;

@@ -1,9 +1,8 @@
 ﻿using GenFu; // for generating mock data
 using Shouldly; // for assertion
 using SuccessfulStartup.Api.ViewModels;
-using SuccessfulStartup.Data.Authentication;
 using SuccessfulStartup.Presentation.Pages;
-using System.Text.Json;
+using System.Text.Json; // for JsonSerializer
 
 namespace SuccessfulStartup.PresentationTests.Pages
 {

@@ -8,6 +8,8 @@ using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Data.Mapping;
 using SuccessfulStartup.Data.Repositories.ReadOnly;
 using SuccessfulStartup.Data.Repositories.WriteOnly;
+using SuccessfulStartup.Domain.Repositories.ReadOnly;
+using SuccessfulStartup.Domain.Repositories.WriteOnly;
 
 namespace SuccessfulStartup.Data
 {
@@ -26,9 +28,9 @@ namespace SuccessfulStartup.Data
             services.AddScoped<AuthenticationDbContextFactory>();
             services.AddScoped<EntityConverter>();
             services.AddTransient<IEmailSender, EmailSender>(); // enables email sends
-            services.AddTransient<BusinessPlanReadOnlyRepository>();
-            services.AddTransient<BusinessPlanWriteOnlyRepository>();
-            services.AddTransient<UserReadOnlyRepository>();
+            services.AddTransient<IBusinessPlanReadOnlyRepository, BusinessPlanReadOnlyRepository>();
+            services.AddTransient<IBusinessPlanWriteOnlyRepository, BusinessPlanWriteOnlyRepository>();
+            services.AddTransient<IUserReadOnlyRepository, UserReadOnlyRepository>();
             return services;
         }
     }

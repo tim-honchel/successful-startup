@@ -4,7 +4,7 @@ using SuccessfulStartup.Data.Entities;
 
 namespace SuccessfulStartup.Api.Mapping
 {
-    internal class BusinessPlanViewModelMappingProfile : Profile
+    public class BusinessPlanViewModelMappingProfile : Profile
     {
         public BusinessPlanViewModelMappingProfile()
         {
