@@ -93,7 +93,7 @@
         {
             message = "Business plan deleted successfully!";
             deletionStatus = "deleted";
-            await service.DeletePlan(plan.Id);
+            await service.DeletePlanAsync(plan.Id);
         }
         catch (Exception)
         {

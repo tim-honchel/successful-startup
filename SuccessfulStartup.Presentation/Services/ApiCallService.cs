@@ -1,5 +1,8 @@
 ﻿using SuccessfulStartup.Api.ViewModels;
 using System.Net.Http.Headers; // for HttpClient
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("SuccessfulStartup.PresentationTests")] // allows tests to access internal members
 
 namespace SuccessfulStartup.Presentation.Services
 {
@@ -19,11 +22,9 @@ namespace SuccessfulStartup.Presentation.Services
         {
             _client = new HttpClient(handler);
             _client.BaseAddress = new Uri("https://localhost:7260/"); // edited to be fake
-            _client.DefaultRequestHeaders.Clear();
-            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json")); // allows JSON transmission
         }
 
-        internal async Task DeletePlan(int planId)
+        internal async Task DeletePlanAsync(int planId)
         {
             var response = await _client.DeleteAsync($"Plan/{planId}");
             response.EnsureSuccessStatusCode();
