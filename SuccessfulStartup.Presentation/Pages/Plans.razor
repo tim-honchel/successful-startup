@@ -2,8 +2,11 @@
 
 @page "/plans"
 
+@*for making API calls*@
+@inject ApiCallService service
 @*for getting current user information*@
 @inject AuthenticationStateProvider provider
+
 
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using SuccessfulStartup.Api.ViewModels
@@ -56,10 +59,10 @@
     {
         var authenticationState = await provider.GetAuthenticationStateAsync();
         var user = authenticationState.User.Identity.Name;
-        var authorId = await ApiCallService.GetUserIdByUsernameAsync(user); // service manages all HTTPClient requests to the API
+        var authorId = await service.GetUserIdByUsernameAsync(user); // service manages all HTTPClient requests to the API
         try
         {
-            plans = await ApiCallService.GetAllPlansByAuthorIdAsync(authorId); // service manages all HTTPClient requests to the API
+            plans = await service.GetAllPlansByAuthorIdAsync(authorId); // service manages all HTTPClient requests to the API
             message = "";
         }
         catch (Exception)

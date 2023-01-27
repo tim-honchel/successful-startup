@@ -2,6 +2,9 @@
 
 @page "/plans/{planId:int}/update"
 
+@*for making API calls*@
+@inject ApiCallService service
+
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
 @using SuccessfulStartup.Api.ViewModels;
@@ -84,18 +87,13 @@
 
     }
 
-    public async void PromptDelete()
-    {
-        deletionStatus = "prompt";   
-    }
-
     public async void HandleDelete()
     {
         try
         {
             message = "Business plan deleted successfully!";
             deletionStatus = "deleted";
-            await ApiCallService.DeletePlan(plan.Id);
+            await service.DeletePlan(plan.Id);
         }
         catch (Exception)
         {
@@ -108,7 +106,7 @@
         try
         {
             message = "Business plan updated successfully!";
-            await ApiCallService.UpdatePlanAsync(plan);
+            await service.UpdatePlanAsync(plan);
         }
         catch (Exception)
         {
@@ -119,6 +117,11 @@
 
     protected async override Task OnParametersSetAsync() // don't use OnInitialized, results in runtime error where model cannot be found
     {
-        plan = await ApiCallService.GetPlanByIdAsync(planId);
+        plan = await service.GetPlanByIdAsync(planId);
+    }
+
+    public async void PromptDelete()
+    {
+        deletionStatus = "prompt";
     }
 }

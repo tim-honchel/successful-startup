@@ -2,6 +2,8 @@
 
 @page "/plans/new"
 
+@*for making API calls*@
+@inject ApiCallService service
 @*for getting current user information*@
 @inject AuthenticationStateProvider provider
 
@@ -75,7 +77,7 @@
         {
             message = "New business plan created successfully!"; // needs to be before API call in order to render
             plan.AuthorId = authorId; // needs to be set after submit, otherwise may appear as null
-            await ApiCallService.SaveNewPlanAsync(plan);  // service manages all HTTPClient requests to the API   
+            await service.SaveNewPlanAsync(plan);  // service manages all HTTPClient requests to the API   
         }
         catch (Exception)
         {
@@ -90,6 +92,6 @@
 
         var authenticationState = await provider.GetAuthenticationStateAsync();
         var user = authenticationState.User.Identity.Name;
-        authorId = await ApiCallService.GetUserIdByUsernameAsync(user); // service manages all HTTPClient requests to the API, gets authorID to set as foreign key
+        authorId = await service.GetUserIdByUsernameAsync(user); // service manages all HTTPClient requests to the API, gets authorID to set as foreign key
     }
 }

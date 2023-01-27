@@ -6,18 +6,11 @@ namespace SuccessfulStartup.PresentationTests.Pages
     [TestFixture]
     internal class IndexTests
     {
-        private ContextHelper _helper = new ContextHelper(); // contains helper methods for TestContext and TestAuthorizationContext
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp() // testContext and renderComponent do not persist, must be recreated in each test
-        {
-
-        }
 
         [Test]
         public void RendersCorrectHeaderText()
         {
-            using var testContext = _helper.GetTestContext();
+            var testContext = new Bunit.TestContext();
 
             var component = testContext.RenderComponent<Index>(); // render the page
 

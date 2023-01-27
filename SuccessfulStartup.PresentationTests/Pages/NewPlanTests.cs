@@ -5,7 +5,9 @@ using Moq.EntityFrameworkCore; // for ReturnsDbSet
 using Shouldly; // for assertion
 using SuccessfulStartup.Data.Authentication;
 using SuccessfulStartup.Data.Contexts;
+using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Presentation.Pages;
+using System.Text.Json;
 
 namespace SuccessfulStartup.PresentationTests.Pages
 {
@@ -16,10 +18,12 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public void RendersCorrectHeaderText()
         {
-            using var testContext = _helper.GetTestContext();
+            var handler = _helper.GetMockHandler();
+            _helper.SetupMockHandlerForUsers(handler, true); // returns userId
+            using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
-            var component = testContext.RenderComponent<NewPlan>(); // render the page 
+            var component = testContext.RenderComponent<NewPlan>(); // renders the page 
 
             var header = component.Find("h1[id =\"header\"]").TextContent;
             header.ShouldBe("Create a New Business Plan");
@@ -28,9 +32,11 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public void RendersForm_GivenAuthorization()
         {
-            using var testContext = _helper.GetTestContext();
+            var handler = _helper.GetMockHandler();
+            _helper.SetupMockHandlerForUsers(handler, true); 
+            using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
-
+             
             var component = testContext.RenderComponent<NewPlan>();
 
             var rendersForm = component.FindAll("form[id =\"form\"]").Count > 0;
@@ -40,8 +46,10 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public void RendersNoForm_GivenUnauthorization()
         {
-            using var testContext = _helper.GetTestContext();
-            var authorizationContext = _helper.GetAuthorizationContext(testContext, "email@gmail.com", false);
+            var handler = _helper.GetMockHandler();
+            _helper.SetupMockHandlerForUsers(handler, true); 
+            using var testContext = _helper.GetTestContext(handler);
+            var authorizationContext = _helper.GetAuthorizationContext(testContext, false);
 
             var component = testContext.RenderComponent<NewPlan>();
 
@@ -52,11 +60,11 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public void FormSubmit_RendersMessage_GivenValidInput()
         {
-            var mockContext = new Mock<AuthenticationDbContext>(new DbContextOptionsBuilder<AuthenticationDbContext>().Options, "dummyConnectionString");
-            var allUsers = A.ListOf<AppUser>(5);
-            mockContext.Setup(context => context.Users).ReturnsDbSet(allUsers); // will return the 5 generated users
-            using var testContext = _helper.GetTestContextWithMock(mockContext);
-            var authorizationContext = _helper.GetAuthorizationContext(testContext, allUsers[0].UserName); // first mock user is logged in
+            var handler = _helper.GetMockHandler();
+            _helper.SetupMockHandlerForUsers(handler, true);
+            _helper.SetupMockHandlerForPlans(handler, false, true); // returns OkResult from post request
+            using var testContext = _helper.GetTestContext(handler);
+            var authorizationContext = _helper.GetAuthorizationContext(testContext); 
             var component = testContext.RenderComponent<NewPlan>();
 
             component.Find("input[id=\"name\"]").Change("test name");
@@ -68,16 +76,15 @@ namespace SuccessfulStartup.PresentationTests.Pages
         }
 
         [TestCase("", "")]
-        [TestCase("name only","")]
+        [TestCase("name only", "")]
         [TestCase("", "description only")]
         [TestCase("name is really really really really really really really long", "description")] // name exceeds max length
         public void FormSubmit_RendersNoMessage_GivenInvalidInput(string name, string description) // field messages will appear, but no form message
         {
-            var mockContext = new Mock<AuthenticationDbContext>(new DbContextOptionsBuilder<AuthenticationDbContext>().Options, "dummyConnectionString");
-            var allUsers = A.ListOf<AppUser>(5);
-            mockContext.Setup(context => context.Users).ReturnsDbSet(allUsers); // will return the 5 generated users
-            using var testContext = _helper.GetTestContextWithMock(mockContext);
-            var authorizationContext = _helper.GetAuthorizationContext(testContext, allUsers[0].UserName); // first mock user is logged in
+            var handler = _helper.GetMockHandler();
+            _helper.SetupMockHandlerForUsers(handler, true);
+            using var testContext = _helper.GetTestContext(handler);
+            var authorizationContext = _helper.GetAuthorizationContext(testContext);
             var component = testContext.RenderComponent<NewPlan>();
 
             component.Find("input[id=\"name\"]").Change(name);

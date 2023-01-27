@@ -1,30 +1,24 @@
 ﻿using GenFu; // for generating mock data
-using Microsoft.EntityFrameworkCore; // for DbContextOptionsBuilder
-using Moq; // for Mock, Setup
-using Moq.EntityFrameworkCore; // for ReturnsDbSet
-using Moq.Protected;
 using Shouldly; // for assertion
+using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Data.Authentication;
-using SuccessfulStartup.Data.Contexts;
-using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Presentation.Pages;
-using System;
-using System.Net; // for HttpStatusCode
-using System.Net.Http; // for HttpMessageHandler
-using System.Threading.Tasks; // for Task
+using System.Text.Json;
 
 namespace SuccessfulStartup.PresentationTests.Pages
 {
     internal class PlansTests : Bunit.TestContext // TestContext class allows addition of service configurations
     {
         private ContextHelper _helper = new(); // contains helper methods for TestContext and TestAuthorizationContext
-        //private Mock<IHttpClientFactory> _mockHttpClientFactory = new();
-        //private Mock<HttpMessageHandler> _mockHandler = new();
 
         [Test]
         public void RendersCorrectHeaderText()
         {
-            using var testContext = _helper.GetTestContext();
+            var handler = _helper.GetMockHandler();
+            _helper.SetupMockHandlerForUsers(handler, true);
+            var plansToReturn = A.ListOf<BusinessPlanViewModel>(5);
+            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(plansToReturn));
+            using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
             var component = testContext.RenderComponent<Plans>(); // render the page
@@ -34,22 +28,12 @@ namespace SuccessfulStartup.PresentationTests.Pages
         }
 
         [Test]
-        public void RendersTable_GivenAuthorization()
-        {
-            using var testContext = _helper.GetTestContext();
-            var authorizationContext = _helper.GetAuthorizationContext(testContext);
-
-            var component = testContext.RenderComponent<Plans>(); // render the page
-
-            var rendersTable = component.FindAll("table[id=\"plans\"]").Count > 0;
-            rendersTable.ShouldBeTrue();
-        }
-
-        [Test]
         public void RendersNoTable_GivenUnauthorization()
         {
-            using var testContext = _helper.GetTestContext();
-            var authorizationContext = _helper.GetAuthorizationContext(testContext,"email@gmail.com",false);
+            var handler = _helper.GetMockHandler();
+            _helper.SetupMockHandlerForUsers(handler, true);
+            using var testContext = _helper.GetTestContext(handler);
+            var authorizationContext = _helper.GetAuthorizationContext(testContext, false);
 
             var component = testContext.RenderComponent<Plans>(); // render the page
 
@@ -60,32 +44,34 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public void RendersRows_GivenAuthorizationAndMatchingRecords()
         {
-            //var allUsers = A.ListOf<AppUser>(5);
-            //var allPlans = A.ListOf<BusinessPlan>(5);
-            //allPlans[0].AuthorId = allUsers[0].Id; // first mock plan was created by first mock user
-            //var mockResponse = new HttpResponseMessage
-            //{
-            //    Content = new StringContent(allPlans[0]),
-            //    StatusCode = HttpStatusCode.OK
-            //};
-            //_mockHandler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.Is<HttpRequestMessage>(message => message.RequestUri == new Uri($"https://localhost:7261/Plan/all/{authorId}"))).ReturnsAsync(mockResponse);
-            //_mockHttpClientFactory.Setup(factory => factory.CreateClient("Client")).Returns(new HttpClient(_mockHandler.Object));
-
-            var mockContext = new Mock<AuthenticationDbContext>(new DbContextOptionsBuilder<AuthenticationDbContext>().Options, "dummyConnectionString");
-            var allUsers = A.ListOf<AppUser>(5);
-            var allPlans = A.ListOf<BusinessPlan>(5);
-            allPlans[0].AuthorId = allUsers[0].Id; // first mock plan was created by first mock user
-            mockContext.Setup(context => context.Users).ReturnsDbSet(allUsers); // will return the 5 generated users
-            mockContext.Setup(context => context.BusinessPlans).ReturnsDbSet(allPlans); // return 5 general plans
-            using var testContext = _helper.GetTestContextWithMock(mockContext);
-            var authorizationContext = _helper.GetAuthorizationContext(testContext, allUsers[0].UserName); // first mock user is logged in
+            var handler = _helper.GetMockHandler();
+            _helper.SetupMockHandlerForUsers(handler, true);
+            A.Configure<BusinessPlanViewModel>().Fill(plan => plan.AuthorId, () => { return _helper.standardUser.Id; });
+            var plansToReturn = A.ListOf<BusinessPlanViewModel>(5);
+            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(plansToReturn));
+            using var testContext = _helper.GetTestContext(handler);
+            var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
             var component = testContext.RenderComponent<Plans>(); // render the page
 
-            System.Threading.Thread.Sleep(500); // time for component to fully render
             var rendersRows = component.FindAll("tr[id=\"plan\"]").Count > 0;
             rendersRows.ShouldBeTrue();
-            
+        }
+
+        [Test]
+        public void RendersTable_GivenAuthorization()
+        {
+            var handler = _helper.GetMockHandler();
+            _helper.SetupMockHandlerForUsers(handler, true);
+            var plansToReturn = A.ListOf<BusinessPlanViewModel>(5);
+            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(plansToReturn));
+            using var testContext = _helper.GetTestContext(handler);
+            var authorizationContext = _helper.GetAuthorizationContext(testContext);
+
+            var component = testContext.RenderComponent<Plans>(); // render the page
+
+            var rendersTable = component.FindAll("table[id=\"plans\"]").Count > 0;
+            rendersTable.ShouldBeTrue();
         }
     }
 }
