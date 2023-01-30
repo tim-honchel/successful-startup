@@ -1,6 +1,13 @@
 # Successful Startup
 A tool for entrepreneurs to easily create useful business plans for small startups.
 
+## Contents
+* [Overview](https://github.com/tim-honchel/successful-startup/edit/master/README.md#overview)
+* [Architecture](https://github.com/tim-honchel/successful-startup/edit/master/README.md#architecture)
+* [Learning Process](https://github.com/tim-honchel/successful-startup/edit/master/README.md#learning-process)
+* [Local Deployment](https://github.com/tim-honchel/successful-startup/edit/master/README.md#local-deployment)
+
+
 ## Overview
 I created Successful Startup to practice using the following principles and technologies in a real test case:
 
@@ -50,7 +57,7 @@ NUnit test project. Contains unit tests for the methods in the API layer.
 BUnit test project. Contains unit tests for the methods in the Presentation layer.
 
 ## Learning Process
-As a junior developer, I created this application to integrate and reinforce my understanding of various technologies and principles. Therefore, I decided to document the process, including my mistakes and lessons learned. I also used explanatory comments as often as possible for why classes and lines of code are necessary. These can serve as references when building projects in the future.
+As a developer, I created this application to integrate and reinforce my understanding of various technologies and principles. Therefore, I decided to document the process, including my mistakes and lessons learned. I also used explanatory comments as often as possible for why classes and lines of code are necessary. These can serve as references when building projects in the future.
 
 ### API
 At first, I injected 2 API classes (read-only and write-only) into the presentation layer, with parameterized context factory and mapper constructors that were also injected in the configuration class. Each API implemented all the necessary repositories and called their methods. Later, I decided it was better to create a separate API layer between the presentation and data layers, with controllers and endpoints. I created a service so the presentation pages could make API calls.
@@ -86,3 +93,11 @@ Initially, I used the ASP.NET Core Web App template for the Domain and Data proj
 I was confused by errors that said @code didn't exist in the current context, but it's because I was using .cshtml pages. I used .razor pages instead and the
 problem went away.
 
+## Local Deployment
+Follow these instructions to build the solution on your machine:
+
+1) Clone the git repository
+2) Accept the prompt to trust the ASP.NET Core SSL Certificate
+3) Create appsettings.json files in the Presentation project and API project. Add a connection string named "IdentityConnectionString" with the parameters for your local instance of MySqlServer.
+4) In order to verify user emails, set up a Gmail account with an app password, and add connection strings to the appsettings.json files named "GmailAddress" and GmailPassword." Alternatively, in DataLayerConfiguration.cs, change options.SignInRequireConfirmedAccount to false.
+5) Run the update-database command in the Package Console Manager.
