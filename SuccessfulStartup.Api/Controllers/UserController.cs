@@ -17,8 +17,21 @@ namespace SuccessfulStartup.Api.Controllers
         [HttpGet("{username}")]
         public virtual async Task<IActionResult> GetUserIdByUsername(string username)
         {
-            var id = await _repositoryForReadingUsers.GetUserIdByUsernameAsync(username);
-            return new OkObjectResult(id);
+            try
+            {
+                var id = await _repositoryForReadingUsers.GetUserIdByUsernameAsync(username);
+                return new OkObjectResult(id);
+            }
+            catch (ArgumentNullException exception)
+            {
+                return new BadRequestObjectResult(exception.ParamName);
+            }
+            catch (NullReferenceException exception)
+            {
+                return new NoContentResult();
+            }
+
+
         }
     }
 }

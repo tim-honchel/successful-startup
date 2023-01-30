@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc; // for ControllerBase, HttpGet, HttpPost, HttpPut, HttpDelete)
+using Microsoft.EntityFrameworkCore;
 using SuccessfulStartup.Api.Mapping;
 using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Data.Mapping;
@@ -27,39 +28,91 @@ namespace SuccessfulStartup.Api.Controllers
         [HttpDelete("{planId}")]
         public async Task<IActionResult> DeletePlan(int planId) // needs to be public in order to be accessible to Swagger
         {
-            var planToDelete = await _repositoryForReadingBusinessPlans.GetPlanByIdAsync(planId);
-            await _repositoryForWritingBusinessPlans.DeletePlanAsync(planToDelete);
-            return new OkResult();
+            try
+            {
+                var planToDelete = await _repositoryForReadingBusinessPlans.GetPlanByIdAsync(planId);
+                await _repositoryForWritingBusinessPlans.DeletePlanAsync(planToDelete);
+                return new OkResult();
+            }
+            catch (ArgumentNullException exception)
+            {
+                return new BadRequestObjectResult(exception.ParamName);
+            }
+            catch (NullReferenceException exception)
+            {
+                return new NoContentResult();
+            }
+            catch (DbUpdateException exception)
+            {
+                return new NoContentResult();
+            }
+
         }
 
         [HttpGet("all/{authorId}")]
         public async Task<IActionResult> GetAllPlansByAuthorId(string authorId)
         {
-            var plans = await _repositoryForReadingBusinessPlans.GetAllPlansByAuthorIdAsync(authorId);
-            return new OkObjectResult(plans); // not necessary to convert to ViewModel because JSON format is the same
+            try
+            {
+                var plans = await _repositoryForReadingBusinessPlans.GetAllPlansByAuthorIdAsync(authorId);
+                return new OkObjectResult(plans); // not necessary to convert to ViewModel because JSON format is the same
+            }
+            catch (ArgumentNullException exception)
+            {
+                return new BadRequestObjectResult(exception.ParamName);
+            }
         }
 
         [HttpGet("{planId}")]
         public async Task<IActionResult> GetPlanById(int planId)
         {
-            var plan = await _repositoryForReadingBusinessPlans.GetPlanByIdAsync(planId);
-            return new OkObjectResult(plan); // not necessary to convert to ViewModel because JSON format is the same
+            try
+            {
+                var plan = await _repositoryForReadingBusinessPlans.GetPlanByIdAsync(planId);
+                return new OkObjectResult(plan); // not necessary to convert to ViewModel because JSON format is the same
+            }
+            catch (ArgumentNullException exception)
+            {
+                return new BadRequestObjectResult(exception.ParamName);
+            }
+            catch (NullReferenceException exception)
+            {
+                return new NoContentResult();
+            }
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdatePlan(BusinessPlanViewModel plan)
         {
-            var planToUpdate = _entityConverter.Convert(_viewModelConverter.Convert(plan));
-            await _repositoryForWritingBusinessPlans.UpdatePlanAsync(planToUpdate);
-            return new OkResult();
+            try
+            {
+                var planToUpdate = _entityConverter.Convert(_viewModelConverter.Convert(plan));
+                await _repositoryForWritingBusinessPlans.UpdatePlanAsync(planToUpdate);
+                return new OkResult();
+            }
+            catch (DbUpdateException)
+            {
+                return new NoContentResult();
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> SaveNewPlan(BusinessPlanViewModel plan)
         {
-            var planToSave = _entityConverter.Convert(_viewModelConverter.Convert(plan));
-            await _repositoryForWritingBusinessPlans.SaveNewPlanAsync(planToSave);
-            return new OkResult();
+            try
+            {
+                var planToSave = _entityConverter.Convert(_viewModelConverter.Convert(plan));
+                await _repositoryForWritingBusinessPlans.SaveNewPlanAsync(planToSave);
+                return new CreatedResult(new Uri($"/plans/{planToSave.Id}", UriKind.Relative),planToSave); // shows new record was created, points to URL where it can be found
+            }
+            catch (ArgumentNullException exception)
+            {
+                return new BadRequestObjectResult(exception.ParamName);
+            }
+            catch (DbUpdateException)
+            {
+                return new NoContentResult();
+            }
         }
 
     }

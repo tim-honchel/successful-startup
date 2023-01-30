@@ -20,7 +20,7 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
 
                 var authorId = await context.Users.Where(user => user.UserName == username).Select(user => user.Id).SingleOrDefaultAsync();
 
-                if (authorId == null) { throw new NullReferenceException(nameof(username)); } // if no user with that name is found}
+                if (authorId == null) { throw new NullReferenceException(nameof(username)); } // if no user with that name is found
                 return authorId;
         }
     }

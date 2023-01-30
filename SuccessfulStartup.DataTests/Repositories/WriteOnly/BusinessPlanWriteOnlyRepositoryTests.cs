@@ -1,6 +1,6 @@
 ﻿using AutoMapper; // for IMapper
 using GenFu; // for generating mock data
-using Microsoft.EntityFrameworkCore; // for DbContextOptionsBuilder
+using Microsoft.EntityFrameworkCore; // for DbContextOptionsBuilder, DbUpdateException
 using Moq; // for Mock, Setup
 using Shouldly; // for assertioon
 using SuccessfulStartup.Data.Contexts;
@@ -34,7 +34,7 @@ namespace SuccessfulStartup.DataTests.Repositories.WriteOnly
         }
 
         [Test]
-        public async Task DeletePlan_RemovesPlanFromDatabase()
+        public async Task DeletePlanAsync_RemovesPlanFromDatabase_GivenExistingId()
         {
             var planToDelete = A.New<BusinessPlanDomain>();
 
@@ -44,13 +44,33 @@ namespace SuccessfulStartup.DataTests.Repositories.WriteOnly
         }
 
         [Test]
-        public async Task UpdatePlanAsync_SavesChangesToPlan()
+        public async Task DeletePlanAsync_ThrowsDbUpdateException_GivenSaveChangesError() // from error removing plan (i.e. does not exist)
+        {
+            var planToDelete = A.New<BusinessPlanDomain>();
+
+            _mockContext.Setup(context => context.SaveChanges()).Throws<DbUpdateException>();
+            
+            Should.Throw<DbUpdateException>( async () => await _repository.DeletePlanAsync(planToDelete));
+        }
+
+        [Test]
+        public async Task UpdatePlanAsync_SavesChangesToPlan_GivenExistingPlan()
         {
             var updatedPlan = A.New<BusinessPlanDomain>();
 
             await _repository.UpdatePlanAsync(updatedPlan);
 
             _mockContext.Verify(context => context.Update<BusinessPlan>(It.Is<BusinessPlan>(plan => plan.Id == updatedPlan.Id)), Times.Once()); // verifies that the context updated the specific business plan, only one time
+        }
+
+        [Test]
+        public async Task UpdatePlanAsync_ThrowsDbUpdateException_GivenSaveChangesError() // from error removing plan (i.e. does not exist)
+        {
+            var planToDelete = A.New<BusinessPlanDomain>();
+
+            _mockContext.Setup(context => context.SaveChanges()).Throws<DbUpdateException>();
+
+            Should.Throw<DbUpdateException>(async () => await _repository.UpdatePlanAsync(planToDelete));
         }
 
         [Test]
@@ -61,6 +81,15 @@ namespace SuccessfulStartup.DataTests.Repositories.WriteOnly
             await _repository.SaveNewPlanAsync(_mapper.Map<BusinessPlanDomain>(planSaved));
 
             _mockContext.Verify(context => context.AddAsync<BusinessPlan>(It.Is<BusinessPlan>(plan => plan.Id == planSaved.Id), new CancellationToken()), Times.Once()); // verifies that the context added the specific business plan, only one time
+        }
+
+        public async Task SaveNewPlanAsync_ThrowsDbUpdateException_GivenSaveChangesError() // from error removing plan (i.e. does not exist)
+        {
+            var planToDelete = A.New<BusinessPlanDomain>();
+
+            _mockContext.Setup(context => context.SaveChanges()).Throws<DbUpdateException>();
+
+            Should.Throw<DbUpdateException>(async () => await _repository.SaveNewPlanAsync(planToDelete));
         }
 
         [TestCase(null)]

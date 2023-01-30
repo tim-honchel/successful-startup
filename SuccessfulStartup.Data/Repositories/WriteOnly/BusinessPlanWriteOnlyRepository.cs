@@ -1,4 +1,5 @@
 ﻿using AutoMapper; // for IMapper
+using Microsoft.EntityFrameworkCore; // for DbUpdateException
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Domain.Entities;
@@ -20,14 +21,29 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
         {
             using var context = _factory.CreateDbContext();
 
-            context.Remove(_mapper.Map<BusinessPlan>(planToDelete));
-            context.SaveChanges();
+            try
+            {
+                context.Remove(_mapper.Map<BusinessPlan>(planToDelete));
+                context.SaveChanges();
+            }
+            catch (DbUpdateException exception) 
+            {
+                throw new DbUpdateException();
+            }
         }
         public async Task UpdatePlanAsync(BusinessPlanDomain planToUpdate)
         {
             using var context = _factory.CreateDbContext();
-            context.Update(_mapper.Map<BusinessPlan>(planToUpdate));
-            context.SaveChanges();
+            
+            try
+            {
+                context.Update(_mapper.Map<BusinessPlan>(planToUpdate));
+                context.SaveChanges();
+            }
+            catch (DbUpdateException exception)
+            {
+                throw new DbUpdateException();
+            }
 
         }
         public async Task SaveNewPlanAsync(BusinessPlanDomain planToSave)
@@ -36,8 +52,15 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
 
             using var context = _factory.CreateDbContext();
 
-            await context.AddAsync(_mapper.Map<BusinessPlan>(planToSave));
-            await context.SaveChangesAsync();
+            try
+            {
+                await context.AddAsync(_mapper.Map<BusinessPlan>(planToSave));
+                await context.SaveChangesAsync();
+            }
+            catch (DbUpdateException exception)
+            {
+                throw new DbUpdateException();
+            }
         }
     }
 }
