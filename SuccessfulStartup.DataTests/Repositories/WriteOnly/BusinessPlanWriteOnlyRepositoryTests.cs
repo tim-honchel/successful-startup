@@ -1,9 +1,8 @@
-﻿using AutoMapper;
-using GenFu;
-using Microsoft.EntityFrameworkCore;
-using Moq;
-using Moq.EntityFrameworkCore;
-using Shouldly;
+﻿using AutoMapper; // for IMapper
+using GenFu; // for generating mock data
+using Microsoft.EntityFrameworkCore; // for DbContextOptionsBuilder
+using Moq; // for Mock, Setup
+using Shouldly; // for assertioon
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Data.Mapping;
@@ -12,15 +11,14 @@ using SuccessfulStartup.Data.Repositories.WriteOnly;
 using SuccessfulStartup.Domain.Entities;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 using SuccessfulStartup.Domain.Repositories.WriteOnly;
-using System.Diagnostics.Contracts;
 
 namespace SuccessfulStartup.DataTests.Repositories.WriteOnly
 {
     public class BusinessPlanWriteOnlyRepositoryTests
-    {    
+    {
+        private readonly IMapper _mapper = AllMappingProfiles.GetMapper();
         private Mock<AuthenticationDbContextFactory> _mockFactory;
-        private IMapper _mapper;
-        public IBusinessPlanWriteOnlyRepository _repository;
+        private IBusinessPlanWriteOnlyRepository _repository;
         private Mock<AuthenticationDbContext> _mockContext;
         private IBusinessPlanReadOnlyRepository _readOnlyRepository;
 
@@ -29,7 +27,6 @@ namespace SuccessfulStartup.DataTests.Repositories.WriteOnly
         {
 
             _mockFactory = new Mock<AuthenticationDbContextFactory>(); // mock factory so the real database is not used
-            _mapper = AllMappingProfiles.GetMapper();
             _repository = new BusinessPlanWriteOnlyRepository(_mockFactory.Object, _mapper);
             _mockContext = new Mock<AuthenticationDbContext>(new DbContextOptionsBuilder<AuthenticationDbContext>().Options, "dummyConnectionString"); //  fulfills required parameters
             _mockFactory.Setup(mockedFactory => mockedFactory.CreateDbContext()).Returns(_mockContext.Object); // factory will return the mock context instead of the real one
@@ -73,7 +70,7 @@ namespace SuccessfulStartup.DataTests.Repositories.WriteOnly
             Should.Throw<ArgumentNullException>(async () => await _repository.SaveNewPlanAsync(plan));
         }
 
-        public static IEnumerable<BusinessPlanDomain> ProvideCasesOfInvalidBusinessPlans()
+        public static IEnumerable<BusinessPlanDomain> ProvideCasesOfInvalidBusinessPlans() // for use with TestCaseSource
         {
             yield return new BusinessPlanDomain();
             yield return new BusinessPlanDomain() { Id = 0, Name = "", Description = "valid description", AuthorId = "valid id" };

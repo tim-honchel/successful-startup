@@ -11,14 +11,13 @@ namespace SuccessfulStartup.ApiTests.Mapping
     [TestFixture]
     internal class BusinessPlanViewModelMappingProfileTests
     {
-        private IMapper _mapper;
+        private IMapper _mapper = AllViewModelsMappingProfiles.GetMapper();
         private BusinessPlanViewModel _planViewModel;
         private BusinessPlan _planData;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            _mapper = AllViewModelsMappingProfiles.GetMapper();
             _planViewModel = A.New<BusinessPlanViewModel>();
             _planData = A.New<BusinessPlan>();
         }

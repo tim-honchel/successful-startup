@@ -13,7 +13,7 @@ namespace SuccessfulStartup.DataTests.Repositories.ReadOnly
     internal class UserReadOnlyRepositoryTests
     {
         private Mock<AuthenticationDbContextFactory> _mockFactory;
-        public IUserReadOnlyRepository _repository;
+        private IUserReadOnlyRepository _repository;
         private Mock<AuthenticationDbContext> _mockContext;
 
         [OneTimeSetUp] // runs one time, prior to all the tests

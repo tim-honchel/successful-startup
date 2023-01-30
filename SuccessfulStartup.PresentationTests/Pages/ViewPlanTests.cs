@@ -1,4 +1,4 @@
-﻿using GenFu;
+﻿using GenFu; // for generating mock data
 using Shouldly; // for assertion
 using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Presentation.Pages;
@@ -9,13 +9,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
 {
     internal class ViewPlanTests
     {
-        private ContextHelper _helper; // contains helper methods for TestContext and TestAuthorizationContext
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            _helper = new ContextHelper();
-        }
+        private readonly ContextHelper _helper = new(); // contains helper methods for TestContext and TestAuthorizationContext
 
         [Test]
         public async Task DetailsContainInfoFromParameter()

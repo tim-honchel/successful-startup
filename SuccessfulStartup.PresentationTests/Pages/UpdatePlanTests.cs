@@ -9,7 +9,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
 {
     internal class UpdatePlanTests
     {
-        private ContextHelper _helper = new ContextHelper(); // contains helper methods for TestContext and TestAuthorizationContext
+        private readonly ContextHelper _helper = new(); // contains helper methods for TestContext and TestAuthorizationContext
 
         [Test]
         public async Task CancelButton_RendersDeleteButton_OnClick()

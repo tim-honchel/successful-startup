@@ -1,5 +1,5 @@
 using SuccessfulStartup.Api.Mapping;
-using SuccessfulStartup.Data; // TODO: necessary for authentication, but would like to find an alternative
+using SuccessfulStartup.Data.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ViewModelConverter>();
-DataLayerConfiguration.AddDataScope(builder.Services); // adds services defined in the data project
+AuthenticationConfiguration.AddDataScope(builder.Services); // adds authentication services
+DataLayerConfiguration.AddDataScope(builder.Services); // adds other services defined in the data project
 
 var app = builder.Build();
 
@@ -25,9 +26,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors();
-
 app.UseAuthorization();
-
+app.UseAuthentication();
 app.MapControllers();
 
 app.Run();

@@ -38,7 +38,7 @@
     [Parameter]
     public int planId { get; set; }
 
-    private BusinessPlanViewModel plan { get; set; } = new BusinessPlanViewModel();
+    private BusinessPlanViewModel plan { get; set; } = new();
 
     protected async override Task OnParametersSetAsync() // don't use OnInitialized, results in runtime error where model cannot be found
     {

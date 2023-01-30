@@ -1,19 +1,11 @@
-﻿using GenFu; // for generating mock data
-using Microsoft.EntityFrameworkCore; // for DbContextOptionsBuilder
-using Moq; // for Mock, Setup
-using Moq.EntityFrameworkCore; // for ReturnsDbSet
-using Shouldly; // for assertion
-using SuccessfulStartup.Data.Authentication;
-using SuccessfulStartup.Data.Contexts;
-using SuccessfulStartup.Data.Entities;
+﻿using Shouldly; // for assertion
 using SuccessfulStartup.Presentation.Pages;
-using System.Text.Json;
 
 namespace SuccessfulStartup.PresentationTests.Pages
 {
     internal class NewPlanTests
     {
-        private ContextHelper _helper = new ContextHelper(); // contains helper methods for TestContext and TestAuthorizationContext
+        private readonly ContextHelper _helper = new(); // contains helper methods for TestContext and TestAuthorizationContext
 
         [Test]
         public void RendersCorrectHeaderText()

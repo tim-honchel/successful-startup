@@ -1,3 +1,5 @@
+<!--Web API for accessing data layer-->
+
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
@@ -7,13 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" /> <!--maps data to view models-->
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" /> <!--allows depenedency injection of mapper in service configuration-->
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" /> <!--Embedded into API template, contains Swagger, SwaggerGen, and SwaggerUI-->
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SuccessfulStartup.Data\SuccessfulStartup.Data.csproj" />
+    <ProjectReference Include="..\SuccessfulStartup.Data\SuccessfulStartup.Data.csproj" /> 
   </ItemGroup>
 
 </Project>

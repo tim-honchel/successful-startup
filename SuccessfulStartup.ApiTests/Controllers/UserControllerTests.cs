@@ -9,8 +9,8 @@ namespace SuccessfulStartup.ApiTests.Controllers
     [TestFixture]
     internal class UserControllerTests
     {
-        private ApiHelper _helper = new ApiHelper();
-        private Mock<IUserReadOnlyRepository> _mockRepository = new Mock<IUserReadOnlyRepository>();
+        private ApiHelper _helper = new();
+        private Mock<IUserReadOnlyRepository> _mockRepository = new();
         private UserController _controller;
 
         [Test]

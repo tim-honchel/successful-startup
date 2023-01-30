@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc; // for ControllerBase, HttpGet
-using SuccessfulStartup.Data.Repositories.ReadOnly;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 
 namespace SuccessfulStartup.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase // API endpoint for HTTP requests
+    public class UserController : ControllerBase // API controller with endpoints for HTTP requests
     {
-        private IUserReadOnlyRepository _repositoryForReadingUsers;
+        private readonly IUserReadOnlyRepository _repositoryForReadingUsers;
 
         public UserController(IUserReadOnlyRepository repositoryForReadingUsers)
         {

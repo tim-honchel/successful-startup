@@ -9,12 +9,12 @@ namespace SuccessfulStartup.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PlanController : ControllerBase // API endpoints for HTTP requests
+    public class PlanController : ControllerBase // API controller with endpoints for HTTP requests
     {
-        private IBusinessPlanReadOnlyRepository _repositoryForReadingBusinessPlans;
-        private IBusinessPlanWriteOnlyRepository _repositoryForWritingBusinessPlans;
-        private ViewModelConverter _viewModelConverter;
-        private EntityConverter _entityConverter;
+        private readonly IBusinessPlanReadOnlyRepository _repositoryForReadingBusinessPlans;
+        private readonly IBusinessPlanWriteOnlyRepository _repositoryForWritingBusinessPlans;
+        private readonly ViewModelConverter _viewModelConverter;
+        private readonly  EntityConverter _entityConverter;
 
         public PlanController(IBusinessPlanReadOnlyRepository repositoryForReadingBusinessPlans, IBusinessPlanWriteOnlyRepository repositoryForWritingBusinessPlans, ViewModelConverter viewModelConverter, EntityConverter entityConverter)
         {
@@ -25,7 +25,7 @@ namespace SuccessfulStartup.Api.Controllers
         }
 
         [HttpDelete("{planId}")]
-        public async Task<IActionResult> DeletePlan(int planId)
+        public async Task<IActionResult> DeletePlan(int planId) // needs to be public in order to be accessible to Swagger
         {
             var planToDelete = await _repositoryForReadingBusinessPlans.GetPlanByIdAsync(planId);
             await _repositoryForWritingBusinessPlans.DeletePlanAsync(planToDelete);
@@ -47,7 +47,7 @@ namespace SuccessfulStartup.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdatePlan([FromBody] BusinessPlanViewModel plan)
+        public async Task<IActionResult> UpdatePlan(BusinessPlanViewModel plan)
         {
             var planToUpdate = _entityConverter.Convert(_viewModelConverter.Convert(plan));
             await _repositoryForWritingBusinessPlans.UpdatePlanAsync(planToUpdate);

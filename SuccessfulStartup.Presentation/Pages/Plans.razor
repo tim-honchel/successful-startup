@@ -7,7 +7,6 @@
 @*for getting current user information*@
 @inject AuthenticationStateProvider provider
 
-
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using SuccessfulStartup.Api.ViewModels
 
@@ -51,7 +50,7 @@
 <p><a href="/plans/new">Create a new plan</a></p>
 
 @code {
-    private List<BusinessPlanViewModel> plans { get; set; } = new List<BusinessPlanViewModel>();
+    private List<BusinessPlanViewModel> plans { get; set; } = new();
     private string message = "Loading...";
 
 

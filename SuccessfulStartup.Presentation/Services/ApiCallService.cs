@@ -1,6 +1,6 @@
 ﻿using SuccessfulStartup.Api.ViewModels;
 using System.Net.Http.Headers; // for HttpClient
-using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices; // for InteralsVisibleTo
 
 [assembly: InternalsVisibleTo("SuccessfulStartup.PresentationTests")] // allows tests to access internal members
 
@@ -13,7 +13,7 @@ namespace SuccessfulStartup.Presentation.Services
         public ApiCallService()
         {
             _client = new HttpClient();
-            _client.BaseAddress = new Uri("https://localhost:7261/");
+            _client.BaseAddress = new Uri("https://localhost:7261/"); // TODO: get address through code or connection string
             _client.DefaultRequestHeaders.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json")); // allows JSON transmission
         }

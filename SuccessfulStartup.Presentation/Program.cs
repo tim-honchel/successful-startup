@@ -1,4 +1,4 @@
-using SuccessfulStartup.Data; // TODO: possible to avoid? need authentication
+using SuccessfulStartup.Data.Configuration;
 using SuccessfulStartup.Presentation.Services;
 
 var builder = WebApplication.CreateBuilder(args); // initializes a builder for configuring a new web application
@@ -10,7 +10,7 @@ builder.Services.AddServerSideBlazor(); // allows Blazor Server specific functio
 //builder.Services.AddHttpClient(); // HttpClient factory for making API calls
 builder.Services.AddScoped<ApiCallService>();
 
-DataLayerConfiguration.AddDataScope(builder.Services); // adds services defined in the data project
+AuthenticationConfiguration.AddDataScope(builder.Services); // adds services defined in the data project
 
 var app = builder.Build(); // initializes web application from builder
 

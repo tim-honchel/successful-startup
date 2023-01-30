@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore; // for SingleOrDefaultAsync
-using SuccessfulStartup.Data.Authentication;
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 
@@ -7,7 +6,7 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
 {
     public class UserReadOnlyRepository : IUserReadOnlyRepository // 
     {
-        private AuthenticationDbContextFactory _factory; // creates context for database connection TODO: is it possible to use interface instead
+        private readonly AuthenticationDbContextFactory _factory; // creates context for database connection TODO: is it possible to use interface instead
         public UserReadOnlyRepository(AuthenticationDbContextFactory factory)
         {
             _factory = factory;

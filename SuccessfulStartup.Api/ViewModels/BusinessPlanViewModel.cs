@@ -1,11 +1,8 @@
-﻿using SuccessfulStartup.Data.Authentication;
-using SuccessfulStartup.Data.Entities;
-using System.ComponentModel.DataAnnotations; // for indicating property requirements
-using System.ComponentModel.DataAnnotations.Schema; // for indicating foreign key
+﻿using System.ComponentModel.DataAnnotations; // for indicating property requirements
 
 namespace SuccessfulStartup.Api.ViewModels
 {
-    public class BusinessPlanViewModel //  originally inherited from business model, but this requires AppUser User as a navigation key, exposing the user information unnecessarily
+    public class BusinessPlanViewModel //  entity for use in API, originally inherited from business model, but this requires AppUser User as a navigation key, exposing the user information unnecessarily
     {
         public int Id { get; set; }
 

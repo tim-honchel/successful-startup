@@ -8,8 +8,8 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
 {
     public class BusinessPlanReadOnlyRepository : IBusinessPlanReadOnlyRepository // performs CRUD operations on the BusinessPlan table
     {
-        private AuthenticationDbContextFactory _factory; // creates context for database connection TODO: is it possible to use interface instead?
-        private IMapper _mapper; // converts data and domain entities
+        private readonly AuthenticationDbContextFactory _factory; // creates context for database connection TODO: is it possible to use interface instead?
+        private readonly IMapper _mapper; // converts data and domain entities
         public BusinessPlanReadOnlyRepository(AuthenticationDbContextFactory factory, IMapper mapper)
         {
             _factory = factory;

@@ -1,12 +1,10 @@
-﻿// Overloaded method converts any type of API or data entity; removes the need of presentation layer to use mapper and access domain layer
-
-using AutoMapper; // for IMapper
+﻿using AutoMapper; // for IMapper
 using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Data.Entities;
 
 namespace SuccessfulStartup.Api.Mapping
 {
-    public class ViewModelConverter
+    public class ViewModelConverter // Overloaded method converts any type of API or data entity; removes the need of presentation layer to use mapper and access domain layer
     {
         private IMapper _mapper; 
 

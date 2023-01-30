@@ -15,12 +15,12 @@ namespace SuccessfulStartup.ApiTests.Controllers
     [TestFixture]
     internal class PlanControllerTests
     {
-        private ApiHelper _helper = new ApiHelper();
-        private Mock<IBusinessPlanReadOnlyRepository> _mockReadRepository = new Mock<IBusinessPlanReadOnlyRepository>();
-        private Mock<IBusinessPlanWriteOnlyRepository> _mockWriteRepository = new Mock<IBusinessPlanWriteOnlyRepository>();
-        private ViewModelConverter _viewModelConverter = new ViewModelConverter(AllViewModelsMappingProfiles.GetMapper());
-        private EntityConverter _entityConverter = new EntityConverter(AllMappingProfiles.GetMapper());
-        private PlanController _controller;
+        private ApiHelper _helper = new();
+        private Mock<IBusinessPlanReadOnlyRepository> _mockReadRepository = new();
+        private Mock<IBusinessPlanWriteOnlyRepository> _mockWriteRepository = new();
+        private ViewModelConverter _viewModelConverter = new(AllViewModelsMappingProfiles.GetMapper());
+        private EntityConverter _entityConverter = new(AllMappingProfiles.GetMapper());
+        private PlanController _controller; // needs to be initialized for each test in order to mock behavior
 
         [Test]
         public async Task DeletePlan_ReturnsOkResult_GivenExistingPlanId()

@@ -8,7 +8,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
 {
     internal class PlansTests : Bunit.TestContext // TestContext class allows addition of service configurations
     {
-        private ContextHelper _helper = new(); // contains helper methods for TestContext and TestAuthorizationContext
+        private readonly ContextHelper _helper = new(); // contains helper methods for TestContext and TestAuthorizationContext
 
         [Test]
         public void RendersCorrectHeaderText()

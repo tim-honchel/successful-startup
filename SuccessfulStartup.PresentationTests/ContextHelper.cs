@@ -1,12 +1,9 @@
-﻿using GenFu; // for generating mock data
-using Moq; // for Mock
+﻿using Moq; // for Mock
 using Moq.Protected; // for MockBehavior
-using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Data.Authentication;
 using SuccessfulStartup.Presentation.Services;
 using System.Net; // for HttpStatusCode
 using System.Net.Http; // for HttpMessageHandler
-using System.Text.Json; // for JsonSerializer
 using System.Threading; // for CancellationToken
 using System.Threading.Tasks; // for ReturnsAsync
 

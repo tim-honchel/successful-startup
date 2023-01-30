@@ -15,16 +15,15 @@ namespace SuccessfulStartup.DataTests.Repositories.ReadOnly
     [TestFixture]
     internal class BusinessPlanReadOnlyRepositoryTests
     {
+        private IMapper _mapper = AllMappingProfiles.GetMapper();
         private Mock<AuthenticationDbContextFactory> _mockFactory;
-        private IMapper _mapper;
-        public IBusinessPlanReadOnlyRepository _repository;
+        private IBusinessPlanReadOnlyRepository _repository;
         private Mock<AuthenticationDbContext> _mockContext;
 
         [OneTimeSetUp] // runs one time, prior to all the tests
         public void OneTimeSetup()
         {
             _mockFactory = new Mock<AuthenticationDbContextFactory>(); // mock factory so the real database is not used
-            _mapper = AllMappingProfiles.GetMapper();
             _repository = new BusinessPlanReadOnlyRepository(_mockFactory.Object, _mapper);
             _mockContext = new Mock<AuthenticationDbContext>(new DbContextOptionsBuilder<AuthenticationDbContext>().Options,"dummyConnectionString"); //  fulfills required parameters
             _mockFactory.Setup(mockedFactory => mockedFactory.CreateDbContext()).Returns(_mockContext.Object); // factory will return the mock context instead of the real one

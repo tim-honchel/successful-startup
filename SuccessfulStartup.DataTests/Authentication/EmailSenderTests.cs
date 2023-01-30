@@ -8,13 +8,7 @@ namespace SuccessfulStartup.DataTests.Authentication
     [TestFixture]
     public class EmailSenderTests
     {
-        private EmailSender _sender;
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            _sender = new EmailSender();
-        }
+        private EmailSender _sender = new();
 
         [Test]
         public void GetsFromEmailFromAppSettings()

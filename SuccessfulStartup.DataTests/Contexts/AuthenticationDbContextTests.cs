@@ -6,13 +6,7 @@ namespace SuccessfulStartup.DataTests.Contexts
     [TestFixture]
     internal class AuthenticationDbContextTests
     {
-        private AuthenticationDbContextFactory _factory;
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            _factory = new AuthenticationDbContextFactory();
-        }
+        private AuthenticationDbContextFactory _factory = new();
 
         [Test]
         public void Database_CanConnect()

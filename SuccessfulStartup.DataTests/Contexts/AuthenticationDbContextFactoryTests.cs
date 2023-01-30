@@ -9,14 +9,13 @@ namespace SuccessfulStartup.DataTests.Contexts
     [TestFixture]
     internal class AuthenticationDbContextFactoryTests
     {
-        private AuthenticationDbContextFactory _factory;
+        private AuthenticationDbContextFactory _factory = new();
         private AuthenticationDbContext _contextWithArguments;
         private AuthenticationDbContext _contextWithoutArguments;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            _factory = new AuthenticationDbContextFactory();
             _contextWithArguments = _factory.CreateDbContext(new string[] { });
             _contextWithoutArguments = _factory.CreateDbContext();
         }
@@ -40,7 +39,7 @@ namespace SuccessfulStartup.DataTests.Contexts
         }
 
         [Test]
-        public void CreateDbContextWithAndWithoutArguments_ReturnEquivalentAuthenticationDbContext()
+        public void CreateDbContextWithAndWithoutArguments_ReturnEquivalentAuthenticationDbContext() // the default method requires arguments; I created an overload with no arguments for simplicity
         {
             _contextWithArguments.ShouldSatisfyAllConditions(
                 () => _contextWithArguments.Database.ShouldBeEquivalentTo(_contextWithoutArguments.Database),

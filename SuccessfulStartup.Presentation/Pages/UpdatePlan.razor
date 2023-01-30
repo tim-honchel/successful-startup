@@ -14,7 +14,6 @@
 
 <br />
 
-
 <AuthorizeView> @*determines which content to show, based on user authorization*@
 
     <Authorized>
@@ -46,7 +45,6 @@
 
             <br />
 
-
         </EditForm>
         }
 
@@ -64,7 +62,6 @@
             <btn id="cancelDelete" class="btn btn-success" @onclick="CancelDelete">Cancel</btn>
         }
         
-
     </Authorized>
 
     <NotAuthorized>
@@ -77,14 +74,13 @@
     [Parameter]
     public int planId { get; set; }
 
-    private BusinessPlanViewModel plan { get; set; } = new BusinessPlanViewModel();
+    private BusinessPlanViewModel plan { get; set; } = new();
     private string message = "";
     private string deletionStatus = "active";
 
     public async void CancelDelete()
     {
         deletionStatus = "active";
-
     }
 
     public async void HandleDelete()
