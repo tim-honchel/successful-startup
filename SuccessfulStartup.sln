@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuccessfulStartup.Data", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuccessfulStartup.Api", "SuccessfulStartup.Api\SuccessfulStartup.Api.csproj", "{DF8B9380-AEEE-4AFD-8094-0F901D938065}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuccessfulStartup.ApiTests", "SuccessfulStartup.ApiTests\SuccessfulStartup.ApiTests.csproj", "{F9D6A578-8BE4-4334-8284-FC4456AA5C01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuccessfulStartup.ApiTests", "SuccessfulStartup.ApiTests\SuccessfulStartup.ApiTests.csproj", "{F9D6A578-8BE4-4334-8284-FC4456AA5C01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

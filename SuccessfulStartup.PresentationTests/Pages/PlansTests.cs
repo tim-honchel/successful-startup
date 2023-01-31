@@ -2,6 +2,8 @@
 using Shouldly; // for assertion
 using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Presentation.Pages;
+using System.Net; // for HttpStatusCode
+using System.Net.Http; // for HttpMethod 
 using System.Text.Json; // for JsonSerializer
 
 namespace SuccessfulStartup.PresentationTests.Pages
@@ -14,9 +16,9 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void RendersCorrectHeaderText()
         {
             var handler = _helper.GetMockHandler();
-            _helper.SetupMockHandlerForUsers(handler, true);
+            _helper.SetupMockHandlerForUsers(handler, HttpStatusCode.OK);
             var plansToReturn = A.ListOf<BusinessPlanViewModel>(5);
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(plansToReturn));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(plansToReturn));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
@@ -30,7 +32,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void RendersNoTable_GivenUnauthorization()
         {
             var handler = _helper.GetMockHandler();
-            _helper.SetupMockHandlerForUsers(handler, true);
+            _helper.SetupMockHandlerForUsers(handler, HttpStatusCode.OK);
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext, false);
 
@@ -44,10 +46,10 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void RendersRows_GivenAuthorizationAndMatchingRecords()
         {
             var handler = _helper.GetMockHandler();
-            _helper.SetupMockHandlerForUsers(handler, true);
+            _helper.SetupMockHandlerForUsers(handler, HttpStatusCode.OK);
             A.Configure<BusinessPlanViewModel>().Fill(plan => plan.AuthorId, () => { return _helper.standardUser.Id; });
             var plansToReturn = A.ListOf<BusinessPlanViewModel>(5);
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(plansToReturn));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(plansToReturn));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
@@ -61,9 +63,9 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void RendersTable_GivenAuthorization()
         {
             var handler = _helper.GetMockHandler();
-            _helper.SetupMockHandlerForUsers(handler, true);
+            _helper.SetupMockHandlerForUsers(handler, HttpStatusCode.OK);
             var plansToReturn = A.ListOf<BusinessPlanViewModel>(5);
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(plansToReturn));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(plansToReturn));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 

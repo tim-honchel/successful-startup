@@ -22,13 +22,13 @@ namespace SuccessfulStartup.Api.Controllers
                 var id = await _repositoryForReadingUsers.GetUserIdByUsernameAsync(username);
                 return new OkObjectResult(id);
             }
-            catch (ArgumentNullException exception)
+            catch (ArgumentNullException)
             {
-                return new BadRequestObjectResult(exception.ParamName);
+                return new BadRequestObjectResult("null");
             }
-            catch (NullReferenceException exception)
+            catch (NullReferenceException)
             {
-                return new NoContentResult();
+                return new NotFoundObjectResult("not found");
             }
 
 

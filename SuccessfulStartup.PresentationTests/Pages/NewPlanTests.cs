@@ -1,5 +1,7 @@
 ﻿using Shouldly; // for assertion
 using SuccessfulStartup.Presentation.Pages;
+using System.Net; // for HttpStatusCode
+using System.Net.Http; // for HttpMethod 
 
 namespace SuccessfulStartup.PresentationTests.Pages
 {
@@ -11,7 +13,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void RendersCorrectHeaderText()
         {
             var handler = _helper.GetMockHandler();
-            _helper.SetupMockHandlerForUsers(handler, true); // returns userId
+            _helper.SetupMockHandlerForUsers(handler, HttpStatusCode.OK); // returns userId
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
@@ -25,7 +27,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void RendersForm_GivenAuthorization()
         {
             var handler = _helper.GetMockHandler();
-            _helper.SetupMockHandlerForUsers(handler, true); 
+            _helper.SetupMockHandlerForUsers(handler, HttpStatusCode.OK); 
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
              
@@ -39,7 +41,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void RendersNoForm_GivenUnauthorization()
         {
             var handler = _helper.GetMockHandler();
-            _helper.SetupMockHandlerForUsers(handler, true); 
+            _helper.SetupMockHandlerForUsers(handler, HttpStatusCode.OK); 
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext, false);
 
@@ -53,8 +55,8 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void FormSubmit_RendersMessage_GivenValidInput()
         {
             var handler = _helper.GetMockHandler();
-            _helper.SetupMockHandlerForUsers(handler, true);
-            _helper.SetupMockHandlerForPlans(handler, false, true); // returns OkResult from post request
+            _helper.SetupMockHandlerForUsers(handler, HttpStatusCode.OK);
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Post, HttpStatusCode.OK); // returns OkResult from post request
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext); 
             var component = testContext.RenderComponent<NewPlan>();
@@ -74,7 +76,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void FormSubmit_RendersNoMessage_GivenInvalidInput(string name, string description) // field messages will appear, but no form message
         {
             var handler = _helper.GetMockHandler();
-            _helper.SetupMockHandlerForUsers(handler, true);
+            _helper.SetupMockHandlerForUsers(handler, HttpStatusCode.OK);
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
             var component = testContext.RenderComponent<NewPlan>();

@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc; // for ControllerBase, HttpGet, HttpPost, HttpPut, HttpDelete)
-using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore; // for DbUpdateException
 using SuccessfulStartup.Api.Mapping;
 using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Data.Mapping;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 using SuccessfulStartup.Domain.Repositories.WriteOnly;
+using System;
 
 namespace SuccessfulStartup.Api.Controllers
 {
@@ -34,15 +35,15 @@ namespace SuccessfulStartup.Api.Controllers
                 await _repositoryForWritingBusinessPlans.DeletePlanAsync(planToDelete);
                 return new OkResult();
             }
-            catch (ArgumentNullException exception)
+            catch (ArgumentNullException)
             {
-                return new BadRequestObjectResult(exception.ParamName);
+                return new BadRequestObjectResult("null");
             }
-            catch (NullReferenceException exception)
+            catch (NullReferenceException)
             {
-                return new NoContentResult();
+                return new NotFoundObjectResult("not found");
             }
-            catch (DbUpdateException exception)
+            catch (DbUpdateException)
             {
                 return new NoContentResult();
             }
@@ -81,6 +82,25 @@ namespace SuccessfulStartup.Api.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SaveNewPlan(BusinessPlanViewModel plan)
+        {
+            try
+            {
+                var planToSave = _entityConverter.Convert(_viewModelConverter.Convert(plan));
+                await _repositoryForWritingBusinessPlans.SaveNewPlanAsync(planToSave);
+                return new CreatedResult(new Uri($"/plans/{planToSave.Id}", UriKind.Relative), planToSave); // shows new record was created, points to URL where it can be found
+            }
+            catch (ArgumentNullException exception)
+            {
+                return new BadRequestObjectResult(exception.ParamName);
+            }
+            catch (DbUpdateException)
+            {
+                return new NoContentResult();
+            }
+        }
+
         [HttpPut]
         public async Task<IActionResult> UpdatePlan(BusinessPlanViewModel plan)
         {
@@ -96,24 +116,7 @@ namespace SuccessfulStartup.Api.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SaveNewPlan(BusinessPlanViewModel plan)
-        {
-            try
-            {
-                var planToSave = _entityConverter.Convert(_viewModelConverter.Convert(plan));
-                await _repositoryForWritingBusinessPlans.SaveNewPlanAsync(planToSave);
-                return new CreatedResult(new Uri($"/plans/{planToSave.Id}", UriKind.Relative),planToSave); // shows new record was created, points to URL where it can be found
-            }
-            catch (ArgumentNullException exception)
-            {
-                return new BadRequestObjectResult(exception.ParamName);
-            }
-            catch (DbUpdateException)
-            {
-                return new NoContentResult();
-            }
-        }
+
 
     }
 }

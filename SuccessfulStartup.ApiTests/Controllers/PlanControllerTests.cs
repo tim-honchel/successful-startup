@@ -34,16 +34,6 @@ namespace SuccessfulStartup.ApiTests.Controllers
             response.ShouldBeOfType<OkResult>();
         }
 
-        [Test]
-        public async Task DeletePlan_Returns204Code_GivenNonexistentPlanId()
-        {
-            var nonexistentId = 999;
-            _mockReadRepository.Setup(repository => repository.GetPlanByIdAsync(nonexistentId)).Throws<NullReferenceException>();
-            _controller = new PlanController(_mockReadRepository.Object, _mockWriteRepository.Object, _viewModelConverter, _entityConverter);
-
-            var response = await _controller.DeletePlan(nonexistentId);
-            response.ShouldBeOfType<NoContentResult>();
-        }
 
         [Test]
         public async Task DeletePlan_Returns204Code_GivenDatabaseError()
@@ -57,7 +47,7 @@ namespace SuccessfulStartup.ApiTests.Controllers
         }
 
         [Test]
-        public async Task DeletePlan_Returns404CodeWithObject_GivenInvalidPlanId()
+        public async Task DeletePlan_Returns400CodeWithObject_GivenInvalidPlanId()
         {
             var invalidId = 0;
             _mockReadRepository.Setup(repository => repository.GetPlanByIdAsync(invalidId)).Throws<ArgumentNullException>();
@@ -65,6 +55,17 @@ namespace SuccessfulStartup.ApiTests.Controllers
 
             var response = await _controller.DeletePlan(invalidId);
             response.ShouldBeOfType<BadRequestObjectResult>();
+        }
+
+        [Test]
+        public async Task DeletePlan_Returns404CodeWithObject_GivenNonexistentPlanId()
+        {
+            var nonexistentId = 999;
+            _mockReadRepository.Setup(repository => repository.GetPlanByIdAsync(nonexistentId)).Throws<NullReferenceException>();
+            _controller = new PlanController(_mockReadRepository.Object, _mockWriteRepository.Object, _viewModelConverter, _entityConverter);
+
+            var response = await _controller.DeletePlan(nonexistentId);
+            response.ShouldBeOfType<NotFoundObjectResult>();
         }
 
         [Test]
@@ -167,27 +168,6 @@ namespace SuccessfulStartup.ApiTests.Controllers
         }
 
         [Test]
-        public async Task UpdatePlan_Returns200Code_GivenValidPlan()
-        {
-            var planToUpdate = A.New<BusinessPlanViewModel>();
-            _controller = new PlanController(_mockReadRepository.Object, _mockWriteRepository.Object, _viewModelConverter, _entityConverter);
-
-            var response = await _controller.UpdatePlan(planToUpdate);
-            response.ShouldBeOfType<OkResult>();
-        }
-
-        [Test]
-        public async Task UpdatePlan_Returns204Code_GivenDatabaseError()
-        {
-            var planToUpdate = A.New<BusinessPlanViewModel>();
-            _mockWriteRepository.Setup(repository => repository.UpdatePlanAsync(It.Is<BusinessPlanDomain>(plan => plan.Id == planToUpdate.Id))).Throws<DbUpdateException>();
-            _controller = new PlanController(_mockReadRepository.Object, _mockWriteRepository.Object, _viewModelConverter, _entityConverter);
-
-            var response = await _controller.UpdatePlan(planToUpdate);
-            response.ShouldBeOfType<NoContentResult>();
-        }
-
-        [Test]
         public async Task SaveNewPlan_Returns201Code_GivenValidPlan()
         {
             var planToSave = A.New<BusinessPlanViewModel>();
@@ -218,6 +198,27 @@ namespace SuccessfulStartup.ApiTests.Controllers
 
             var response = await _controller.SaveNewPlan(invalidPlan);
             response.ShouldBeOfType<BadRequestObjectResult>();
+        }
+
+        [Test]
+        public async Task UpdatePlan_Returns200Code_GivenValidPlan()
+        {
+            var planToUpdate = A.New<BusinessPlanViewModel>();
+            _controller = new PlanController(_mockReadRepository.Object, _mockWriteRepository.Object, _viewModelConverter, _entityConverter);
+
+            var response = await _controller.UpdatePlan(planToUpdate);
+            response.ShouldBeOfType<OkResult>();
+        }
+
+        [Test]
+        public async Task UpdatePlan_Returns204Code_GivenDatabaseError()
+        {
+            var planToUpdate = A.New<BusinessPlanViewModel>();
+            _mockWriteRepository.Setup(repository => repository.UpdatePlanAsync(It.Is<BusinessPlanDomain>(plan => plan.Id == planToUpdate.Id))).Throws<DbUpdateException>();
+            _controller = new PlanController(_mockReadRepository.Object, _mockWriteRepository.Object, _viewModelConverter, _entityConverter);
+
+            var response = await _controller.UpdatePlan(planToUpdate);
+            response.ShouldBeOfType<NoContentResult>();
         }
     }
 

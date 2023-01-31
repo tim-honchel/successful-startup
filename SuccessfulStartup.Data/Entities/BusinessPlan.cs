@@ -7,7 +7,7 @@ namespace SuccessfulStartup.Data.Entities
 {
     public class BusinessPlan : BusinessPlanDomain // model for Entity Framework
     {
-        public int Id { get; set; }
+        public int Id { get; set; } // TODO : change to GUID?
 
         [Required]
         [MaxLength(30, ErrorMessage = "Exceeded 30 character maximum.")]

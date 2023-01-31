@@ -37,16 +37,6 @@ namespace SuccessfulStartup.ApiTests.Controllers
         }
 
         [Test]
-        public async Task GetUserIdByUserName_Returns204Code_GivenNonexistentUsername()
-        {
-            _mockRepository.Setup(repository => repository.GetUserIdByUsernameAsync("nonexistent-user")).Throws<NullReferenceException>();
-            _controller = new UserController(_mockRepository.Object);
-
-            var response = await _controller.GetUserIdByUsername("nonexistent-user");
-            response.ShouldBeOfType<NoContentResult>();
-        }
-
-        [Test]
         public async Task GetUserIdByUserName_Returns400CodeWithObject_GivenInvalidUsername()
         {
             _mockRepository.Setup(repository => repository.GetUserIdByUsernameAsync(null)).Throws<ArgumentNullException>();
@@ -55,5 +45,17 @@ namespace SuccessfulStartup.ApiTests.Controllers
             var response = await _controller.GetUserIdByUsername(null);
             response.ShouldBeOfType<BadRequestObjectResult>();
         }
+
+        [Test]
+        public async Task GetUserIdByUserName_Returns404Code_GivenNonexistentUsername()
+        {
+            _mockRepository.Setup(repository => repository.GetUserIdByUsernameAsync("nonexistent-user")).Throws<NullReferenceException>();
+            _controller = new UserController(_mockRepository.Object);
+
+            var response = await _controller.GetUserIdByUsername("nonexistent-user");
+            response.ShouldBeOfType<NotFoundObjectResult>();
+        }
+
+
     }
 }

@@ -2,6 +2,8 @@
 using Shouldly; // for assertion
 using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Presentation.Pages;
+using System.Net; // for HttpStatusCode
+using System.Net.Http; // for HttpMethod 
 using System.Text.Json; // for JsonSerializer
 using System.Threading.Tasks; // for Sleep
 
@@ -16,7 +18,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         {
             var handler = _helper.GetMockHandler();
             var planToView = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(planToView));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToView));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
@@ -31,7 +33,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         {
             var handler = _helper.GetMockHandler();
             var planToView = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(planToView));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToView));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
@@ -46,7 +48,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         {
             var handler = _helper.GetMockHandler();
             var planToView = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(planToView));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToView));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
@@ -61,7 +63,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         {
             var handler = _helper.GetMockHandler();
             var planToView = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(planToView));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToView));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext, false);
 

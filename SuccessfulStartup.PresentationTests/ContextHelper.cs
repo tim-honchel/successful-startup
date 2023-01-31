@@ -3,7 +3,7 @@ using Moq.Protected; // for MockBehavior
 using SuccessfulStartup.Data.Authentication;
 using SuccessfulStartup.Presentation.Services;
 using System.Net; // for HttpStatusCode
-using System.Net.Http; // for HttpMessageHandler
+using System.Net.Http; // for HttpMessageHandler, HttpMethod
 using System.Threading; // for CancellationToken
 using System.Threading.Tasks; // for ReturnsAsync
 
@@ -51,28 +51,18 @@ namespace SuccessfulStartup.PresentationTests
             testContext.Services.AddSingleton(new ApiCallService(handler.Object)); // injects ApiCallService with mock handler
             return testContext;
         }
-
-        public Mock<HttpMessageHandler> SetupMockHandlerForPlans(Mock<HttpMessageHandler> mockHandler, bool getRequest, bool okResponse, string returnedJson = "success")
+        
+        public Mock<HttpMessageHandler> SetupMockHandlerForPlans(Mock<HttpMessageHandler> mockHandler, HttpMethod requestMethodType, HttpStatusCode responseStatusCode, string returnedJson = "success")
         {
-            var statusCode = okResponse ? HttpStatusCode.OK : HttpStatusCode.NotFound;
             var content = new StringContent(returnedJson); // converts to HttpContent
-            if (getRequest == true) // for get requests
-            {
-                mockHandler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.Is<HttpRequestMessage>(request => request.Method == HttpMethod.Get && request.RequestUri.ToString().Contains("Plan")), ItExpr.IsAny<CancellationToken>()).ReturnsAsync(new HttpResponseMessage() { StatusCode = statusCode, Content = content }).Verifiable();
-            }
-            else // for post, put, and delete requests
-            {
-                mockHandler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.Is<HttpRequestMessage>(request => request.Method != HttpMethod.Get && request.RequestUri.ToString().Contains("Plan")), ItExpr.IsAny<CancellationToken>()).ReturnsAsync(new HttpResponseMessage() { StatusCode = statusCode }).Verifiable();
-            }
-            
+            mockHandler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.Is<HttpRequestMessage>(request => request.Method == requestMethodType && request.RequestUri.ToString().Contains("Plan")), ItExpr.IsAny<CancellationToken>()).ReturnsAsync(new HttpResponseMessage() { StatusCode = responseStatusCode, Content = content }).Verifiable();
             return mockHandler;
         }
 
-        public Mock<HttpMessageHandler> SetupMockHandlerForUsers(Mock<HttpMessageHandler> mockHandler, bool okResponse, string returnedJson = "\"00000000-0000-0000-0000-000000000000\"")
+        public Mock<HttpMessageHandler> SetupMockHandlerForUsers(Mock<HttpMessageHandler> mockHandler, HttpStatusCode responseStatusCode, string returnedJson = "\"00000000-0000-0000-0000-000000000000\"")
         {
-            var statusCode = okResponse ? HttpStatusCode.OK : HttpStatusCode.NotFound;
             var content = new StringContent(returnedJson);
-            mockHandler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.Is<HttpRequestMessage>(request => request.Method == HttpMethod.Get && request.RequestUri.ToString().Contains("User")), ItExpr.IsAny<CancellationToken>()).ReturnsAsync(new HttpResponseMessage() { StatusCode = statusCode, Content = content }).Verifiable();
+            mockHandler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.Is<HttpRequestMessage>(request => request.Method == HttpMethod.Get && request.RequestUri.ToString().Contains("User")), ItExpr.IsAny<CancellationToken>()).ReturnsAsync(new HttpResponseMessage() { StatusCode = responseStatusCode, Content = content }).Verifiable();
             return mockHandler;
         }
 

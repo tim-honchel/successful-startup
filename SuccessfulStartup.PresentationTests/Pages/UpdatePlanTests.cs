@@ -2,6 +2,8 @@
 using Shouldly; // for assertion
 using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Presentation.Pages;
+using System.Net; // for HttpStatusCode
+using System.Net.Http; // for HttpMethod 
 using System.Text.Json; // for JsonSerializer
 using System.Threading.Tasks; // for Sleep
 
@@ -17,7 +19,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
 
             var handler = _helper.GetMockHandler();
             var planToDelete = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(planToDelete));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToDelete));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
@@ -34,8 +36,8 @@ namespace SuccessfulStartup.PresentationTests.Pages
         {
             var handler = _helper.GetMockHandler();
             var planToDelete = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(planToDelete)); // returns the plan entered as a paramter
-            _helper.SetupMockHandlerForPlans(handler, false, true); // returns Ok after deletion request
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToDelete)); // returns the plan entered as a paramter
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Delete, HttpStatusCode.OK); // returns Ok after deletion request
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
@@ -52,7 +54,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         {
             var handler = _helper.GetMockHandler();
             var planToDelete = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(planToDelete));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToDelete));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
@@ -69,7 +71,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         {
             var handler = _helper.GetMockHandler();
             var planToUpdate = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(planToUpdate));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToUpdate));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
@@ -85,7 +87,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         {
             var handler = _helper.GetMockHandler();
             var planToUpdate = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(planToUpdate));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToUpdate));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
             var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToUpdate.Id));
@@ -106,7 +108,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         {
             var handler = _helper.GetMockHandler();
             var planToUpdate = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(planToUpdate));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToUpdate));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
             var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToUpdate.Id));
@@ -124,7 +126,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         {
             var handler = _helper.GetMockHandler();
             var planToUpdate = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(planToUpdate));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToUpdate));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
@@ -139,7 +141,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         {
             var handler = _helper.GetMockHandler();
             var planToUpdate = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(planToUpdate));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToUpdate));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
@@ -154,7 +156,7 @@ namespace SuccessfulStartup.PresentationTests.Pages
         {
             var handler = _helper.GetMockHandler();
             var planToUpdate = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, true, true, JsonSerializer.Serialize(planToUpdate));
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToUpdate));
             using var testContext = _helper.GetTestContext(handler);
             var authorizationContext = _helper.GetAuthorizationContext(testContext, false);
 
