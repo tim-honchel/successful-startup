@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices; // for InteralsVisibleTo
 
 namespace SuccessfulStartup.Presentation.Services
 {
-    public class ApiCallService // Static class used for all API calls
+    public class ApiCallService :IApiCallService // helper class used for all API calls
     {
         private static HttpClient _client;
 
@@ -25,7 +25,7 @@ namespace SuccessfulStartup.Presentation.Services
             _client.BaseAddress = new Uri("https://localhost:7260/"); // edited to be fake
         }
 
-        internal async Task DeletePlanAsync(int planId)
+        public async Task DeletePlanAsync(int planId) // must be public to implement interface
         {
             var response = await _client.DeleteAsync($"Plan/{planId}");
 
@@ -36,7 +36,7 @@ namespace SuccessfulStartup.Presentation.Services
             else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}");  }
         }
 
-        internal async Task<List<BusinessPlanViewModel>> GetAllPlansByAuthorIdAsync(string authorId)
+        public async Task<List<BusinessPlanViewModel>> GetAllPlansByAuthorIdAsync(string authorId)
         {
             var response = await _client.GetAsync($"Plan/all/{authorId}");
 
@@ -46,7 +46,7 @@ namespace SuccessfulStartup.Presentation.Services
             else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}"); }
         }
 
-        internal async Task<BusinessPlanViewModel> GetPlanByIdAsync(int planId)
+        public async Task<BusinessPlanViewModel> GetPlanByIdAsync(int planId)
         {
             var response = await _client.GetAsync($"Plan/{planId}");
 
@@ -57,9 +57,9 @@ namespace SuccessfulStartup.Presentation.Services
             else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}"); }
         }
 
-        internal async Task<string> GetUserIdByUsernameAsync(string username)
+        public async Task<string> GetUserIdByUsernameAsync(string username)
         {
-            /*var response = await _client.GetAsync($"User/{username}");
+            var response = await _client.GetAsync($"User/{username}");
 
             if (response.StatusCode == HttpStatusCode.OK) 
             { 
@@ -68,22 +68,24 @@ namespace SuccessfulStartup.Presentation.Services
             }
             else if (response.StatusCode == HttpStatusCode.BadRequest && response.Content.ReadAsStringAsync().Result.Contains("null")) { throw new ArgumentNullException($"Invalid username: {username}. Cannot be null"); }
             else if (response.StatusCode == HttpStatusCode.NotFound && response.Content.ReadAsStringAsync().Result.Contains("not found")) { throw new NullReferenceException($"No user with username: {username} could be found."); }
-            else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}."); }*/
-
-            throw new NullReferenceException($"No user with username: {username} could be found.");
+            else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}."); }
         }
 
-        internal async Task SaveNewPlanAsync(BusinessPlanViewModel plan)
+        public async Task<int> SaveNewPlanAsync(BusinessPlanViewModel plan)
         {
             var response = await _client.PostAsJsonAsync("Plan", plan);
 
-            if (response.StatusCode == HttpStatusCode.Created) { return; }
+            if (response.StatusCode == HttpStatusCode.Created) 
+            {
+                var newId = response.Content.ReadAsStringAsync().Result;
+                return Convert.ToInt32(newId); 
+            }
             else if (response.StatusCode == HttpStatusCode.BadRequest && response.Content.ReadAsStringAsync().Result.Contains("null")) { throw new ArgumentNullException($"Invalid plan. Cannot be null"); }
             else if (response.StatusCode == HttpStatusCode.NoContent) { throw new InvalidOperationException("Error writing to the database. Possible that the record did not completely match."); }
             else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}"); }
         }
 
-        internal async Task UpdatePlanAsync(BusinessPlanViewModel plan)
+        public async Task UpdatePlanAsync(BusinessPlanViewModel plan)
         {
             var response = await _client.PutAsJsonAsync("Plan", plan);
 

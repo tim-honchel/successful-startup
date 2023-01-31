@@ -88,8 +88,8 @@ namespace SuccessfulStartup.Api.Controllers
             try
             {
                 var planToSave = _entityConverter.Convert(_viewModelConverter.Convert(plan));
-                await _repositoryForWritingBusinessPlans.SaveNewPlanAsync(planToSave);
-                return new CreatedResult(new Uri($"/plans/{planToSave.Id}", UriKind.Relative), planToSave); // shows new record was created, points to URL where it can be found
+                var newId = await _repositoryForWritingBusinessPlans.SaveNewPlanAsync(planToSave);
+                return new CreatedResult(new Uri($"/plans/{newId}", UriKind.Relative), newId); // shows new record was created, points to URL where it can be found
             }
             catch (ArgumentNullException exception)
             {

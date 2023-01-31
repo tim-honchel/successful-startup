@@ -46,16 +46,18 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
             }
 
         }
-        public async Task SaveNewPlanAsync(BusinessPlanDomain planToSave)
+        public async Task<int> SaveNewPlanAsync(BusinessPlanDomain planToSave)
         {
             if (planToSave == null || string.IsNullOrWhiteSpace(planToSave.Name) || string.IsNullOrWhiteSpace(planToSave.Description) || string.IsNullOrWhiteSpace(planToSave.AuthorId) ) { throw new ArgumentNullException(nameof(planToSave)); }
+            var plan = _mapper.Map<BusinessPlan>(planToSave);
 
             using var context = _factory.CreateDbContext();
 
             try
             {
-                await context.AddAsync(_mapper.Map<BusinessPlan>(planToSave));
+                await context.AddAsync(plan);
                 await context.SaveChangesAsync();
+                return plan.Id; // gets the auto-generated Id, has to be the data entity, not the domain entity
             }
             catch (DbUpdateException exception)
             {

@@ -6,6 +6,6 @@ namespace SuccessfulStartup.Domain.Repositories.WriteOnly
     {
         Task DeletePlanAsync(BusinessPlanDomain planToDelete);
         Task UpdatePlanAsync(BusinessPlanDomain planToUpdate);
-        Task SaveNewPlanAsync(BusinessPlanDomain planToSave);
+        Task<int> SaveNewPlanAsync(BusinessPlanDomain planToSave);
     }
 }

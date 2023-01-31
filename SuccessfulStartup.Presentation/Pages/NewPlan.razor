@@ -3,7 +3,7 @@
 @page "/plans/new"
 
 @*for making API calls*@
-@inject ApiCallService service
+@inject IApiCallService service
 @*for getting current user information*@
 @inject AuthenticationStateProvider provider
 
@@ -49,6 +49,11 @@
         
         <p id="message" style="color:red">@message</p>
 
+        @if (newId > 0) //TODO: newID does not re-render here after value change
+            {
+                <a href="/plans/@newId">View/Edit Plan</a>
+            }
+
     </Authorized>
 
     <NotAuthorized>
@@ -63,21 +68,22 @@
     private string message = "";
     private string creationStatus = "unsaved";
     private bool formHidden = false;
+    private int newId { get; set; } // auto-generated Id of created plan
 
     public async void HandleValidSubmit()
     {
-        creationStatus = "saved";
+        plan.AuthorId = authorId; // needs to be set after submit, otherwise may appear as null
+        creationStatus = "saved"; // disables button, preventing duplicate press
         message = "Saving plan...";
         try
         {
             message = "New business plan created successfully!"; // needs to be before API call in order to render
-            plan.AuthorId = authorId; // needs to be set after submit, otherwise may appear as null
-            await service.SaveNewPlanAsync(plan);  // service manages all HTTPClient requests to the API   
+            newId = await service.SaveNewPlanAsync(plan);  // service manages all HTTPClient requests to the API   
         }
-        catch (Exception)
+        catch (Exception exception)
         {
             creationStatus = "unsaved";
-            message = "Failed to create new business plan.";
+            message = $"{exception.Message} Please resubmit. If the problem persists, please report the following error to Support: {exception.GetType()}"; // will display the error message provided by the exception
         }
     }
 

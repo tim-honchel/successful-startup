@@ -44,6 +44,12 @@ namespace SuccessfulStartup.PresentationTests
             return mockHandler;
         }
 
+        public Mock<IApiCallService> GetMockApiService() // setups will be written in each unit test
+        {
+            Mock<IApiCallService> mockService = new();
+            return mockService;
+        }
+
         public Bunit.TestContext GetTestContext(Mock<HttpMessageHandler> handler) 
         {
 
@@ -51,7 +57,15 @@ namespace SuccessfulStartup.PresentationTests
             testContext.Services.AddSingleton(new ApiCallService(handler.Object)); // injects ApiCallService with mock handler
             return testContext;
         }
-        
+
+        public Bunit.TestContext GetTestContext(Mock<IApiCallService> service)
+        {
+
+            var testContext = new Bunit.TestContext(); // Bunit and Nunit both have TestContext, necessary to specify
+            testContext.Services.AddSingleton(service.Object); // injects ApiCallService with mock handler
+            return testContext;
+        }
+
         public Mock<HttpMessageHandler> SetupMockHandlerForPlans(Mock<HttpMessageHandler> mockHandler, HttpMethod requestMethodType, HttpStatusCode responseStatusCode, string returnedJson = "success")
         {
             var content = new StringContent(returnedJson); // converts to HttpContent
