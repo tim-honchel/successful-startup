@@ -1,11 +1,9 @@
 ﻿using GenFu; // for generating mock objects
+using Moq; // for Setup
 using Shouldly; // for assertion
-using SuccessfulStartup.Data.Entities;
+using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Presentation.Pages;
-using System.Net; // for HttpStatusCode
-using System.Net.Http; // for HttpMethod 
-using System.Text.Json; // for JsonSerializer
-using System.Threading.Tasks; // for Sleep
+using System.Threading.Tasks; // for Task
 
 namespace SuccessfulStartup.PresentationTests.Pages
 {
@@ -16,11 +14,10 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public async Task CancelButton_RendersDeleteButton_OnClick()
         {
-
-            var handler = _helper.GetMockHandler();
-            var planToDelete = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToDelete));
-            using var testContext = _helper.GetTestContext(handler);
+            var service = _helper.GetMockApiService(); // mock API call service
+            var planToDelete = A.New<BusinessPlanViewModel>();
+            service.Setup(service => service.GetPlanByIdAsync(planToDelete.Id)).ReturnsAsync(planToDelete); // returns the generated plan
+            using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
             var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToDelete.Id));
@@ -34,11 +31,10 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public async Task ConfirmDeleteButton_RendersSuccessMessage_OnClick()
         {
-            var handler = _helper.GetMockHandler();
-            var planToDelete = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToDelete)); // returns the plan entered as a paramter
-            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Delete, HttpStatusCode.OK); // returns Ok after deletion request
-            using var testContext = _helper.GetTestContext(handler);
+            var service = _helper.GetMockApiService();
+            var planToDelete = A.New<BusinessPlanViewModel>();
+            service.Setup(service => service.GetPlanByIdAsync(planToDelete.Id)).ReturnsAsync(planToDelete); // no return is needed for the Delete method
+            using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
             var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToDelete.Id)); // URL passes in plan Id
@@ -52,10 +48,10 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public async Task DeleteButton_RendersPrompt_OnClick()
         {
-            var handler = _helper.GetMockHandler();
-            var planToDelete = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToDelete));
-            using var testContext = _helper.GetTestContext(handler);
+            var service = _helper.GetMockApiService();
+            var planToDelete = A.New<BusinessPlanViewModel>();
+            service.Setup(service => service.GetPlanByIdAsync(planToDelete.Id)).ReturnsAsync(planToDelete); 
+            using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
             var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToDelete.Id));
@@ -69,15 +65,14 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public async Task DetailsContainInfoFromParameter()
         {
-            var handler = _helper.GetMockHandler();
-            var planToUpdate = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToUpdate));
-            using var testContext = _helper.GetTestContext(handler);
+            var service = _helper.GetMockApiService();
+            var planToUpdate = A.New<BusinessPlanViewModel>();
+            service.Setup(service => service.GetPlanByIdAsync(planToUpdate.Id)).ReturnsAsync(planToUpdate); 
+            using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
             var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToUpdate.Id));
 
-            System.Threading.Thread.Sleep(300); // time for component to fully render
             var input = component.Find("input[id=\"name\"]").ToMarkup();
             input.ShouldContain(planToUpdate.Name);
         }
@@ -85,10 +80,10 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public void FormSubmit_RendersMessage_GivenValidInput()
         {
-            var handler = _helper.GetMockHandler();
-            var planToUpdate = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToUpdate));
-            using var testContext = _helper.GetTestContext(handler);
+            var service = _helper.GetMockApiService();
+            var planToUpdate = A.New<BusinessPlanViewModel>();
+            service.Setup(service => service.GetPlanByIdAsync(planToUpdate.Id)).ReturnsAsync(planToUpdate); 
+            using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
             var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToUpdate.Id));
 
@@ -106,10 +101,10 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [TestCase("name is really really really really really really really long", "description")] // name exceeds max length
         public void FormSubmit_RendersNoMessage_GivenInvalidInput(string name, string description) // field messages will appear, but no form message
         {
-            var handler = _helper.GetMockHandler();
-            var planToUpdate = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToUpdate));
-            using var testContext = _helper.GetTestContext(handler);
+            var service = _helper.GetMockApiService();
+            var planToUpdate = A.New<BusinessPlanViewModel>();
+            service.Setup(service => service.GetPlanByIdAsync(planToUpdate.Id)).ReturnsAsync(planToUpdate); 
+            using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
             var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToUpdate.Id));
 
@@ -124,10 +119,10 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public void RendersCorrectHeaderText()
         {
-            var handler = _helper.GetMockHandler();
-            var planToUpdate = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToUpdate));
-            using var testContext = _helper.GetTestContext(handler);
+            var service = _helper.GetMockApiService();
+            var planToUpdate = A.New<BusinessPlanViewModel>();
+            service.Setup(service => service.GetPlanByIdAsync(planToUpdate.Id)).ReturnsAsync(planToUpdate); 
+            using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
             var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToUpdate.Id)); // render the page 
@@ -139,10 +134,10 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public void RendersForm_GivenAuthorization()
         {
-            var handler = _helper.GetMockHandler();
-            var planToUpdate = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToUpdate));
-            using var testContext = _helper.GetTestContext(handler);
+            var service = _helper.GetMockApiService();
+            var planToUpdate = A.New<BusinessPlanViewModel>();
+            service.Setup(service => service.GetPlanByIdAsync(planToUpdate.Id)).ReturnsAsync(planToUpdate); 
+            using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
             var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToUpdate.Id));
@@ -154,10 +149,10 @@ namespace SuccessfulStartup.PresentationTests.Pages
         [Test]
         public void RendersNoForm_GivenUnauthorization()
         {
-            var handler = _helper.GetMockHandler();
-            var planToUpdate = A.New<BusinessPlan>();
-            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Get, HttpStatusCode.OK, JsonSerializer.Serialize(planToUpdate));
-            using var testContext = _helper.GetTestContext(handler);
+            var service = _helper.GetMockApiService();
+            var planToUpdate = A.New<BusinessPlanViewModel>();
+            service.Setup(service => service.GetPlanByIdAsync(planToUpdate.Id)).ReturnsAsync(planToUpdate);
+            using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext, false);
 
             var component = testContext.RenderComponent<UpdatePlan>(parameters => parameters.Add(p => p.planId, planToUpdate.Id));

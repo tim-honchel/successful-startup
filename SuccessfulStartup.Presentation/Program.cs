@@ -7,8 +7,6 @@ var builder = WebApplication.CreateBuilder(args); // initializes a builder for c
 
 builder.Services.AddRazorPages(); // allows Razor components, routing, model binding, caching, and view engines
 builder.Services.AddServerSideBlazor(); // allows Blazor Server specific functions
-//builder.Services.AddHttpClient(); // HttpClient factory for making API calls
-builder.Services.AddScoped<ApiCallService>();
 builder.Services.AddScoped<IApiCallService, ApiCallService>();
 
 AuthenticationConfiguration.AddDataScope(builder.Services); // adds services defined in the data project

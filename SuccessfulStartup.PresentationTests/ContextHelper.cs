@@ -50,14 +50,6 @@ namespace SuccessfulStartup.PresentationTests
             return mockService;
         }
 
-        public Bunit.TestContext GetTestContext(Mock<HttpMessageHandler> handler) 
-        {
-
-            var testContext = new Bunit.TestContext(); // Bunit and Nunit both have TestContext, necessary to specify
-            testContext.Services.AddSingleton(new ApiCallService(handler.Object)); // injects ApiCallService with mock handler
-            return testContext;
-        }
-
         public Bunit.TestContext GetTestContext(Mock<IApiCallService> service)
         {
 

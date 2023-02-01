@@ -2,10 +2,10 @@
 
 @page "/plans"
 
-@*for making API calls*@
-@inject ApiCallService service
 @*for getting current user information*@
 @inject AuthenticationStateProvider provider
+@*for making API calls*@
+@inject IApiCallService service
 @*for page navigation*@
 @inject NavigationManager navigation
 
@@ -40,6 +40,9 @@
 
             <p style="color:red">@message</p>
 
+            <br />
+            <button id="new-link" class="btn btn-primary" @onclick="@(() => navigation.NavigateTo("plans/new"))">Create a New Plan</button>
+
         </Authorized>
 
         <NotAuthorized>
@@ -49,8 +52,7 @@
     </AuthorizeView>
 </CascadingAuthenticationState>
 
-<br />
-<button id="new-link" class="btn btn-primary" @onclick="@(() => navigation.NavigateTo("plans/new"))">Create a New Plan</button>
+
 
 @code {
     private List<BusinessPlanViewModel> plans { get; set; } = new();
