@@ -248,6 +248,18 @@ namespace SuccessfulStartup.PresentationTests.Services
         }
 
         [Test]
+        public async Task SaveNewPlanAsync_ReturnsNewPlanId_GivenSuccessfulCreation()
+        {
+            var planToSave = A.New<BusinessPlanViewModel>();
+            var handler = _helper.GetMockHandler();
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Post, HttpStatusCode.Created, JsonSerializer.Serialize(planToSave.Id));
+            _service = new ApiCallService(handler.Object);
+
+            var returnedId = await _service.SaveNewPlanAsync(planToSave);
+            returnedId.ShouldBe(planToSave.Id);
+        }
+
+        [Test]
         public async Task SaveNewPlanAsync_ThrowsArgumentNullException_GivenInvalidPlan()
         {
             var invalidPlan = A.New<BusinessPlanViewModel>();

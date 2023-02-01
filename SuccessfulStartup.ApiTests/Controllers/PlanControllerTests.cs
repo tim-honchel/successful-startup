@@ -10,6 +10,8 @@ using SuccessfulStartup.Data.Mapping;
 using SuccessfulStartup.Domain.Entities;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 using SuccessfulStartup.Domain.Repositories.WriteOnly;
+using System.Net; // for HttpStatusCode
+using System.Net.Http.Headers; // for HttpClient
 
 namespace SuccessfulStartup.ApiTests.Controllers
 {
@@ -165,6 +167,19 @@ namespace SuccessfulStartup.ApiTests.Controllers
 
             var response = await _controller.GetPlanById(invalidId);
             response.ShouldBeOfType<BadRequestObjectResult>();
+        }
+
+        [Test]
+        public async Task SaveNewPlan_ReturnsNewPlanId_GivenValidPlan()
+        {
+            var planToSave = A.New<BusinessPlanViewModel>();
+            _mockWriteRepository.Setup(repository => repository.SaveNewPlanAsync(It.Is<BusinessPlanDomain>(plan => plan.Id == planToSave.Id))).ReturnsAsync(planToSave.Id);
+            _controller = new PlanController(_mockReadRepository.Object, _mockWriteRepository.Object, _viewModelConverter, _entityConverter);
+
+            var response = await _controller.SaveNewPlan(planToSave);
+            var result = (CreatedResult)response;
+            var returnedId =  Convert.ToInt32(result.Value);
+            returnedId.ShouldBe(planToSave.Id);
         }
 
         [Test]
