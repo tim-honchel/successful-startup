@@ -1,6 +1,7 @@
 ﻿using AutoMapper; // for IMapper
 using GenFu; // for populating mock database with "A"
 using Microsoft.EntityFrameworkCore; // for DbContextOptionsBuilder
+using Microsoft.EntityFrameworkCore.Design; // for IDesignTimeDbContextFactory
 using Moq; // for Mock
 using Moq.EntityFrameworkCore; // for ReturnsDbSet
 using Shouldly; // for assertions
@@ -16,17 +17,17 @@ namespace SuccessfulStartup.DataTests.Repositories.ReadOnly
     internal class BusinessPlanReadOnlyRepositoryTests
     {
         private IMapper _mapper = AllMappingProfiles.GetMapper();
-        private Mock<AuthenticationDbContextFactory> _mockFactory;
+        private Mock<IDesignTimeDbContextFactory<AuthenticationDbContext>> _mockFactory;
         private IBusinessPlanReadOnlyRepository _repository;
         private Mock<AuthenticationDbContext> _mockContext;
 
         [OneTimeSetUp] // runs one time, prior to all the tests
         public void OneTimeSetup()
         {
-            _mockFactory = new Mock<AuthenticationDbContextFactory>(); // mock factory so the real database is not used
+            _mockFactory = new Mock<IDesignTimeDbContextFactory<AuthenticationDbContext>>(); // mock factory so the real database is not used
             _repository = new BusinessPlanReadOnlyRepository(_mockFactory.Object, _mapper);
             _mockContext = new Mock<AuthenticationDbContext>(new DbContextOptionsBuilder<AuthenticationDbContext>().Options,"dummyConnectionString"); //  fulfills required parameters
-            _mockFactory.Setup(mockedFactory => mockedFactory.CreateDbContext()).Returns(_mockContext.Object); // factory will return the mock context instead of the real one
+            _mockFactory.Setup(mockedFactory => mockedFactory.CreateDbContext(new string[] { })).Returns(_mockContext.Object); // factory will return the mock context instead of the real one
         }
 
         [Test]

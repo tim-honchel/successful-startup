@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SuccessfulStartup.Data.Authentication;
@@ -20,7 +21,7 @@ namespace SuccessfulStartup.Data.Configuration
             services.AddDbContextFactory<AuthenticationDbContext>(options => options.UseSqlServer(connectionString));
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AuthenticationDbContext>(); // adds default UI for Identity, eliminating need to create custom register and login pages, also requires account verification prior to first login
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<AppUser>>(); // periodically checks whether user credentials are still valid
-            services.AddScoped<AuthenticationDbContextFactory>();
+            services.AddScoped<IDesignTimeDbContextFactory<AuthenticationDbContext>, AuthenticationDbContextFactory>(); // injects AuthenticationDbContext whenever IDesignTimeDbContext is specified
             services.AddTransient<IEmailSender, EmailSender>(); // enables email sends
             return services;
         }

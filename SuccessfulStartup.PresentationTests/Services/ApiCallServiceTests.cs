@@ -241,7 +241,7 @@ namespace SuccessfulStartup.PresentationTests.Services
         {
             var planToSave = A.New<BusinessPlanViewModel>();
             var handler = _helper.GetMockHandler();
-            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Post, HttpStatusCode.Created);
+            _helper.SetupMockHandlerForPlans(handler, HttpMethod.Post, HttpStatusCode.Created, JsonSerializer.Serialize(planToSave.Id));
             _service = new ApiCallService(handler.Object);
 
             Should.NotThrow(async () => await _service.SaveNewPlanAsync(planToSave));

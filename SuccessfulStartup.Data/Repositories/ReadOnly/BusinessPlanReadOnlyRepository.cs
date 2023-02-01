@@ -1,5 +1,6 @@
 ﻿using AutoMapper; // for AutoMapper
 using Microsoft.EntityFrameworkCore; // for database queries
+using Microsoft.EntityFrameworkCore.Design; // for IDesignTimeDbContextFactory
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Domain.Entities;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
@@ -8,9 +9,9 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
 {
     public class BusinessPlanReadOnlyRepository : IBusinessPlanReadOnlyRepository // performs CRUD operations on the BusinessPlan table
     {
-        private readonly AuthenticationDbContextFactory _factory; // creates context for database connection TODO: is it possible to use interface instead?
+        private readonly IDesignTimeDbContextFactory<AuthenticationDbContext> _factory; // creates context for database connection
         private readonly IMapper _mapper; // converts data and domain entities
-        public BusinessPlanReadOnlyRepository(AuthenticationDbContextFactory factory, IMapper mapper)
+        public BusinessPlanReadOnlyRepository(IDesignTimeDbContextFactory<AuthenticationDbContext> factory, IMapper mapper)
         {
             _factory = factory;
             _mapper = mapper;
@@ -19,7 +20,7 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
         {
             if (string.IsNullOrWhiteSpace(authorId)) {throw new ArgumentNullException(nameof(authorId));}
 
-            using var context = _factory.CreateDbContext();
+            using var context = _factory.CreateDbContext(new string[] { });
 
             var plansByUser = await context.BusinessPlans.Where(plan => plan.AuthorId == authorId).ToListAsync();
             return _mapper.Map<List<BusinessPlanDomain>>(plansByUser); // returns empty list if no plans are found
@@ -30,7 +31,7 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
         {
             if (id == 0) { throw new ArgumentNullException(nameof(id)); }
 
-            using var context = _factory.CreateDbContext();
+            using var context = _factory.CreateDbContext(new string[] { });
 
             var plan = await context.BusinessPlans.Where(plan => plan.Id == id).SingleOrDefaultAsync(); // returns null if no plan is found
 
