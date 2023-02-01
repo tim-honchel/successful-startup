@@ -60,7 +60,6 @@ namespace SuccessfulStartup.Presentation.Services
         public async Task<string> GetUserIdByUsernameAsync(string username)
         {
             var response = await _client.GetAsync($"User/{username}");
-
             if (response.StatusCode == HttpStatusCode.OK) 
             { 
                 var authorId = await response.Content.ReadAsStringAsync();

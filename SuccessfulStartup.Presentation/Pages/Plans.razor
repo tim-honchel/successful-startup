@@ -66,7 +66,7 @@
         var authorId = await service.GetUserIdByUsernameAsync(user); // service manages all HTTPClient requests to the API
         try
         {
-            plans = await service.GetAllPlansByAuthorIdAsync(authorId); // service manages all HTTPClient requests to the API
+            plans = await service.GetAllPlansByAuthorIdAsync(authorId); // service manages all HTTPClient requests to the API;
             message = "";
         }
         catch (Exception)
