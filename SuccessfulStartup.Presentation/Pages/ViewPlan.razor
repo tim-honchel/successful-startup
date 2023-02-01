@@ -4,9 +4,13 @@
 
 @*for making API calls*@
 @inject ApiCallService service
+@*for page navigation*@
+@inject NavigationManager navigation
 
+@using Microsoft.AspNetCore.Components @*for NavigationManager*@
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
+
 @using SuccessfulStartup.Api.ViewModels
 
 <h1 id="header">Your Business Plan</h1>
@@ -16,7 +20,8 @@
 <AuthorizeView> @*determines which content to show, based on user authorization*@
 
     <Authorized>
-        <p><a href="/plans/@plan.Id/update">Edit your plan</a></p>
+        <button id="update-link" class="btn btn-primary" @onclick="@(()=>navigation.NavigateTo($"plans/{planId}/update"))">Edit Your Plan</button>
+        <br />
         <br />
 
         <h6 id="plan">Name</h6>

@@ -6,7 +6,10 @@
 @inject ApiCallService service
 @*for getting current user information*@
 @inject AuthenticationStateProvider provider
+@*for page navigation*@
+@inject NavigationManager navigation
 
+@using Microsoft.AspNetCore.Components @*for NavigationManager*@
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using SuccessfulStartup.Api.ViewModels
 
@@ -47,14 +50,14 @@
 </CascadingAuthenticationState>
 
 <br />
-<p><a href="/plans/new">Create a new plan</a></p>
+<button id="new-link" class="btn btn-primary" @onclick="@(() => navigation.NavigateTo("plans/new"))">Create a New Plan</button>
 
 @code {
     private List<BusinessPlanViewModel> plans { get; set; } = new();
     private string message = "Loading...";
 
-
-    protected override async Task OnParametersSetAsync() @*don't use OnInitialized, causes runtime error where model can't be found*@
+    protected override async Task OnParametersSetAsync() 
+    @*don't use OnInitialized, causes runtime error where model can't be found*@
     {
         var authenticationState = await provider.GetAuthenticationStateAsync();
         var user = authenticationState.User.Identity.Name;

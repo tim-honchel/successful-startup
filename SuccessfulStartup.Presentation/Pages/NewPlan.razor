@@ -2,11 +2,14 @@
 
 @page "/plans/new"
 
-@*for making API calls*@
-@inject IApiCallService service
 @*for getting current user information*@
 @inject AuthenticationStateProvider provider
+@*for making API calls*@
+@inject IApiCallService service
+@*for page navigation*@
+@inject NavigationManager navigation
 
+@using Microsoft.AspNetCore.Components @*for NavigationManager*@
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
 @using SuccessfulStartup.Api.ViewModels
@@ -49,9 +52,9 @@
         
         <p id="message" style="color:red">@message</p>
 
-        @if (newId > 0) //TODO: newID does not re-render here after value change
+        @if (creationStatus=="saved")
             {
-                <a href="/plans/@newId">View/Edit Plan</a>
+                <button id="view-link" class="btn btn-success" @onclick="@(()=>navigation.NavigateTo($"plans/{newId}"))">View/Edit Plan</button>
             }
 
     </Authorized>
