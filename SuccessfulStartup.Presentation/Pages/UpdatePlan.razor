@@ -34,7 +34,7 @@
 
             <label for="Description" class="control-label">Description: </label>
             <br />
-            <InputText id="description" @bind-Value="plan.Description" @oninput="HandleTextChange" />
+            <InputText id="description" @bind-Value="plan.Description" @oninput="HandleTextChange" /> @*oninput is used because onchange is already used by bind-Value*@
             <ValidationMessage For="( () =>plan.Description )" style="color:red" />
 
 
