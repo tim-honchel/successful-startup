@@ -5,7 +5,9 @@ A tool for entrepreneurs to easily create useful business plans for small startu
 * [Overview](https://github.com/tim-honchel/successful-startup/edit/master/README.md#overview)
 * [Architecture](https://github.com/tim-honchel/successful-startup/edit/master/README.md#architecture)
 * [Learning Process](https://github.com/tim-honchel/successful-startup/edit/master/README.md#learning-process)
+* [Resources](https://github.com/tim-honchel/successful-startup/edit/master/README.md#resources)
 * [Local Deployment](https://github.com/tim-honchel/successful-startup/edit/master/README.md#local-deployment)
+
 
 
 ## Overview
@@ -91,6 +93,27 @@ Initially, I used the ASP.NET Core Web App template for the Domain and Data proj
 
 ### Razor Code Section
 I was confused by errors that said @code didn't exist in the current context, but it's because I was using .cshtml pages. I used .razor pages instead and the problem went away.
+
+## Resources
+I found these articles and videos especially useful in creating this project:
+
+### BUnit
+* "Faking authentication and authorization" (https://bunit.dev/docs/test-doubles/faking-auth.html)
+* "Injecting services into components under test" (https://bunit.dev/docs/providing-input/inject-services-into-components.html)
+* "How-To: Verify Blazor Navigation in bUnit" (https://darthpedro.net/2021/06/03/how-to-verify-blazor-navigation-in-bunit/)
+* "Verifying markup from a component" (https://bunit.dev/docs/verification/verify-markup.html)
+
+### Identity
+* "ASP.NET Core Security" (https://www.youtube.com/playlist?list=PLgRlicSxjeMOxypAEL2XqIc2m_gPmoVN-)
+* "Claims based authorization in Blazor Server" (https://www.youtube.com/watch?v=3pOVrXim4OQ)
+* "Scaffold Identity in ASP.NET Core projects" (https://learn.microsoft.com/en-us/aspnet/core/security/authentication/scaffold-identity?view=aspnetcore-7.0&tabs=visual-studio)
+
+### Moq
+* "How do I verify a method was called exactly once with Moq?" (https://stackoverflow.com/questions/4206193/how-do-i-verify-a-method-was-called-exactly-once-with-moq)
+* "Moq: Invalid setup on a non-overridable member" (https://stackoverflow.com/questions/1962010/moq-invalid-setup-on-a-non-overridable-member-x-x-getbytitleasdf)
+* "Using Moq to Stub an interface method" (https://stackoverflow.com/questions/10505704/using-moq-to-stub-an-interface-method)
+* "Why use It.Is<> or It.IsAny<> if I could just define a variable" (https://stackoverflow.com/questions/37051371/why-use-it-is-or-it-isany-if-i-could-just-define-a-variable)
+* "You are mocking the HttpClient the wrong way" (https://www.youtube.com/watch?v=7OFZZAHGv9o)
 
 ## Local Deployment
 Follow these instructions to build the solution on your machine:
