@@ -3931,11 +3931,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.DomainTests\\SuccessfulStartup.DomainTests.csproj",
+      "projectUniqueName": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.DomainTests\\SuccessfulStartup.DomainTests.csproj",
       "projectName": "SuccessfulStartup.DomainTests",
-      "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.DomainTests\\SuccessfulStartup.DomainTests.csproj",
+      "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.DomainTests\\SuccessfulStartup.DomainTests.csproj",
       "packagesPath": "C:\\Users\\thonchel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.DomainTests\\obj\\",
+      "outputPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.DomainTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\thonchel\\AppData\\Roaming\\NuGet\\NuGet.Config",

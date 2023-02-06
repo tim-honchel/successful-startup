@@ -7,7 +7,6 @@ namespace SuccessfulStartup.Presentation.Services
         Task DeletePlanAsync(int planId);
         Task<List<BusinessPlanViewModel>> GetAllPlansByAuthorIdAsync(string authorId);
         Task<BusinessPlanViewModel> GetPlanByIdAsync(int planId);
-        Task<string> GetUserIdByUsernameAsync(string username);
         Task<int> SaveNewPlanAsync(BusinessPlanViewModel plan);
         Task UpdatePlanAsync(BusinessPlanViewModel plan);
     }

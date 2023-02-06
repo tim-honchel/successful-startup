@@ -67,7 +67,7 @@
 
 @code{
     private BusinessPlanViewModel plan { get; set; } = new();
-    public string authorId = "";
+    public string authorId;
     private string message = "";
     private string creationStatus = "unsaved";
     private bool formHidden = false;
@@ -92,17 +92,15 @@
 
     protected async override Task OnParametersSetAsync() // don't use OnInitialized, results in runtime error where model cannot be found 
     {
-        var authenticationState = await provider.GetAuthenticationStateAsync();
-        var user = authenticationState.User.Identity.Name;
         try
         {
-            authorId = await service.GetUserIdByUsernameAsync(user); // service manages all HTTPClient requests to the API, gets authorID to set as foreign key
+            authorId = provider.GetAuthenticationStateAsync().Result.User.Claims.Where(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").FirstOrDefault().Value; // gets userId from claim
         }
-        catch (Exception exception) // could be ArgumentNull, NullReference, InvalidOperation, or other
+        catch (NullReferenceException exception)
         {
+            authorId = "unavailable";
             formHidden = true; // prevent submission of new business plan
             message = $"{exception.Message} Please make sure you are logged in correctly and reload this page. If the problem persists, please report the following error to Support: {exception.GetType()}"; // will display the error message provided by the exception
         }
-
     }
 }

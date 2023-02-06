@@ -57,19 +57,6 @@ namespace SuccessfulStartup.Presentation.Services
             else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}"); }
         }
 
-        public async Task<string> GetUserIdByUsernameAsync(string username)
-        {
-            var response = await _client.GetAsync($"User/{username}");
-            if (response.StatusCode == HttpStatusCode.OK) 
-            { 
-                var authorId = await response.Content.ReadAsStringAsync();
-                return authorId.Substring(1, authorId.Length - 2); // original string contains escape character
-            }
-            else if (response.StatusCode == HttpStatusCode.BadRequest && response.Content.ReadAsStringAsync().Result.Contains("null")) { throw new ArgumentNullException($"Invalid username: {username}. Cannot be null"); }
-            else if (response.StatusCode == HttpStatusCode.NotFound && response.Content.ReadAsStringAsync().Result.Contains("not found")) { throw new NullReferenceException($"No user with username: {username} could be found."); }
-            else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}."); }
-        }
-
         public async Task<int> SaveNewPlanAsync(BusinessPlanViewModel plan)
         {
             var response = await _client.PostAsJsonAsync("Plan", plan);

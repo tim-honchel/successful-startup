@@ -1,9 +1,7 @@
 ﻿using AutoMapper; // for IMapper
 using GenFu; // for generating mock data
 using Microsoft.EntityFrameworkCore; // for DbContextOptionsBuilder, DbUpdateException
-using Microsoft.EntityFrameworkCore.Design; // for IDesignTimeDbContextFactory
 using Moq; // for Mock, Setup
-using Moq.EntityFrameworkCore;
 using Shouldly; // for assertioon
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Data.Entities;
@@ -19,19 +17,19 @@ namespace SuccessfulStartup.DataTests.Repositories.WriteOnly
     public class BusinessPlanWriteOnlyRepositoryTests
     {
         private readonly IMapper _mapper = AllMappingProfiles.GetMapper();
-        private Mock<IDesignTimeDbContextFactory<AuthenticationDbContext>> _mockFactory;
+        private Mock<PlanDbContextFactory> _mockFactory;
         private IBusinessPlanWriteOnlyRepository _repository;
-        private Mock<AuthenticationDbContext> _mockContext;
+        private Mock<PlanDbContext> _mockContext;
         private IBusinessPlanReadOnlyRepository _readOnlyRepository;
 
         [OneTimeSetUp] // runs one time, prior to all the tests
         public void OneTimeSetup()
         {
 
-            _mockFactory = new Mock<IDesignTimeDbContextFactory<AuthenticationDbContext>>(); // mock factory so the real database is not used
+            _mockFactory = new Mock<PlanDbContextFactory>(); // mock factory so the real database is not used
             _repository = new BusinessPlanWriteOnlyRepository(_mockFactory.Object, _mapper);
-            _mockContext = new Mock<AuthenticationDbContext>(new DbContextOptionsBuilder<AuthenticationDbContext>().Options, "dummyConnectionString"); //  fulfills required parameters
-            _mockFactory.Setup(mockedFactory => mockedFactory.CreateDbContext(new string[] { })).Returns(_mockContext.Object); // factory will return the mock context instead of the real one
+            _mockContext = new Mock<PlanDbContext>(true); //  fulfills required parameters
+            _mockFactory.Setup(mockedFactory => mockedFactory.CreateDbContext()).Returns(_mockContext.Object); // factory will return the mock context instead of the real one
             _readOnlyRepository = new BusinessPlanReadOnlyRepository(_mockFactory.Object, _mapper);
         }
 

@@ -1,9 +1,10 @@
-﻿using Moq; // for Mock
+﻿using Microsoft.AspNetCore.Identity;
+using Moq; // for Mock
 using Moq.Protected; // for MockBehavior
-using SuccessfulStartup.Data.Authentication;
 using SuccessfulStartup.Presentation.Services;
 using System.Net; // for HttpStatusCode
 using System.Net.Http; // for HttpMessageHandler, HttpMethod
+using System.Security.Claims; // for Claim
 using System.Threading; // for CancellationToken
 using System.Threading.Tasks; // for ReturnsAsync
 
@@ -11,7 +12,7 @@ namespace SuccessfulStartup.PresentationTests
 {
     internal class ContextHelper : Bunit.TestContext // helper methods to avoid duplication during testing
     {
-        public AppUser standardUser = new AppUser() // creates a standard user for all unit tests for predictable results
+        public IdentityUser standardUser = new IdentityUser() // creates a standard user for all unit tests for predictable results
         {
             AccessFailedCount = 0,
             ConcurrencyStamp = "5f931d32-af66-4bfe-ad75-cc4f72d221e4",
@@ -35,6 +36,10 @@ namespace SuccessfulStartup.PresentationTests
             var authorizationContext = testContext.AddTestAuthorization(); // inject fake authentication state provider
             var authorizationState = authorized ? AuthorizationState.Authorized : AuthorizationState.Unauthorized;
             authorizationContext.SetAuthorized(username, authorizationState); // authorize and set the current user
+            if (authorized) 
+            { 
+                authorizationContext.SetClaims(new System.Security.Claims.Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", standardUser.Id)); // fakes claim for userId
+            }
             return authorizationContext;
         }
 

@@ -4,15 +4,15 @@ using System.Net; // for creating NetworkCredential
 using System.Net.Mail; // for composing email with MailMessage, MailAddress, and SmtpClient
 using System.Runtime.CompilerServices; // for InternalsVisibleto
 
-[assembly: InternalsVisibleTo("SuccessfulStartup.DataTests")] // allows tests to access internal members
+[assembly: InternalsVisibleTo("SuccessfulStartup.PresentationTests")] // allows tests to access internal members
 
-namespace SuccessfulStartup.Data.Authentication
+namespace SuccessfulStartup.Presentation.Services
 {
-    internal class EmailSender : IEmailSender // interface is for sending Identity-related emails
+    public class EmailSender : IEmailSender // interface is for sending Identity-related emails
     {
         private static IConfigurationRoot _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // gets the info from appsettings
-        internal static string _fromMail = _configuration["ConnectionStrings:GmailAddress"]; // gets Gmail account used for sending emails
-        internal static string _fromPassword = _configuration["ConnectionStrings:GmailPassword"]; // gets app password
+        public static string _fromMail = _configuration["ConnectionStrings:GmailAddress"]; // gets Gmail account used for sending emails
+        public static string _fromPassword = _configuration["ConnectionStrings:GmailPassword"]; // gets app password
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {

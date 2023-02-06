@@ -1,8 +1,10 @@
 ﻿using GenFu; // for generating mock data
+using Microsoft.AspNetCore.Components.Authorization;
 using Moq; // for Setup
 using Shouldly; // for assertion
 using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Presentation.Pages;
+using System.Linq;
 
 namespace SuccessfulStartup.PresentationTests.Pages
 {
@@ -14,7 +16,6 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void RendersCorrectHeaderText()
         {
             var service = _helper.GetMockApiService(); // mock API call service
-            service.Setup(service => service.GetUserIdByUsernameAsync(_helper.standardUser.UserName)).ReturnsAsync(_helper.standardUser.Id); // returns standard Id
             var plansToReturn = A.ListOf<BusinessPlanViewModel>(5);
             service.Setup(service => service.GetAllPlansByAuthorIdAsync(_helper.standardUser.Id)).ReturnsAsync(plansToReturn); // returns generated plans
             using var testContext = _helper.GetTestContext(service);
@@ -30,7 +31,6 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void RendersNoTable_GivenUnauthorization()
         {
             var service = _helper.GetMockApiService();
-            service.Setup(service => service.GetUserIdByUsernameAsync(_helper.standardUser.UserName)).ReturnsAsync(_helper.standardUser.Id);
             using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext, false);
 
@@ -44,7 +44,6 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void RendersRows_GivenAuthorizationAndMatchingRecords()
         {
             var service = _helper.GetMockApiService();
-            service.Setup(service => service.GetUserIdByUsernameAsync(_helper.standardUser.UserName)).ReturnsAsync(_helper.standardUser.Id);
             A.Configure<BusinessPlanViewModel>().Fill(plan => plan.AuthorId, () => { return _helper.standardUser.Id; });
             var plansToReturn = A.ListOf<BusinessPlanViewModel>(5);
             service.Setup(service => service.GetAllPlansByAuthorIdAsync(_helper.standardUser.Id)).ReturnsAsync(plansToReturn);
@@ -61,7 +60,6 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void RendersTable_GivenAuthorization()
         {
             var service = _helper.GetMockApiService();
-            service.Setup(service => service.GetUserIdByUsernameAsync(_helper.standardUser.UserName)).ReturnsAsync(_helper.standardUser.Id);
             var plansToReturn = A.ListOf<BusinessPlanViewModel>(5);
             service.Setup(service => service.GetAllPlansByAuthorIdAsync(_helper.standardUser.Id)).ReturnsAsync(plansToReturn);
             using var testContext = _helper.GetTestContext(service);

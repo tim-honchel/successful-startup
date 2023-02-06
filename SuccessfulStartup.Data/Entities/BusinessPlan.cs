@@ -1,7 +1,5 @@
-﻿using SuccessfulStartup.Data.Authentication;
-using SuccessfulStartup.Domain.Entities;
+﻿using SuccessfulStartup.Domain.Entities;
 using System.ComponentModel.DataAnnotations; // for indicating property requirements
-using System.ComponentModel.DataAnnotations.Schema; // for indicating foreign key
 
 namespace SuccessfulStartup.Data.Entities
 {
@@ -19,8 +17,8 @@ namespace SuccessfulStartup.Data.Entities
 
         public string AuthorId { get; set; }
 
-        [ForeignKey("AuthorId")]
-        public virtual AppUser User { get; set; }
+        //[ForeignKey("AuthorId")]
+        //public virtual AppUser User { get; set; }
 
         
     }

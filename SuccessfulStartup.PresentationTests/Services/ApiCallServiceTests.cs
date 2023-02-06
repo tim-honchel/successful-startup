@@ -189,54 +189,6 @@ namespace SuccessfulStartup.PresentationTests.Services
         }
 
         [Test]
-        public async Task GetUserIdbyUsernameAsync_ReturnsMatchingUserId_GivenExistingUsername()
-        {
-            var handler = _helper.GetMockHandler();
-            _helper.SetupMockHandlerForUsers(handler, HttpStatusCode.OK);
-            _service = new ApiCallService(handler.Object);
-
-            var userIdReturned = await _service.GetUserIdByUsernameAsync(_helper.standardUser.UserName);
-
-            userIdReturned.ShouldBe(_helper.standardUser.Id);
-        }
-
-        [Test]
-        public async Task GetUserIdByUsernameAsync_ThrowsArgumentNullException_GivenInvalidUsername()
-        {
-            var invalidUsername = "";
-            var handler = _helper.GetMockHandler();
-            _helper.SetupMockHandlerForUsers(handler, HttpStatusCode.BadRequest, "null");
-            _service = new ApiCallService(handler.Object);
-
-            Should.Throw<ArgumentNullException>(async () => await _service.GetUserIdByUsernameAsync(invalidUsername));
-        }
-
-        [Test]
-        public async Task GetUserIdByUsernameAsync_ThrowsNullReferenceException_GivenNonexistentUsername()
-        {
-            var nonexistentUsername = "x";
-            var handler = _helper.GetMockHandler();
-            _helper.SetupMockHandlerForUsers(handler, HttpStatusCode.NotFound, "not found");
-            _service = new ApiCallService(handler.Object);
-
-            Should.Throw<NullReferenceException>(async () => await _service.GetUserIdByUsernameAsync(nonexistentUsername));
-        }
-
-        [TestCase(HttpStatusCode.RequestTimeout)]
-        [TestCase(HttpStatusCode.InternalServerError)]
-        [TestCase(HttpStatusCode.BadGateway)]
-        [TestCase(HttpStatusCode.GatewayTimeout)]
-        public async Task GetUserIdByUsernameAsync_ThrowsException_GivenUnsuccessfulStatusCode(HttpStatusCode unsuccessfulCode)
-        {
-            var username = "x";
-            var handler = _helper.GetMockHandler();
-            _helper.SetupMockHandlerForUsers(handler, unsuccessfulCode);
-            _service = new ApiCallService(handler.Object);
-
-            Should.Throw<Exception>(async () => await _service.GetUserIdByUsernameAsync(username));
-        }
-
-        [Test]
         public async Task SaveNewPlanAsync_DoesNotThrowException_GivenSuccessfulCreation()
         {
             var planToSave = A.New<BusinessPlanViewModel>();

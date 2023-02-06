@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yX3O03ANDY8TO0cSl8IsSluCqJqhDEebIkpyZFo+Efji0/m8bX8A0Na8aELSPb7T/kNPJPEFlXjMN5TPE2dRxQ==",
+  "dgSpecHash": "ciK6GDpDvTodxnjwWVXp4Ub3Lv6peoD19HXIuTEZFaWGgk+jrfYlYJLMeyfbF4OSiqt+yHXZ72L6xriOogDgrA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.DomainTests\\SuccessfulStartup.DomainTests.csproj",
+  "projectFilePath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.DomainTests\\SuccessfulStartup.DomainTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\thonchel\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\thonchel\\.nuget\\packages\\microsoft.codecoverage\\17.3.2\\microsoft.codecoverage.17.3.2.nupkg.sha512",

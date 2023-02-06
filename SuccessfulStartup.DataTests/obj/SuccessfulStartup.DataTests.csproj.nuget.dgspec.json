@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.DataTests\\SuccessfulStartup.DataTests.csproj": {}
+    "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.DataTests\\SuccessfulStartup.DataTests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.DataTests\\SuccessfulStartup.DataTests.csproj": {
+    "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Api\\SuccessfulStartup.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.DataTests\\SuccessfulStartup.DataTests.csproj",
-        "projectName": "SuccessfulStartup.DataTests",
-        "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.DataTests\\SuccessfulStartup.DataTests.csproj",
+        "projectUniqueName": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Api\\SuccessfulStartup.Api.csproj",
+        "projectName": "SuccessfulStartup.Api",
+        "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Api\\SuccessfulStartup.Api.csproj",
         "packagesPath": "C:\\Users\\thonchel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.DataTests\\obj\\",
+        "outputPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\thonchel\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,87 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj": {
-                "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj"
+              "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj": {
+                "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.DataTests\\SuccessfulStartup.DataTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.DataTests\\SuccessfulStartup.DataTests.csproj",
+        "projectName": "SuccessfulStartup.DataTests",
+        "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.DataTests\\SuccessfulStartup.DataTests.csproj",
+        "packagesPath": "C:\\Users\\thonchel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.DataTests\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\thonchel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj": {
+                "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj"
+              },
+              "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Presentation\\SuccessfulStartup.Presentation.csproj": {
+                "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Presentation\\SuccessfulStartup.Presentation.csproj"
               }
             }
           }
@@ -101,14 +180,14 @@
         }
       }
     },
-    "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj": {
+    "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj",
+        "projectUniqueName": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj",
         "projectName": "SuccessfulStartup.Data",
-        "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj",
+        "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj",
         "packagesPath": "C:\\Users\\thonchel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Data\\obj\\",
+        "outputPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\thonchel\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -125,8 +204,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj": {
-                "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj"
+              "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj": {
+                "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj"
               }
             }
           }
@@ -196,14 +275,14 @@
         }
       }
     },
-    "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj": {
+    "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj",
         "projectName": "SuccessfulStartup.Domain",
-        "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj",
+        "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj",
         "packagesPath": "C:\\Users\\thonchel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Domain\\obj\\",
+        "outputPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\thonchel\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -243,6 +322,116 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Presentation\\SuccessfulStartup.Presentation.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Presentation\\SuccessfulStartup.Presentation.csproj",
+        "projectName": "SuccessfulStartup.Presentation",
+        "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Presentation\\SuccessfulStartup.Presentation.csproj",
+        "packagesPath": "C:\\Users\\thonchel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Presentation\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\thonchel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Api\\SuccessfulStartup.Api.csproj": {
+                "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Api\\SuccessfulStartup.Api.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "Blazor.Bootstrap": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Microsoft.AspNetCore.ApiAuthorization.IdentityServer": {
+              "target": "Package",
+              "version": "[6.0.12, )"
+            },
+            "Microsoft.AspNetCore.Components.Forms": {
+              "target": "Package",
+              "version": "[6.0.13, )"
+            },
+            "Microsoft.AspNetCore.Components.Web": {
+              "target": "Package",
+              "version": "[6.0.13, )"
+            },
+            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.12, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.13, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[6.0.13, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.13, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.13, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.11, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

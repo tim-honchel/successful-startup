@@ -1,10 +1,10 @@
-﻿using SuccessfulStartup.Data.Authentication;
+﻿using Microsoft.AspNetCore.Identity; // for IdentityUser
 
 namespace SuccessfulStartup.ApiTests
 {
     internal class ApiHelper
     {
-        public AppUser standardUser = new AppUser() // creates a standard user for all unit tests for predictable results
+        public IdentityUser standardUser = new IdentityUser() // creates a standard user for all unit tests for predictable results
         {
             AccessFailedCount = 0,
             ConcurrencyStamp = "5f931d32-af66-4bfe-ad75-cc4f72d221e4",

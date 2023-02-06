@@ -1,6 +1,5 @@
 ﻿using AutoMapper; // for IMapper
 using Microsoft.EntityFrameworkCore; // for DbUpdateException
-using Microsoft.EntityFrameworkCore.Design; // for IDesignTimeDbContextFactory
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Domain.Entities;
@@ -11,16 +10,16 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
 {
     public class BusinessPlanWriteOnlyRepository : IBusinessPlanWriteOnlyRepository
     {
-        private readonly IDesignTimeDbContextFactory<AuthenticationDbContext> _factory;
+        private readonly PlanDbContextFactory _factory;
         private readonly IMapper _mapper;
-        public BusinessPlanWriteOnlyRepository(IDesignTimeDbContextFactory<AuthenticationDbContext> factory, IMapper mapper)
+        public BusinessPlanWriteOnlyRepository(PlanDbContextFactory factory, IMapper mapper)
         {
             _factory = factory;
             _mapper = mapper;
         }
         public async Task DeletePlanAsync(BusinessPlanDomain planToDelete)
         {
-            using var context = _factory.CreateDbContext(new string[] { });
+            using var context = _factory.CreateDbContext();
 
             try
             {
@@ -34,7 +33,7 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
         }
         public async Task UpdatePlanAsync(BusinessPlanDomain planToUpdate)
         {
-            using var context = _factory.CreateDbContext(new string[] { });
+            using var context = _factory.CreateDbContext();
             
             try
             {
@@ -52,7 +51,7 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
             if (planToSave == null || string.IsNullOrWhiteSpace(planToSave.Name) || string.IsNullOrWhiteSpace(planToSave.Description) || string.IsNullOrWhiteSpace(planToSave.AuthorId) ) { throw new ArgumentNullException(nameof(planToSave)); }
             var plan = _mapper.Map<BusinessPlan>(planToSave);
 
-            using var context = _factory.CreateDbContext(new string[] { });
+            using var context = _factory.CreateDbContext();
 
             try
             {

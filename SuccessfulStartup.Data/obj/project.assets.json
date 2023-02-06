@@ -3064,11 +3064,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj",
+      "projectUniqueName": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj",
       "projectName": "SuccessfulStartup.Data",
-      "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj",
+      "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj",
       "packagesPath": "C:\\Users\\thonchel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Data\\obj\\",
+      "outputPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\thonchel\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3085,8 +3085,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj": {
-              "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj"
+            "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj": {
+              "projectPath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Domain\\SuccessfulStartup.Domain.csproj"
             }
           }
         }

@@ -12,7 +12,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ViewModelConverter>();
-AuthenticationConfiguration.AddDataScope(builder.Services); // adds authentication services
 DataLayerConfiguration.AddDataScope(builder.Services); // adds other services defined in the data project
 
 var app = builder.Build();

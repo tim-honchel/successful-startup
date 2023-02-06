@@ -1,9 +1,9 @@
 ﻿using Shouldly; // for assertion
-using SuccessfulStartup.Data.Authentication;
+using SuccessfulStartup.Presentation.Services;
 using System.Net;
 using System.Net.Mail; // for MailMessage, MailAddress, MailAddressCollection
 
-namespace SuccessfulStartup.DataTests.Authentication
+namespace SuccessfulStartup.PresentationTests.Services
 {
     [TestFixture]
     public class EmailSenderTests

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging; // for ILoggerFactory
 using Microsoft.Extensions.Options; // for IOptions
 using System.Security.Claims; // for ClaimsPrincipal
 
-namespace SuccessfulStartup.Data.Authentication
+namespace SuccessfulStartup.Presentation.Services
 {
     public class RevalidatingIdentityAuthenticationStateProvider<TUser> : RevalidatingServerAuthenticationStateProvider where TUser : class // receives authentication state from host environment and revalidates it at regular intervals
     {

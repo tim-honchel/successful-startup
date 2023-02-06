@@ -17,7 +17,6 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void FormSubmit_RendersMessage_GivenValidInput()
         {
             var service = _helper.GetMockApiService();
-            service.Setup(service => service.GetUserIdByUsernameAsync(_helper.standardUser.UserName)).ReturnsAsync(_helper.standardUser.Id); // returns standard Id, no need to return anything for SaveNewPlanAsync
             using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
             var component = testContext.RenderComponent<NewPlan>();
@@ -35,7 +34,6 @@ namespace SuccessfulStartup.PresentationTests.Pages
         {
             var planToSave = A.New<BusinessPlanViewModel>();
             var service = _helper.GetMockApiService();
-            service.Setup(service => service.GetUserIdByUsernameAsync(_helper.standardUser.UserName)).ReturnsAsync(_helper.standardUser.Id); // returns standard Id
             service.Setup(service => service.SaveNewPlanAsync(It.Is<BusinessPlanViewModel>(plan => plan.Name == planToSave.Name))).ReturnsAsync(planToSave.Id);
             var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
@@ -54,7 +52,6 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void FormSubmit_RendersButtonWithLinkToNewPlan_GivenSuccessfulSave() // field messages will appear, but no form message
         {
             var service = _helper.GetMockApiService();
-            service.Setup(service => service.GetUserIdByUsernameAsync(_helper.standardUser.UserName)).ReturnsAsync(_helper.standardUser.Id); // returns standard Id
             using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
             var component = testContext.RenderComponent<NewPlan>();
@@ -74,7 +71,6 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void FormSubmit_RendersNoMessage_GivenInvalidInput(string name, string description) // field messages will appear, but no form message
         {
             var service = _helper.GetMockApiService();
-            service.Setup(service => service.GetUserIdByUsernameAsync(_helper.standardUser.UserName)).ReturnsAsync(_helper.standardUser.Id); // returns standard Id
             using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
             var component = testContext.RenderComponent<NewPlan>();
@@ -88,24 +84,9 @@ namespace SuccessfulStartup.PresentationTests.Pages
         }
 
         [Test]
-        public void HidesForm_GivenApiException()
-        {
-            var service = _helper.GetMockApiService();
-            service.Setup(service => service.GetUserIdByUsernameAsync(_helper.standardUser.UserName)).Throws<Exception>();
-            using var testContext = _helper.GetTestContext(service);
-            var authorizationContext = _helper.GetAuthorizationContext(testContext);
-
-            var component = testContext.RenderComponent<NewPlan>();
-
-            var formHidden = component.FindAll("form[hidden]").Count > 0;
-            formHidden.ShouldBeTrue();
-        }
-
-        [Test]
         public void RendersCorrectHeaderText()
         {
             var service = _helper.GetMockApiService();
-            service.Setup(service => service.GetUserIdByUsernameAsync(_helper.standardUser.UserName)).ReturnsAsync(_helper.standardUser.Id);
             using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
 
@@ -116,24 +97,9 @@ namespace SuccessfulStartup.PresentationTests.Pages
         }
 
         [Test]
-        public void RendersErrorMessage_GivenApiException()
-        {
-            var service = _helper.GetMockApiService();
-            service.Setup(service => service.GetUserIdByUsernameAsync(_helper.standardUser.UserName)).Throws<Exception>();
-            using var testContext = _helper.GetTestContext(service);
-            var authorizationContext = _helper.GetAuthorizationContext(testContext);
-
-            var component = testContext.RenderComponent<NewPlan>();
-
-            var message = component.Find("p[id =\"message\"]").TextContent;
-            message.ShouldContain("error");
-        }
-
-        [Test]
         public void RendersForm_GivenAuthorization()
         {
             var service = _helper.GetMockApiService();
-            service.Setup(service => service.GetUserIdByUsernameAsync(_helper.standardUser.UserName)).ReturnsAsync(_helper.standardUser.Id); // returns standard Id
             using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext);
              
@@ -147,7 +113,6 @@ namespace SuccessfulStartup.PresentationTests.Pages
         public void RendersNoForm_GivenUnauthorization()
         {
             var service = _helper.GetMockApiService();
-            service.Setup(service => service.GetUserIdByUsernameAsync(_helper.standardUser.UserName)).ReturnsAsync(_helper.standardUser.Id); // returns standard Id
             using var testContext = _helper.GetTestContext(service);
             var authorizationContext = _helper.GetAuthorizationContext(testContext, false);
 

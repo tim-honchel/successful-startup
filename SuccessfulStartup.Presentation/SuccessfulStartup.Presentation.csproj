@@ -15,13 +15,14 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="6.0.13" /> <!--allows forms and validation-->
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.13" /> <!--authenticates user and API-->
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.12" /> <!--captures and reports database-related exceptions-->
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.12" /> <!--Identity provider that uses Entity Framework-->
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.12" /> <!--pre-built registration and login pages-->
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.12" /> <!--maps to SQL Server database-->
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.12"> <!--creates database migrations-->
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.13" /> <!--Identity provider that uses Entity Framework-->
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.13" /> <!--pre-built registration and login pages-->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.13" /> <!--maps to SQL Server database-->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.13"> <!--creates database migrations-->
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
   </ItemGroup>
 
   <ItemGroup>

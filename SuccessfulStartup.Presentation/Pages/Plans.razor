@@ -13,6 +13,7 @@
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using Microsoft.AspNetCore.Components.Web.Virtualization @*for Virtualize*@
 @using SuccessfulStartup.Api.ViewModels
+@using System.Diagnostics
 
 <h1 id="header">Your Business Plans</h1>
 <br />
@@ -55,23 +56,34 @@
 
 
 @code {
+    public string authorId;
     private List<BusinessPlanViewModel> plans { get; set; } = new();
     private string message = "Loading...";
 
     protected override async Task OnParametersSetAsync() 
     @*don't use OnInitialized, causes runtime error where model can't be found*@
     {
-        var authenticationState = await provider.GetAuthenticationStateAsync();
-        var user = authenticationState.User.Identity.Name;
-        var authorId = await service.GetUserIdByUsernameAsync(user); // service manages all HTTPClient requests to the API
         try
         {
+            authorId = provider.GetAuthenticationStateAsync().Result.User.Claims.Where(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").FirstOrDefault().Value; // gets userId from claim
+            
+        }
+        catch (NullReferenceException)
+        {
+            authorId = "unavailable";
+        }
+        try
+        {
+            Stopwatch stopwatch = new();
+            stopwatch.Start();
             plans = await service.GetAllPlansByAuthorIdAsync(authorId); // service manages all HTTPClient requests to the API;
             message = "";
+            Console.WriteLine($"GetAllPlans: {stopwatch.Elapsed}");
         }
         catch (Exception)
         {
             message = "Failed to load business plans from database.";
         }
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Duende.IdentityServer.EntityFramework.Options; // for OperationalStoreOptions and TableConfiguration
 using Microsoft.Extensions.Options; // for IOptions interface
 
-namespace SuccessfulStartup.Data.Authentication
+namespace SuccessfulStartup.Presentation.Services
 {
     internal class OperationalStoreOptionsMigrations : IOptions<OperationalStoreOptions> // options for persistence of grants, tokens, cache, etc.
     {

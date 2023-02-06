@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LP28rqrFO+bwYi8X91vu/yNPcHtBKli7cggvBP0xFtFfspYGgtei8HdcW4dA7UgzFHhEgUDbfuTQ0U8YWkj4Ow==",
+  "dgSpecHash": "aXy/zjVEH21zlhW8zuDUNFWLQ/N87U3shFew/3ThYBtqik5mKtd2wrXQP1r+GXhz+Jq4DrbhXAsT21Y57Vn+Dw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\thonchel\\Documents\\Repos\\SuccessfulStartup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj",
+  "projectFilePath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Data\\SuccessfulStartup.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\thonchel\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\thonchel\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
