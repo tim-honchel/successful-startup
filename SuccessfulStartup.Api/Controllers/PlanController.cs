@@ -5,6 +5,7 @@ using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Data.Mapping;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 using SuccessfulStartup.Domain.Repositories.WriteOnly;
+using System.Net.Http.Headers;
 
 namespace SuccessfulStartup.Api.Controllers
 {
@@ -14,20 +15,38 @@ namespace SuccessfulStartup.Api.Controllers
     {
         private readonly IBusinessPlanReadOnlyRepository _repositoryForReadingBusinessPlans;
         private readonly IBusinessPlanWriteOnlyRepository _repositoryForWritingBusinessPlans;
+        private readonly IUserReadOnlyRepository _repositoryForReadingUsers;
         private readonly ViewModelConverter _viewModelConverter;
         private readonly  EntityConverter _entityConverter;
 
-        public PlanController(IBusinessPlanReadOnlyRepository repositoryForReadingBusinessPlans, IBusinessPlanWriteOnlyRepository repositoryForWritingBusinessPlans, ViewModelConverter viewModelConverter, EntityConverter entityConverter)
+        public PlanController(IBusinessPlanReadOnlyRepository repositoryForReadingBusinessPlans, IBusinessPlanWriteOnlyRepository repositoryForWritingBusinessPlans, IUserReadOnlyRepository repositoryForReadingUsers, ViewModelConverter viewModelConverter, EntityConverter entityConverter)
         {
             _repositoryForReadingBusinessPlans = repositoryForReadingBusinessPlans;
             _repositoryForWritingBusinessPlans = repositoryForWritingBusinessPlans;
+            _repositoryForReadingUsers = repositoryForReadingUsers;
             _viewModelConverter = viewModelConverter;
-            _entityConverter= entityConverter;
+            _entityConverter = entityConverter;
         }
 
         [HttpDelete("{planId}")]
         public async Task<IActionResult> DeletePlan(int planId) // needs to be public in order to be accessible to Swagger
         {
+            string securityStamp;
+            try
+            {
+                securityStamp = Request.Headers["key"];
+            }
+            catch (Exception)
+            {
+                return new ForbidResult();
+            }
+
+            var verified = await _repositoryForReadingUsers.VerifyUserAsync(planId, securityStamp);
+            if (!verified)
+            {
+                return new UnauthorizedResult();
+            }
+
             try
             {
                 var planToDelete = await _repositoryForReadingBusinessPlans.GetPlanByIdAsync(planId);
@@ -52,6 +71,22 @@ namespace SuccessfulStartup.Api.Controllers
         [HttpGet("all/{authorId}")]
         public async Task<IActionResult> GetAllPlansByAuthorId(string authorId)
         {
+            string securityStamp;
+            try
+            {
+                securityStamp = Request.Headers["key"];
+            }
+            catch (Exception)
+            {
+                return new ForbidResult();
+            }
+
+            var verified = await _repositoryForReadingUsers.VerifyUserAsync(authorId, securityStamp);
+            if (!verified)
+            {
+                return new UnauthorizedResult();
+            }
+
             try
             {
                 var plans = await _repositoryForReadingBusinessPlans.GetAllPlansByAuthorIdAsync(authorId);
@@ -66,6 +101,22 @@ namespace SuccessfulStartup.Api.Controllers
         [HttpGet("{planId}")]
         public async Task<IActionResult> GetPlanById(int planId)
         {
+            string securityStamp;
+            try
+            {
+                securityStamp = Request.Headers["key"];
+            }
+            catch (Exception)
+            {
+                return new ForbidResult();
+            }
+
+            var verified = await _repositoryForReadingUsers.VerifyUserAsync(planId, securityStamp);
+            if (!verified)
+            {
+                return new UnauthorizedResult();
+            }
+
             try
             {
                 var plan = await _repositoryForReadingBusinessPlans.GetPlanByIdAsync(planId);
@@ -84,6 +135,22 @@ namespace SuccessfulStartup.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveNewPlan(BusinessPlanViewModel plan)
         {
+            string securityStamp;
+            try
+            {
+                securityStamp = Request.Headers["key"];
+            }
+            catch (Exception)
+            {
+                return new ForbidResult();
+            }
+
+            var verified = await _repositoryForReadingUsers.VerifyUserAsync(plan.AuthorId, securityStamp);
+            if (!verified)
+            {
+                return new UnauthorizedResult();
+            }
+
             try
             {
                 var planToSave = _entityConverter.Convert(_viewModelConverter.Convert(plan));
@@ -103,6 +170,22 @@ namespace SuccessfulStartup.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdatePlan(BusinessPlanViewModel plan)
         {
+            string securityStamp;
+            try
+            {
+                securityStamp = Request.Headers["key"];
+            }
+            catch (Exception)
+            {
+                return new ForbidResult();
+            }
+
+            var verified = await _repositoryForReadingUsers.VerifyUserAsync(plan.AuthorId, securityStamp);
+            if (!verified)
+            {
+                return new UnauthorizedResult();
+            }
+
             try
             {
                 var planToUpdate = _entityConverter.Convert(_viewModelConverter.Convert(plan));

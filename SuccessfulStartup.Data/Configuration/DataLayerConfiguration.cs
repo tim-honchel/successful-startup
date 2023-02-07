@@ -25,7 +25,8 @@ namespace SuccessfulStartup.Data.Configuration
             services.AddScoped<EntityConverter>();
             services.AddTransient<IBusinessPlanReadOnlyRepository, BusinessPlanReadOnlyRepository>();
             services.AddTransient<IBusinessPlanWriteOnlyRepository, BusinessPlanWriteOnlyRepository>();
-            //services.AddTransient<IUserReadOnlyRepository, UserReadOnlyRepository>();
+            services.AddTransient<IUserReadOnlyRepository, UserReadOnlyRepository>();
+            services.AddTransient<IUserWriteOnlyRepository, UserWriteOnlyRepository>();
             return services;
         }
     }

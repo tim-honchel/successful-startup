@@ -5,9 +5,10 @@
 <AuthorizeView> @* show or hide UI elements depending on whether the user is authorized to see it *@
     <Authorized>
         <a href="Identity/Account/Manage">Hello, @context.User.Identity.Name!</a> @*gets the name of the user currently logged in*@
-            <form method="post" action="/LogOut">
+@*        <form method="post" action="/Logout">
                 <button type="submit" class="nav-link btn btn-link">Log out</button>
-            </form>
+            </form>*@
+            <a href="Identity/Account/Logout">Log out</a>
     </Authorized>
     <NotAuthorized>
         <a href= "Identity/Account/Register"> Register</a>

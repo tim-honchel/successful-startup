@@ -41,6 +41,10 @@ namespace SuccessfulStartup.Presentation.Areas.Identity.Pages.Account
             {
                 return NotFound($"Unable to load user with ID '{userId}'.");
             }
+           
+
+            //var securityStamp = claims.Where(claim => claim.Type == "AspNet.Identity.SecurityStamp").FirstOrDefault().Value; // gets userId from the custom claim
+            //_apiCallService.SaveNewUserAsync(userId, securityStamp); // add user security info to backend database
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);

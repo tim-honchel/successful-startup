@@ -2,6 +2,8 @@
 {
     public interface IUserReadOnlyRepository
     {
-        Task<string> GetUserIdByUsernameAsync(string username);
+        public Task<bool> VerifyUserAsync(string userId, string securityStamp);
+
+        public Task<bool> VerifyUserAsync(int planId, string securityStamp);
     }
 }

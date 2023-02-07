@@ -11,9 +11,10 @@ namespace SuccessfulStartup.Data.Contexts
     {
         private const string _connectionKey = "ConnectionStrings:BusinessPlanConnectionString";
         private const string _fileLocation = "appsettings.json";
-        internal static string _connectionString;
+        internal static string _connectionString; // switch to hard code when adding migration
 
         public virtual DbSet<BusinessPlan> BusinessPlans { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         public PlanDbContext(bool testing = false)
         {

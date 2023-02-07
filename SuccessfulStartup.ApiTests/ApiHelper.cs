@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity; // for IdentityUser
+﻿using Microsoft.AspNetCore.Http; // for DefaultHttpContext
+using Microsoft.AspNetCore.Identity; // for IdentityUser
+using Microsoft.AspNetCore.Mvc; // for Controller, ControllerContext
+using SuccessfulStartup.Api.Controllers;
 
 namespace SuccessfulStartup.ApiTests
 {
@@ -22,5 +25,13 @@ namespace SuccessfulStartup.ApiTests
             TwoFactorEnabled = false,
             UserName = "email@gmail.com"
         };
+
+        public void AddRequestHeader(PlanController controller, bool valid = true)
+        {
+            var httpContext = new DefaultHttpContext();
+            httpContext.Request.Headers["key"] = valid ? "valid-key" : "invalid-key";
+            var controllerContext = new ControllerContext() { HttpContext = httpContext };
+            controller.ControllerContext = controllerContext;
+        }
     }
 }

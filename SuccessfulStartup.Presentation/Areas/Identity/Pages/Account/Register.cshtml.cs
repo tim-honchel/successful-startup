@@ -13,12 +13,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using SuccessfulStartup.Presentation.Services;
 
 namespace SuccessfulStartup.Presentation.Areas.Identity.Pages.Account
 {
@@ -30,13 +32,18 @@ namespace SuccessfulStartup.Presentation.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IApiCallService _apiCallService;
+        private readonly AuthenticationStateProvider _provider;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IApiCallService apiCallService,
+            AuthenticationStateProvider provider)
+
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +51,8 @@ namespace SuccessfulStartup.Presentation.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _apiCallService = apiCallService;
+            _provider = provider;
         }
 
         /// <summary>
@@ -127,7 +136,9 @@ namespace SuccessfulStartup.Presentation.Areas.Identity.Pages.Account
 
                     // inserted to store userId as a claim
                     var claim = new Claim("userId", userId);
-                    _userManager.AddClaimAsync(user, claim);
+                    await _userManager.AddClaimAsync(user, claim);
+
+                    _apiCallService.SaveNewUserAsync(userId, user.SecurityStamp); // add user security info to backend database
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
