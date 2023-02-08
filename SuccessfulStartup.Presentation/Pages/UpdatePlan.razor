@@ -9,6 +9,8 @@
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
 @using SuccessfulStartup.Api.ViewModels;
 
+<PageTitle>Edit Your Plan</PageTitle>
+
 <h1 id="header">Edit Your Plan</h1>
 <p> Make the desired changes, then click "Save Changes" to update your plan.</p>
 
@@ -49,7 +51,7 @@
         }
 
         <br />
-        <p id="message" style="color:red">@message</p>
+        <p id="message" class="@messageClass">@message</p>
 
         @if (deletionStatus == "active")
         {
@@ -57,7 +59,7 @@
         }
         else if (deletionStatus == "prompt")
         {
-            <p style="color:red">Are you sure you want to delete this business plan permanently?</p>
+            <p class="text-danger">Are you sure you want to delete this business plan permanently?</p>
              <btn id="confirmDelete" class="btn btn-danger" @onclick="HandleDelete">Confirm Delete</btn>
             <btn id="cancelDelete" class="btn btn-success" @onclick="CancelDelete">Cancel</btn>
         }
@@ -65,7 +67,7 @@
     </Authorized>
 
     <NotAuthorized>
-         <p style="color:red">You must be logged in to see this information.</p>
+         <p class="text-danger">You must be logged in to see this information.</p>
     </NotAuthorized>
 
 </AuthorizeView>
@@ -76,6 +78,7 @@
 
     private BusinessPlanViewModel plan { get; set; } = new();
     private string message = "";
+    private string messageClass = "text-danger";
     private string deletionStatus = "active";
     private bool disableSave = true;
 
@@ -88,12 +91,14 @@
     {
         try
         {
+            messageClass = "text-success";
             message = "Business plan deleted successfully!";
             deletionStatus = "deleted";
             await service.DeletePlanAsync(plan.Id);
         }
         catch (Exception exception)
         {
+            messageClass = "text-danger";
             message = $"Failed to delete business plan. {exception.Message} Please try again. If the problem persists, please report the following error to Support: {exception.GetType()}";
         }
     }
@@ -109,11 +114,13 @@
         try
         {
             disableSave = true;
+            messageClass = "text-success";
             message = "Business plan updated successfully!";
             await service.UpdatePlanAsync(plan);
         }
         catch (Exception exception)
         {
+            messageClass = "text-danger";
             message = $"Failed to update business plan. {exception.Message} Please try again. If the problem persists, please report the following error to Support: {exception.GetType()}";
         }
 

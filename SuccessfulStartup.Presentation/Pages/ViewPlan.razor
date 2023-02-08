@@ -10,8 +10,9 @@
 @using Microsoft.AspNetCore.Components @*for NavigationManager*@
 @using Microsoft.AspNetCore.Components.Authorization @*for AuthenticationStateProvider*@
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
-
 @using SuccessfulStartup.Api.ViewModels
+
+<PageTitle>Your Business Plan</PageTitle>
 
 <h1 id="header">Your Business Plan</h1>
 
@@ -32,11 +33,11 @@
         <p id="description">@plan.Description</p>
         <br />
 
-        <p id="message" style="color:red">@message</p>
+        <p id="message" class="text-danger">@message</p>
     </Authorized>
 
     <NotAuthorized>
-         <p style="color:red">You must be logged in to see this information.</p>
+         <p class="text-danger">You must be logged in to see this information.</p>
     </NotAuthorized>
 
 </AuthorizeView>

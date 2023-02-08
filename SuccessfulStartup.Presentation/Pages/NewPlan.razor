@@ -14,6 +14,9 @@
 @using Microsoft.AspNetCore.Components.Forms @*for EditForm*@
 @using SuccessfulStartup.Api.ViewModels
 
+
+<PageTitle>Create a New Business Plan</PageTitle>
+
 <h1 id="header">Create a New Business Plan</h1>
 
 <br />
@@ -50,7 +53,7 @@
 
         </EditForm>
         
-        <p id="message" style="color:red">@message</p>
+        <p id="message" class="@messageClass">@message</p>
 
         @if (creationStatus=="saved")
             {
@@ -60,7 +63,7 @@
     </Authorized>
 
     <NotAuthorized>
-         <p style="color:red">You must be logged in to see this information.</p>
+         <p class="text-danger">You must be logged in to see this information.</p>
     </NotAuthorized>
 
 </AuthorizeView>
@@ -69,6 +72,7 @@
     private BusinessPlanViewModel plan { get; set; } = new();
     public string authorId;
     private string message = "";
+    private string messageClass = "text-danger";
     private string creationStatus = "unsaved";
     private bool formHidden = false;
     private int newId { get; set; } // auto-generated Id of created plan
@@ -81,11 +85,13 @@
         try
         {
             message = "New business plan created successfully!"; // needs to be before API call in order to render
+            messageClass = "text-success";
             newId = await service.SaveNewPlanAsync(plan);  // service manages all HTTPClient requests to the API   
         }
         catch (Exception exception)
         {
             creationStatus = "unsaved";
+            messageClass = "text-danger";
             message = $"{exception.Message} Please resubmit. If the problem persists, please report the following error to Support: {exception.GetType()}"; // will display the error message provided by the exception
         }
     }
@@ -102,6 +108,7 @@
             authorId = "unavailable";
             formHidden = true; // prevent submission of new business plan
             message = $"{exception.Message} Please make sure you are logged in correctly and reload this page. If the problem persists, please report the following error to Support: {exception.GetType()}"; // will display the error message provided by the exception
+            messageClass = "text-danger";
         }
     }
 }

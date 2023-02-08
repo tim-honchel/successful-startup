@@ -18,7 +18,14 @@ namespace SuccessfulStartup.Presentation.Services
         public ApiCallService(AuthenticationStateProvider provider)
         {
             _provider = provider;
-            _securityStamp = provider.GetAuthenticationStateAsync().Result.User.Claims.Where(claim => claim.Type == "AspNet.Identity.SecurityStamp").FirstOrDefault().Value;
+            try
+            {
+                _securityStamp = provider.GetAuthenticationStateAsync().Result.User.Claims.Where(claim => claim.Type == "AspNet.Identity.SecurityStamp").FirstOrDefault().Value;
+            }
+            catch (Exception) // for example, if no user is logged in
+            {
+                _securityStamp = "";
+            }
             _client = new HttpClient();
             _client.BaseAddress = new Uri("https://localhost:7261/"); // TODO: get address through code or connection string
             _client.DefaultRequestHeaders.Clear();
