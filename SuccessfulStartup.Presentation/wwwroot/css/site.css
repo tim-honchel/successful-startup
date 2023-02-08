@@ -62,3 +62,28 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.image-container img {
+    position: relative;
+    width: 100%
+}
+
+.background-image {
+    filter: brightness(140%) contrast(120%);
+
+}
+
+.image-container .text-overlay {
+    position: absolute;
+    top: 70px;
+    left: 270px
+}
+
+.text-overlay p{
+    background-color:rgba(255,255,255,0.8);
+    width: fit-content
+}
+
+.text-overlay span {
+    font-weight:bold
+}

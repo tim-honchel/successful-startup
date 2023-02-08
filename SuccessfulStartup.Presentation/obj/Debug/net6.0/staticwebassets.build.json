@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "zftYD6yFc/HR2XQHaCN0LwVZ9Z3H0iJUYtcuHosiFAU=",
+  "Hash": "SBJkTYuBsuNTF5KvWgKOgRbeYW1LIWwEH3zIyZbuvsM=",
   "Source": "SuccessfulStartup.Presentation",
   "BasePath": "_content/SuccessfulStartup.Presentation",
   "Mode": "Default",
@@ -1880,6 +1880,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Presentation\\wwwroot\\main-image.jpg",
+      "SourceId": "SuccessfulStartup.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.Presentation\\wwwroot\\",
+      "BasePath": "_content/SuccessfulStartup.Presentation",
+      "RelativePath": "main-image.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\main-image.jpg"
     }
   ]
 }
