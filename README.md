@@ -102,6 +102,7 @@ I found these articles and videos especially useful in creating this project:
 * "Verifying markup from a component" (https://bunit.dev/docs/verification/verify-markup.html)
 
 ### Identity
+* "Adding Identity to Existing Blazor Server Apps" (https://www.youtube.com/watch?v=Lp-0JtQbj84&list=PL8h4jt35t1wjvwFnvcB2LlYL4jLRzRmoz&index=57)
 * "ASP.NET Core Security" (https://www.youtube.com/playlist?list=PLgRlicSxjeMOxypAEL2XqIc2m_gPmoVN-)
 * "Claims based authorization in Blazor Server" (https://www.youtube.com/watch?v=3pOVrXim4OQ)
 * "Scaffold Identity in ASP.NET Core projects" (https://learn.microsoft.com/en-us/aspnet/core/security/authentication/scaffold-identity?view=aspnetcore-7.0&tabs=visual-studio)

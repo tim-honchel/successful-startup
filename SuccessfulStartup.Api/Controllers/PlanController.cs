@@ -126,7 +126,7 @@ namespace SuccessfulStartup.Api.Controllers
             {
                 return new BadRequestObjectResult(exception.ParamName);
             }
-            catch (NullReferenceException exception)
+            catch (NullReferenceException)
             {
                 return new NoContentResult();
             }

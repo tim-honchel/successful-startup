@@ -41,6 +41,8 @@ namespace SuccessfulStartup.Presentation.Services
             else if (response.StatusCode == HttpStatusCode.BadRequest && response.Content.ReadAsStringAsync().Result.Contains("null")) { throw new ArgumentNullException($"Invalid Id:{planId}. Cannot be null"); }
             else if (response.StatusCode == HttpStatusCode.NotFound && response.Content.ReadAsStringAsync().Result.Contains("not found")) { throw new NullReferenceException($"No plan with Id:{planId} could be found."); }
             else if (response.StatusCode == HttpStatusCode.NoContent) { throw new InvalidOperationException("Error writing to the database. Possible that the record did not completely match or was deleted previously."); }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized) { throw new InvalidOperationException("Lack authorization to delete the plan."); }
+            else if (response.StatusCode == HttpStatusCode.Forbidden) { throw new InvalidOperationException("Must provide credentials to delete plans."); }
             else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}"); }
         }
 
@@ -51,6 +53,8 @@ namespace SuccessfulStartup.Presentation.Services
             if (response.StatusCode == HttpStatusCode.OK) { return await response.Content.ReadFromJsonAsync<List<BusinessPlanViewModel>>(); }
             else if (response.StatusCode == HttpStatusCode.BadRequest && response.Content.ReadAsStringAsync().Result.Contains("null")) { throw new ArgumentNullException($"Invalid Id:{authorId}. Cannot be null"); }
             else if (response.StatusCode == HttpStatusCode.NoContent) { throw new InvalidOperationException("Error writing to the database. Possible that the record did not completely match or was deleted previously."); }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized) { throw new InvalidOperationException("Lack authorization to view the plans."); }
+            else if (response.StatusCode == HttpStatusCode.Forbidden) { throw new InvalidOperationException("Must provide credentials to view plans."); }
             else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}"); }
         }
 
@@ -62,6 +66,8 @@ namespace SuccessfulStartup.Presentation.Services
             else if (response.StatusCode == HttpStatusCode.BadRequest && response.Content.ReadAsStringAsync().Result.Contains("null")) { throw new ArgumentNullException($"Invalid Id:{planId}. Cannot be null"); }
             else if (response.StatusCode == HttpStatusCode.NotFound && response.Content.ReadAsStringAsync().Result.Contains("not found")) { throw new NullReferenceException($"No plan with Id:{planId} could be found."); }
             else if (response.StatusCode == HttpStatusCode.NoContent) { throw new InvalidOperationException("Error writing to the database. Possible that the record did not completely match or was deleted previously."); }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized) { throw new InvalidOperationException("Lack authorization to view the plan."); }
+            else if (response.StatusCode == HttpStatusCode.Forbidden) { throw new InvalidOperationException("Must provide credentials to view plans."); }
             else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}"); }
         }
 
@@ -76,6 +82,8 @@ namespace SuccessfulStartup.Presentation.Services
             }
             else if (response.StatusCode == HttpStatusCode.BadRequest && response.Content.ReadAsStringAsync().Result.Contains("null")) { throw new ArgumentNullException($"Invalid plan. Cannot be null"); }
             else if (response.StatusCode == HttpStatusCode.NoContent) { throw new InvalidOperationException("Error writing to the database. Possible that the record did not completely match."); }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized) { throw new InvalidOperationException("Lack authorization to save the plan."); }
+            else if (response.StatusCode == HttpStatusCode.Forbidden) { throw new InvalidOperationException("Must provide credentials to save plans."); }
             else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}"); }
         }
 
@@ -83,10 +91,11 @@ namespace SuccessfulStartup.Presentation.Services
         {
             var user = new Dictionary<string, string>() { { "userId", userId }, { "securityStamp",securityStamp } };
             var response = await _client.PostAsJsonAsync("User",user);
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                throw new Exception();
-            }
+            if (response.StatusCode == HttpStatusCode.OK) { }
+            else if (response.StatusCode == HttpStatusCode.BadRequest && response.Content.ReadAsStringAsync().Result.Contains("null")) { throw new ArgumentNullException($"Invalid user. Cannot be null"); }
+            else if (response.StatusCode == HttpStatusCode.NoContent) { throw new InvalidOperationException("Error writing to the database."); }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized) { throw new InvalidOperationException("User already exists."); }
+            else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}"); }
         }
 
 
@@ -97,6 +106,8 @@ namespace SuccessfulStartup.Presentation.Services
             if (response.StatusCode == HttpStatusCode.OK) { return; }
             else if (response.StatusCode == HttpStatusCode.BadRequest && response.Content.ReadAsStringAsync().Result.Contains("null")) { throw new ArgumentNullException($"Invalid plan. Cannot be null"); }
             else if (response.StatusCode == HttpStatusCode.NoContent) { throw new InvalidOperationException("Error writing to the database. Possible that the record did not completely match."); }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized) { throw new InvalidOperationException("Lack authorization to update the plan."); }
+            else if (response.StatusCode == HttpStatusCode.Forbidden) { throw new InvalidOperationException("Must provide credentials to update plans."); }
             else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}"); }
         }
 

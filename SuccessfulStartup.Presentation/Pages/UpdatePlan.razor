@@ -92,9 +92,9 @@
             deletionStatus = "deleted";
             await service.DeletePlanAsync(plan.Id);
         }
-        catch (Exception)
+        catch (Exception exception)
         {
-            message = "Failed to delete business plan.";
+            message = $"Failed to delete business plan. {exception.Message} Please try again. If the problem persists, please report the following error to Support: {exception.GetType()}";
         }
     }
 
@@ -112,9 +112,9 @@
             message = "Business plan updated successfully!";
             await service.UpdatePlanAsync(plan);
         }
-        catch (Exception)
+        catch (Exception exception)
         {
-            message = "Failed to update business plan.";
+            message = $"Failed to update business plan. {exception.Message} Please try again. If the problem persists, please report the following error to Support: {exception.GetType()}";
         }
 
     }

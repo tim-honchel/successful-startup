@@ -31,12 +31,15 @@
                     <th>Title</th>
                     <th>Description</th>
                 </tr>
+                @if (plans != null)
+                {
                     <Virtualize Items="plans" Context="plan"> @*renders faster than foreach loop*@
                         <tr id="plan">
                             <td><a href="/plans/@plan.Id">@plan.Name</a></td>
                             <td>@plan.Description</td>
                         </tr>
                     </Virtualize>
+                }
             </table>
 
             <p style="color:red">@message</p>
@@ -66,8 +69,8 @@
         //var claims = provider.GetAuthenticationStateAsync().Result.User.Claims;
         try
         {
-            //authorId = provider.GetAuthenticationStateAsync().Result.User.Claims.Where(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").FirstOrDefault().Value; // gets userId from the default claim
-            authorId = provider.GetAuthenticationStateAsync().Result.User.Claims.Where(claim => claim.Type == "userId").FirstOrDefault().Value; // gets userId from the custom claim
+            authorId = provider.GetAuthenticationStateAsync().Result.User.Claims.Where(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").FirstOrDefault().Value; // gets userId from the default claim
+            //authorId = provider.GetAuthenticationStateAsync().Result.User.Claims.Where(claim => claim.Type == "userId").FirstOrDefault().Value; // gets userId from the custom claim
         }
         catch (NullReferenceException)
         {
@@ -81,9 +84,9 @@
             message = "";
             Console.WriteLine($"GetAllPlans: {stopwatch.Elapsed}");
         }
-        catch (Exception)
+        catch (Exception exception)
         {
-            message = "Failed to load business plans from database.";
+            message = $"Failed to load business plans from database. {exception.Message} Please try again. If the problem persists, please report the following error to Support: {exception.GetType()}";
         }
 
     }

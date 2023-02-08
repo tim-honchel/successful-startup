@@ -30,7 +30,9 @@
 
         <h6>Description</h6>
         <p id="description">@plan.Description</p>
+        <br />
 
+        <p id="message" style="color:red">@message</p>
     </Authorized>
 
     <NotAuthorized>
@@ -43,10 +45,20 @@
     [Parameter]
     public int planId { get; set; }
 
+    public string message = "";
+
     private BusinessPlanViewModel plan { get; set; } = new();
 
     protected async override Task OnParametersSetAsync() // don't use OnInitialized, results in runtime error where model cannot be found
     {
-        plan = await service.GetPlanByIdAsync(planId); // service manages all HTTPClient requests to the API
+        try
+        {
+            plan = await service.GetPlanByIdAsync(planId); // service manages all HTTPClient requests to the API
+            message = "";
+        }
+        catch (Exception exception)
+        {
+            message = $"Failed to load plan. {exception.Message} Please try again. If the problem persists, please report the following error to Support: {exception.GetType()}";
+        }
     }
 }
