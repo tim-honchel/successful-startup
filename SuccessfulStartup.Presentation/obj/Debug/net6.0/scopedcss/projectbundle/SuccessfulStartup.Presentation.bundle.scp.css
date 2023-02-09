@@ -67,7 +67,7 @@ main[b-dtfpeu9ojb] {
 
 @media (max-width: 640.98px) {
     .top-row:not(.auth)[b-dtfpeu9ojb] {
-        display: none;
+        /*display: none;*/ /*was hiding the user bar on mobile devices*/
     }
 
     .top-row.auth[b-dtfpeu9ojb] {

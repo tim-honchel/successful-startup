@@ -33,7 +33,7 @@ main {
 
 @media (max-width: 640.98px) {
     .top-row:not(.auth) {
-        display: none;
+        /*display: none;*/ /*was hiding the user bar on mobile devices*/
     }
 
     .top-row.auth {
