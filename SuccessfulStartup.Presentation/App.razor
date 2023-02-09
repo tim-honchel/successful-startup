@@ -1,4 +1,6 @@
 ﻿<!--the root component of the app-->
+@*for making API calls*@
+@inject IApiCallService service
 
 @using Microsoft.AspNetCore.Components.Authorization; @*for CascadingAuthentication State, AuthorizedRouteView, NotAuthorized, Authorizing*@
 @using Microsoft.AspNetCore.Components.Routing; @*for Router, Found, routeData*@
@@ -24,3 +26,10 @@
         </NotFound>
     </Router>
 </CascadingAuthenticationState>
+
+@code {
+    protected async override Task OnInitializedAsync() //
+    {
+        service.GetAllPlansByAuthorIdAsync("0"); // the first query in Entity Framework takes 3-5 seconds because the model has to compile. By running a dummy query in the background when the application first loads, the user's first real query will be fast
+    }
+}

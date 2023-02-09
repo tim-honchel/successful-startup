@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore; // for database queries
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Domain.Entities;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
-using System.Diagnostics;
 
 namespace SuccessfulStartup.Data.Repositories.ReadOnly
 {
@@ -18,16 +17,13 @@ namespace SuccessfulStartup.Data.Repositories.ReadOnly
         }
         public async Task<List<BusinessPlanDomain>> GetAllPlansByAuthorIdAsync(string authorId)
         {
-            Stopwatch stopwatch = new();
-            stopwatch.Start();
 
             if (string.IsNullOrWhiteSpace(authorId)) {throw new ArgumentNullException(nameof(authorId));}
 
             using var context = _factory.CreateDbContext();
-            var time1 = stopwatch.Elapsed;
 
             var plansByUser = await context.BusinessPlans.Where(plan => plan.AuthorId == authorId).AsNoTracking().ToListAsync();
-            var time2 = stopwatch.Elapsed;
+
             return _mapper.Map<List<BusinessPlanDomain>>(plansByUser); // returns empty list if no plans are found
 
         }

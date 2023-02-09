@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations; // for key
 
 namespace SuccessfulStartup.Data.Entities
 {
     public class User
     {
-        public int Id { get; set; }
+        [Key]
         public string AuthorId { get; set; }
         public string SecurityStamp {get; set;}
     }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SuccessfulStartup.Data.Contexts;
 
@@ -10,9 +11,10 @@ using SuccessfulStartup.Data.Contexts;
 namespace SuccessfulStartup.Data.Migrations.PlanDb
 {
     [DbContext(typeof(PlanDbContext))]
-    partial class PlanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230209193006_Index-AuthorId")]
+    partial class IndexAuthorId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -5,7 +5,6 @@ using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Data.Mapping;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 using SuccessfulStartup.Domain.Repositories.WriteOnly;
-using System.Net.Http.Headers;
 
 namespace SuccessfulStartup.Api.Controllers
 {

@@ -1,8 +1,12 @@
-﻿using SuccessfulStartup.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SuccessfulStartup.Domain.Entities;
 using System.ComponentModel.DataAnnotations; // for indicating property requirements
+using System.ComponentModel.DataAnnotations.Schema; // for foreign key
 
 namespace SuccessfulStartup.Data.Entities
 {
+
+    [Index(nameof(AuthorId))]
     public class BusinessPlan : BusinessPlanDomain // model for Entity Framework
     {
         public int Id { get; set; } // TODO : change to GUID?
@@ -15,10 +19,11 @@ namespace SuccessfulStartup.Data.Entities
         [MaxLength(150, ErrorMessage = "Exceeded 150 character maximum.")]
         public string Description { get; set; }
 
+        [Required]
         public string AuthorId { get; set; }
 
-        //[ForeignKey("AuthorId")]
-        //public virtual AppUser User { get; set; }
+        [ForeignKey("AuthorId")]
+        public virtual User User { get; set; }
 
         
     }
@@ -35,5 +40,5 @@ namespace SuccessfulStartup.Data.Entities
           [Description] nvarchar(150) NOT NULL,
           [AuthorId] nvarchar(450) NOT NULL,
           CONSTRAINT[PK_BusinessPlans] PRIMARY KEY ([Id]),
-          CONSTRAINT[FK_BusinessPlans_AspNetUsers_AuthorId] FOREIGN KEY([AuthorId]) REFERENCES[AspNetUsers]([Id]) ON DELETE CASCADE
+          CONSTRAINT[FK_BusinessPlans_Users_AuthorId] FOREIGN KEY([AuthorId]) REFERENCES[Users]([AuthorId]) ON DELETE CASCADE
 */
