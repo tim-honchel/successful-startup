@@ -107,6 +107,11 @@ I found these articles and videos especially useful in creating this project:
 * "How-To: Verify Blazor Navigation in bUnit" (https://darthpedro.net/2021/06/03/how-to-verify-blazor-navigation-in-bunit/)
 * "Verifying markup from a component" (https://bunit.dev/docs/verification/verify-markup.html)
 
+### Entity Framework
+* "DevOps Database Delivery: State-Based vs. Migration Based" (https://www.red-gate.com/simple-talk/devops/database-devops/introduction-to-devops-database-delivery/)
+* "Index Attribute" (https://www.entityframeworktutorial.net/entityframework6/index-attribute-in-code-first.aspx)
+* "Why First Query is slow?" (https://entityframework.net/why-first-query-slow)
+
 ### Identity
 * "Adding Identity to Existing Blazor Server Apps" (https://www.youtube.com/watch?v=Lp-0JtQbj84&list=PL8h4jt35t1wjvwFnvcB2LlYL4jLRzRmoz&index=57)
 * "ASP.NET Core Security" (https://www.youtube.com/playlist?list=PLgRlicSxjeMOxypAEL2XqIc2m_gPmoVN-)
@@ -128,4 +133,4 @@ Follow these instructions to build the solution on your machine:
 2) Accept the prompt to trust the ASP.NET Core SSL Certificate
 3) Create appsettings.json files in the Presentation project and API project. Add a connection string named "IdentityConnectionString" with the parameters for your local instance of MySqlServer.
 4) In order to verify user emails, set up a Gmail account with an app password, and add connection strings to the appsettings.json files named "GmailAddress" and GmailPassword." Alternatively, in DataLayerConfiguration.cs, change options.SignInRequireConfirmedAccount to false.
-5) Run the update-database command in the Package Console Manager.
+5) Run the add-migration and update-database commands in the Package Console Manager. (will need to temporarily manually enter the connection string on PlanDbContext.cs when adding migration)
