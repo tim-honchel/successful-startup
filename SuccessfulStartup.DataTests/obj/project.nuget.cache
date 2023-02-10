@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "hCYsuqAoKD0u0PZ1IY2zro6xZ9us0ZM5mdQPuGTHiAk9ifgjarqrVvdX6WRs10kDA8BQ2C4h0ZYx2Kwv5CXqOQ==",
+  "dgSpecHash": "eFB+OhCjPBYOkBToCO2MF9winQo4kPueGPDtZqvRr8PceyOq0sNuBSnA/yBjMHdSvuEv/rMKw3rwf0THE3/zLQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\thonchel\\Documents\\Repos\\successful-startup\\SuccessfulStartup.DataTests\\SuccessfulStartup.DataTests.csproj",
   "expectedPackageFiles": [
@@ -139,8 +139,9 @@
     "C:\\Users\\thonchel\\.nuget\\packages\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\thonchel\\.nuget\\packages\\shouldly\\4.1.0\\shouldly.4.1.0.nupkg.sha512",
     "C:\\Users\\thonchel\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
-    "C:\\Users\\thonchel\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
-    "C:\\Users\\thonchel\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\thonchel\\.nuget\\packages\\swashbuckle.aspnetcore.annotations\\6.5.0\\swashbuckle.aspnetcore.annotations.6.5.0.nupkg.sha512",
+    "C:\\Users\\thonchel\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\thonchel\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
     "C:\\Users\\thonchel\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512",
     "C:\\Users\\thonchel\\.nuget\\packages\\system.codedom\\5.0.0\\system.codedom.5.0.0.nupkg.sha512",
     "C:\\Users\\thonchel\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",

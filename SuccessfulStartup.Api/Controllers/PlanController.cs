@@ -5,6 +5,7 @@ using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Data.Mapping;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 using SuccessfulStartup.Domain.Repositories.WriteOnly;
+using Swashbuckle.AspNetCore.Annotations; // for SwaggerOperation, ProducesResponseType
 
 namespace SuccessfulStartup.Api.Controllers
 {
@@ -26,8 +27,14 @@ namespace SuccessfulStartup.Api.Controllers
             _viewModelConverter = viewModelConverter;
             _entityConverter = entityConverter;
         }
-
         [HttpDelete("{planId}")]
+        [SwaggerOperation(Summary ="Remove a business plan", Description ="Requires API token in header")]
+        [ProducesResponseType(typeof(void), 200)]
+        [ProducesResponseType(typeof(void), 204)]
+        [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(void), 401)]
+        [ProducesResponseType(typeof(void), 403)]
+        [ProducesResponseType(typeof(string), 404)]
         public async Task<IActionResult> DeletePlan(int planId) // needs to be public in order to be accessible to Swagger
         {
             string securityStamp;
@@ -68,6 +75,12 @@ namespace SuccessfulStartup.Api.Controllers
         }
 
         [HttpGet("all/{authorId}")]
+        [SwaggerOperation(Summary = "Query all business plans by a specific author", Description = "Requires API token in header")]
+        [ProducesResponseType(typeof(List<BusinessPlanViewModel>), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(void), 401)]
+        [ProducesResponseType(typeof(void), 403)]
+        [ProducesResponseType(typeof(void), 404)]
         public async Task<IActionResult> GetAllPlansByAuthorId(string authorId)
         {
             string securityStamp;
@@ -98,6 +111,12 @@ namespace SuccessfulStartup.Api.Controllers
         }
 
         [HttpGet("{planId}")]
+        [SwaggerOperation(Summary = "Query a specific business plan", Description = "Requires API token in header")]
+        [ProducesResponseType(typeof(BusinessPlanViewModel), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(void), 401)]
+        [ProducesResponseType(typeof(void), 403)]
+        [ProducesResponseType(typeof(string), 404)]
         public async Task<IActionResult> GetPlanById(int planId)
         {
             string securityStamp;
@@ -127,12 +146,19 @@ namespace SuccessfulStartup.Api.Controllers
             }
             catch (NullReferenceException)
             {
-                return new NoContentResult();
+                return new NotFoundObjectResult("not found");
             }
         }
 
         [HttpPost]
+        [SwaggerOperation(Summary = "Add a business plan", Description = "Requires API token in header")]
+        [ProducesResponseType(typeof(Uri), 201)]
+        [ProducesResponseType(typeof(void), 204)]
+        [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(void), 401)]
+        [ProducesResponseType(typeof(void), 403)]
         public async Task<IActionResult> SaveNewPlan(BusinessPlanViewModel plan)
+
         {
             string securityStamp;
             try
@@ -167,6 +193,12 @@ namespace SuccessfulStartup.Api.Controllers
         }
 
         [HttpPut]
+        [SwaggerOperation(Summary = "Update a business plan", Description = "Requires API token in header")]
+        [ProducesResponseType(typeof(void), 200)]
+        [ProducesResponseType(typeof(void), 204)]
+        [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(void), 401)]
+        [ProducesResponseType(typeof(void), 403)]
         public async Task<IActionResult> UpdatePlan(BusinessPlanViewModel plan)
         {
             string securityStamp;
@@ -190,6 +222,10 @@ namespace SuccessfulStartup.Api.Controllers
                 var planToUpdate = _entityConverter.Convert(_viewModelConverter.Convert(plan));
                 await _repositoryForWritingBusinessPlans.UpdatePlanAsync(planToUpdate);
                 return new OkResult();
+            }
+            catch (ArgumentNullException)
+            {
+                return new BadRequestObjectResult(null);
             }
             catch (DbUpdateException)
             {

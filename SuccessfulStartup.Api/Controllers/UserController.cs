@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc; // for ControllerBase
 using Microsoft.EntityFrameworkCore; // for DbUpdateException
 using SuccessfulStartup.Domain.Repositories.WriteOnly;
+using Swashbuckle.AspNetCore.Annotations; // for SwaggerOperation, ProducesResponseType
 
 namespace SuccessfulStartup.Api.Controllers
 {
@@ -16,6 +17,11 @@ namespace SuccessfulStartup.Api.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(Summary = "Add a user", Description="Include the User ID and API key")]
+        [ProducesResponseType(typeof(void), 200)]
+        [ProducesResponseType(typeof(void), 204)]
+        [ProducesResponseType(typeof(void), 400)]
+        [ProducesResponseType(typeof(void), 401)]
         public async Task<IActionResult> AddUser(Dictionary<string, string> user)
         {
             try

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity; // for UserManager
 using SuccessfulStartup.Api.ViewModels;
 using System.Net; // for HttpStatusCode
 using System.Net.Http.Headers; // for HttpClient
@@ -72,7 +71,6 @@ namespace SuccessfulStartup.Presentation.Services
             if (response.StatusCode == HttpStatusCode.OK) { return await response.Content.ReadFromJsonAsync<BusinessPlanViewModel>(); }
             else if (response.StatusCode == HttpStatusCode.BadRequest && response.Content.ReadAsStringAsync().Result.Contains("null")) { throw new ArgumentNullException($"Invalid Id:{planId}. Cannot be null"); }
             else if (response.StatusCode == HttpStatusCode.NotFound && response.Content.ReadAsStringAsync().Result.Contains("not found")) { throw new NullReferenceException($"No plan with Id:{planId} could be found."); }
-            else if (response.StatusCode == HttpStatusCode.NoContent) { throw new InvalidOperationException("Error writing to the database. Possible that the record did not completely match or was deleted previously."); }
             else if (response.StatusCode == HttpStatusCode.Unauthorized) { throw new InvalidOperationException("Lack authorization to view the plan."); }
             else if (response.StatusCode == HttpStatusCode.Forbidden) { throw new InvalidOperationException("Must provide credentials to view plans."); }
             else { throw new Exception($"API request error. Status code: {response.StatusCode}. Details: {response.Content.ReadAsStringAsync()}"); }

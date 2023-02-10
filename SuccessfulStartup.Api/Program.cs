@@ -10,7 +10,7 @@ builder.Services.AddCors(); // necessary because requests come from different UR
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>options.EnableAnnotations());
 builder.Services.AddScoped<ViewModelConverter>();
 DataLayerConfiguration.AddDataScope(builder.Services); // adds other services defined in the data project
 
