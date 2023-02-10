@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SuccessfulStartup.Data.Contexts;
-using SuccessfulStartup.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore; // for context executions
 using SuccessfulStartup.Domain.Repositories.WriteOnly;
 
 namespace SuccessfulStartup.Data.Repositories.WriteOnly

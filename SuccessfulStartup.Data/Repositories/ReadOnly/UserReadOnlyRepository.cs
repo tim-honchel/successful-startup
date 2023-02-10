@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SuccessfulStartup.Data.Contexts;
+﻿using Microsoft.EntityFrameworkCore; // for context queries
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
-using System.Numerics;
 
 
 namespace SuccessfulStartup.Data.Repositories.ReadOnly

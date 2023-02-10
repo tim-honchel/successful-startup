@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore; // for DbContext, DbContextOptionsBuilder
 using Microsoft.Extensions.Configuration; // for ConfigurationBuilder
-using SuccessfulStartup.Data.Entities;
-using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices; // for InternalsVisibleTo
 
 [assembly: InternalsVisibleTo("SuccessfulStartup.DataTests")] // allows tests to access internal members
 

@@ -1,10 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration; // for ConfigurationBuilder
 using Microsoft.Extensions.DependencyInjection; // for IServiceCollection, AddAutoMapper
-using SuccessfulStartup.Data.Contexts;
-using SuccessfulStartup.Data.Mapping;
-using SuccessfulStartup.Data.Repositories.ReadOnly;
-using SuccessfulStartup.Data.Repositories.WriteOnly;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 using SuccessfulStartup.Domain.Repositories.WriteOnly;
 

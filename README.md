@@ -1,5 +1,5 @@
 # Successful Startup
-A tool for entrepreneurs to easily create useful business plans for small startups.
+A tool for entrepreneurs to easily create useful business plans for small startups. Currently in alpha phase.
 
 ## Contents
 * [Overview](https://github.com/tim-honchel/successful-startup/edit/master/README.md#overview)
@@ -77,6 +77,9 @@ I initially tried implementing the context directly, but I found that it worked 
 ### Dependency Injection
 Presentation-level service configurations take place in its Program.cs and API-level service configurations take place in its Program.cs. I created separate static classes in the data layer containing additional configurations for that layer. As needed, the API Program.cs calls the AddDataScope methods of those configuration classes in order to add those services.
 
+### Entity Framework
+I noticed that no matter what I did, the first query was always slow (3-5 seconds). It turns out this is because the Entity Framework model must compile. As a workaround, I made an async dummy API call in App.razor on initialization. This means the model is compiling in the background and will be ready by the time the user makes their first real query. *I would like to experiment with a Model Cache as an alternative."
+
 ### Email Send Service
 If Identity is configured to SignIn.RequiredConfirmedAccount = true, it's necessary to set up an email service in order for users to verify their accounts. I used the IEmailSender interface with an SMTP client set up to a Gmail account's app password, stored in appsettings.json.
 
@@ -84,7 +87,7 @@ If Identity is configured to SignIn.RequiredConfirmedAccount = true, it's necess
 I wanted the benefits of domain entities (defining and enforcing rules of data entities) without the complexity of AutoMapper. I tried creating domain entity interfaces, but interfaces cannot contain fields or properties, only methods. Instead I used abstract classes and derived the data entities from those, but the problem was the application could still not implicitly cast the child class to the parent class type and abstract classes cannot be implemented. So I switched the domain entities to a normal base class and used mapping. I started with a custom mapper, but realized that was more complex than using Automapper. I used AutoMapper, however I created an EntityConverter class containing an overloaded Convert method. Depending on the object type passed in, it returns the corresponding data or domain type, making it unnecessary to use the mapper in the presentation layer. I created a similar converter to convert API ViewModels to Data entities.
 
 ### Migrations
-After setting up the DbContext, I used the Package Manager Console to Add-Migration and Update-Database. This created the database and later on updated the schema as I made changes to the entities. I learned that it's not necessary to delete the database and previous migrations when you want to add a new migration. Entity Framework will update the existing database, using the new migration.
+After setting up the DbContext, I used the Package Manager Console to Add-Migration and Update-Database. This created the database and later on updated the schema as I made changes to the entities. I learned that it's not necessary to delete the database and previous migrations when you want to add a new migration. Entity Framework will update the existing database, using the new migration. I also experimented with the SQL Server Database project template, but learned that this is considered a state-based database strategy and decided to stick with a migration-based strategy for this project.
 
 ### NUnit Testing
 To make class members accessible to tests, I used the [assembly: InternalsVisibleTo("test_project_name")] attribute and changed certain private members to internal. I also divided certain methods (i.e. EmailSender.SendEmailAsync) into multiple methods so I could test each part individually.  I used Moq for contexts, factories, HttpMessageHandler, services, and repositories, which often requires the "virtual" keyword in the original method in order to override them in Moq's Setup and Verify methods and the use of interfaces rather than instances. I used GenFu to generate mock data for the mock context could return. I used Shouldly for assertion, because I find it more intuitive. I separated the Arrange, Act, and Assert areas with an empty line.
@@ -125,6 +128,10 @@ I found these articles and videos especially useful in creating this project:
 * "Using Moq to Stub an interface method" (https://stackoverflow.com/questions/10505704/using-moq-to-stub-an-interface-method)
 * "Why use It.Is<> or It.IsAny<> if I could just define a variable" (https://stackoverflow.com/questions/37051371/why-use-it-is-or-it-isany-if-i-could-just-define-a-variable)
 * "You are mocking the HttpClient the wrong way" (https://www.youtube.com/watch?v=7OFZZAHGv9o)
+
+### Swagger
+* "Swashbuckle.AspNetCore.Annotations" (https://github.com/domaindrivendev/Swashbuckle.AspNetCore#swashbuckleaspnetcoreannotations)
+* "Swashbuckle.Examples" (https://github.com/mattfrear/Swashbuckle.Examples)
 
 ## Local Deployment
 Follow these instructions to build the solution on your machine:

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using SuccessfulStartup.Api.ViewModels;
+﻿using AutoMapper; // for CreateMap
 using SuccessfulStartup.Data.Entities;
 
 namespace SuccessfulStartup.Api.Mapping

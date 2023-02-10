@@ -1,4 +1,3 @@
-using SuccessfulStartup.Api.Mapping;
 using SuccessfulStartup.Data.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);

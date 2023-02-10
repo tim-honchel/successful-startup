@@ -1,7 +1,5 @@
 ﻿using AutoMapper; // for IMapper
-using Microsoft.EntityFrameworkCore; // for DbUpdateException
-using SuccessfulStartup.Data.Contexts;
-using SuccessfulStartup.Data.Entities;
+using Microsoft.EntityFrameworkCore; // for context executions, DbUpdateException
 using SuccessfulStartup.Domain.Entities;
 using SuccessfulStartup.Domain.Repositories.WriteOnly;
 

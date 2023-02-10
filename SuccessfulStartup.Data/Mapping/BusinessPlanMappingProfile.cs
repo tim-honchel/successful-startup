@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using SuccessfulStartup.Data.Entities;
+﻿using AutoMapper; // for CreateMap
 using SuccessfulStartup.Domain.Entities;
 
 namespace SuccessfulStartup.Data.Mapping

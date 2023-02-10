@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿using Microsoft.AspNetCore.Components.Authorization; // for AuthenticationStateProvider
 using SuccessfulStartup.Api.ViewModels;
 using System.Net; // for HttpStatusCode
 using System.Net.Http.Headers; // for HttpClient

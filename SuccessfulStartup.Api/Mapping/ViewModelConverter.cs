@@ -1,5 +1,4 @@
 ﻿using AutoMapper; // for IMapper
-using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Data.Entities;
 
 namespace SuccessfulStartup.Api.Mapping

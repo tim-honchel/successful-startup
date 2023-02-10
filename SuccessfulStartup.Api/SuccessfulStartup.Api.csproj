@@ -11,8 +11,8 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" /> <!--maps data to view models-->
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" /> <!--allows depenedency injection of mapper in service configuration-->
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" /> <!--Embedded into API template, contains Swagger, SwaggerGen, and SwaggerUI-->
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" /> <!--Embedded into API template, contains Swagger, SwaggerGen, and SwaggerUI-->
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" /> <!--add content to API documentation-->
   </ItemGroup>
 
   <ItemGroup>

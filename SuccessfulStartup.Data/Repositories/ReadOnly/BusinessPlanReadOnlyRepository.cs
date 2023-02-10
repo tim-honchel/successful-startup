@@ -1,6 +1,5 @@
 ﻿using AutoMapper; // for AutoMapper
 using Microsoft.EntityFrameworkCore; // for database queries
-using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Domain.Entities;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 

@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc; // for ControllerBase, HttpGet, HttpPost, HttpPut, HttpDelete)
 using Microsoft.EntityFrameworkCore; // for DbUpdateException
-using SuccessfulStartup.Api.Mapping;
-using SuccessfulStartup.Api.ViewModels;
 using SuccessfulStartup.Data.Mapping;
 using SuccessfulStartup.Domain.Repositories.ReadOnly;
 using SuccessfulStartup.Domain.Repositories.WriteOnly;

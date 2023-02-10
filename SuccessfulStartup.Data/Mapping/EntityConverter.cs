@@ -1,16 +1,13 @@
-﻿// Overloaded method converts any type of domain or data entity; removes the need of presentation layer to use mapper and access domain layer
-
-using AutoMapper; // for IMapper
-using SuccessfulStartup.Data.Entities;
+﻿using AutoMapper; // for IMapper
 using SuccessfulStartup.Domain.Entities;
 
 namespace SuccessfulStartup.Data.Mapping
 {
-    public class EntityConverter
+    public class EntityConverter // Overloaded method converts any type of domain or data entity; removes the need of presentation layer to use mapper and access domain layer
     {
         private IMapper _mapper; 
 
-        public EntityConverter(IMapper mapper) // Autopapper injected from configuration
+        public EntityConverter(IMapper mapper) // Automapper injected from configuration
         {
             _mapper = mapper;
         }

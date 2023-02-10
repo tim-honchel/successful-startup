@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore; // for Index
 using SuccessfulStartup.Domain.Entities;
 using System.ComponentModel.DataAnnotations; // for indicating property requirements
 using System.ComponentModel.DataAnnotations.Schema; // for foreign key
@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema; // for foreign key
 namespace SuccessfulStartup.Data.Entities
 {
 
-    [Index(nameof(AuthorId))]
+    [Index(nameof(AuthorId))] // to speed up searches of business plans by AuthorId
     public class BusinessPlan : BusinessPlanDomain // model for Entity Framework
     {
         public int Id { get; set; } // TODO : change to GUID?
@@ -22,7 +22,7 @@ namespace SuccessfulStartup.Data.Entities
         [Required]
         public string AuthorId { get; set; }
 
-        [ForeignKey("AuthorId")]
+        [ForeignKey("AuthorId")] // navigation property, auto-filled based on AuthorId
         public virtual User User { get; set; }
 
         
