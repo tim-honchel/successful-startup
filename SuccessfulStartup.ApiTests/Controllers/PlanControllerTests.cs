@@ -231,7 +231,7 @@ namespace SuccessfulStartup.ApiTests.Controllers
         }
 
         [Test]
-        public async Task GetPlanById_Returns204Code_GivenIdWithNonexistentPlan()
+        public async Task GetPlanById_Returns404CodeWithObject_GivenIdWithNonexistentPlan()
         {
             var nonexistentId = 999;
             _mockReadRepository.Setup(repository => repository.GetPlanByIdAsync(nonexistentId)).Throws<NullReferenceException>();
@@ -240,7 +240,7 @@ namespace SuccessfulStartup.ApiTests.Controllers
 
             var response = await _controller.GetPlanById(nonexistentId);
 
-            response.ShouldBeOfType<NoContentResult>();
+            response.ShouldBeOfType<NotFoundObjectResult>();
         }
 
         [Test]

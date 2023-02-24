@@ -19,7 +19,7 @@ namespace SuccessfulStartup.Presentation.Services
             _provider = provider;
             try
             {
-                _securityStamp = provider.GetAuthenticationStateAsync().Result.User.Claims.Where(claim => claim.Type == "AspNet.Identity.SecurityStamp").FirstOrDefault().Value;
+                _securityStamp = provider.GetAuthenticationStateAsync().Result.User.Claims.FirstOrDefault(claim => claim.Type == "AspNet.Identity.SecurityStamp").Value;
             }
             catch (Exception) // for example, if no user is logged in
             {
@@ -96,7 +96,7 @@ namespace SuccessfulStartup.Presentation.Services
         {
             var user = new Dictionary<string, string>() { { "userId", userId }, { "securityStamp",securityStamp } };
             var response = await _client.PostAsJsonAsync("User",user);
-            if (response.StatusCode == HttpStatusCode.OK) { }
+            if (response.StatusCode == HttpStatusCode.OK) { return; }
             else if (response.StatusCode == HttpStatusCode.BadRequest && response.Content.ReadAsStringAsync().Result.Contains("null")) { throw new ArgumentNullException($"Invalid user. Cannot be null"); }
             else if (response.StatusCode == HttpStatusCode.NoContent) { throw new InvalidOperationException("Error writing to the database."); }
             else if (response.StatusCode == HttpStatusCode.Unauthorized) { throw new InvalidOperationException("User already exists."); }

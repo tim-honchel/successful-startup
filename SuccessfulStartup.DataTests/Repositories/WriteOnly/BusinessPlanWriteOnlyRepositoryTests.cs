@@ -6,10 +6,8 @@ using Shouldly; // for assertioon
 using SuccessfulStartup.Data.Contexts;
 using SuccessfulStartup.Data.Entities;
 using SuccessfulStartup.Data.Mapping;
-using SuccessfulStartup.Data.Repositories.ReadOnly;
 using SuccessfulStartup.Data.Repositories.WriteOnly;
 using SuccessfulStartup.Domain.Entities;
-using SuccessfulStartup.Domain.Repositories.ReadOnly;
 using SuccessfulStartup.Domain.Repositories.WriteOnly;
 
 namespace SuccessfulStartup.DataTests.Repositories.WriteOnly
@@ -20,7 +18,6 @@ namespace SuccessfulStartup.DataTests.Repositories.WriteOnly
         private Mock<PlanDbContextFactory> _mockFactory;
         private IBusinessPlanWriteOnlyRepository _repository;
         private Mock<PlanDbContext> _mockContext;
-        private IBusinessPlanReadOnlyRepository _readOnlyRepository;
 
         [OneTimeSetUp] // runs one time, prior to all the tests
         public void OneTimeSetup()
@@ -30,7 +27,6 @@ namespace SuccessfulStartup.DataTests.Repositories.WriteOnly
             _repository = new BusinessPlanWriteOnlyRepository(_mockFactory.Object, _mapper);
             _mockContext = new Mock<PlanDbContext>(true); //  fulfills required parameters
             _mockFactory.Setup(mockedFactory => mockedFactory.CreateDbContext()).Returns(_mockContext.Object); // factory will return the mock context instead of the real one
-            _readOnlyRepository = new BusinessPlanReadOnlyRepository(_mockFactory.Object, _mapper);
         }
 
         [Test]

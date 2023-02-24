@@ -24,7 +24,7 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
                 context.Remove(_mapper.Map<BusinessPlan>(planToDelete));
                 context.SaveChanges();
             }
-            catch (DbUpdateException exception) 
+            catch (DbUpdateException) 
             {
                 throw new DbUpdateException();
             }
@@ -38,7 +38,7 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
                 context.Update(_mapper.Map<BusinessPlan>(planToUpdate));
                 context.SaveChanges();
             }
-            catch (DbUpdateException exception)
+            catch (DbUpdateException)
             {
                 throw new DbUpdateException();
             }
@@ -57,7 +57,7 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
                 await context.SaveChangesAsync();
                 return plan.Id; // gets the auto-generated Id, has to be the data entity, not the domain entity
             }
-            catch (DbUpdateException exception)
+            catch (DbUpdateException)
             {
                 throw new DbUpdateException();
             }

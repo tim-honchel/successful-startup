@@ -5,7 +5,7 @@ namespace SuccessfulStartup.Api.Mapping
 {
     public class ViewModelConverter // Overloaded method converts any type of API or data entity; removes the need of presentation layer to use mapper and access domain layer
     {
-        private IMapper _mapper; 
+        private readonly IMapper _mapper; 
 
         public ViewModelConverter(IMapper mapper) // Automapper injected from configuration
         {

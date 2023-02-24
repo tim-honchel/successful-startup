@@ -29,10 +29,10 @@ namespace SuccessfulStartup.Data.Repositories.WriteOnly
 
             try
             {
-                context.AddAsync(newUser);
-                context.SaveChangesAsync();
+                await context.AddAsync(newUser);
+                await context.SaveChangesAsync();
             }
-            catch (DbUpdateException exception) { throw new DbUpdateException(); }
+            catch (DbUpdateException) { throw new DbUpdateException(); }
 
 
         }

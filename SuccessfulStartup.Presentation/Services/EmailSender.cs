@@ -11,8 +11,8 @@ namespace SuccessfulStartup.Presentation.Services
     public class EmailSender : IEmailSender // interface is for sending Identity-related emails
     {
         private static IConfigurationRoot _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build(); // gets the info from appsettings
-        public static string _fromMail = _configuration["ConnectionStrings:GmailAddress"]; // gets Gmail account used for sending emails
-        public static string _fromPassword = _configuration["ConnectionStrings:GmailPassword"]; // gets app password
+        public static readonly string _fromMail = _configuration["ConnectionStrings:GmailAddress"]; // gets Gmail account used for sending emails
+        public static readonly string _fromPassword = _configuration["ConnectionStrings:GmailPassword"]; // gets app password
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {

@@ -26,7 +26,7 @@ namespace SuccessfulStartup.Api.Controllers
         {
             try
             {
-                _repositoryForWritingUsers.AddUserAsync(user["userId"], user["securityStamp"]);
+                await _repositoryForWritingUsers.AddUserAsync(user["userId"], user["securityStamp"]);
                 return new OkResult();
             }
             catch (ArgumentNullException)

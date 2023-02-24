@@ -82,7 +82,7 @@
     private string deletionStatus = "active";
     private bool disableSave = true;
 
-    public async void CancelDelete()
+    public void CancelDelete()
     {
         deletionStatus = "active";
     }
@@ -131,7 +131,7 @@
         plan = await service.GetPlanByIdAsync(planId);
     }
 
-    public async void PromptDelete()
+    public void PromptDelete()
     {
         deletionStatus = "prompt";
     }

@@ -69,7 +69,7 @@
     {
         try
         {
-            authorId = provider.GetAuthenticationStateAsync().Result.User.Claims.Where(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").FirstOrDefault().Value; // gets userId from the default claim
+            authorId = (await provider.GetAuthenticationStateAsync()).User.Claims.FirstOrDefault(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value; // gets userId from the default claim
             //authorId = provider.GetAuthenticationStateAsync().Result.User.Claims.Where(claim => claim.Type == "userId").FirstOrDefault().Value; // gets userId from the custom claim
         }
         catch (NullReferenceException)
